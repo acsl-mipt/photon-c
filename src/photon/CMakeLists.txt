@@ -18,4 +18,6 @@ add_library(photon
     Parser.h
     Exchange.c
     Exchange.h
+    Ber.c
+    Ber.h
 )

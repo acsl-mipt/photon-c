@@ -1,4 +1,5 @@
 #include "photon/Reader.h"
+#include "photon/Ber.h"
 
 #include <gtest/gtest.h>
 
@@ -10,10 +11,10 @@ protected:
         PhotonReader_Init(&_reader, array, sizeof(R) * n);
     }
 
-    void expectNextValue(PhotonBerValue expected)
+    void expectNextValue(PhotonBer expected)
     {
-        PhotonBerValue value;
-        PhotonResult rv = PhotonReader_ReadBer(&_reader, &value);
+        PhotonBer value = 0;
+        PhotonResult rv = PhotonBer_Deserialize(&value, &_reader);
         ASSERT_EQ(rv, PhotonResult_Ok);
         ASSERT_EQ(expected, value);
     }
@@ -44,8 +45,8 @@ TEST_F(PhotonReaderTest, readShortForm)
 
 TEST_F(PhotonReaderTest, readLongForm)
 {
-    uint8_t data[] = {0x81, 0xff, 0x82, 0xaa, 0xbb, 0x83, 0xcc, 0xdd, 0xee,
-                      0x88, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11};
+    uint8_t data[] = {0x81, 0xff, 0x82, 0xbb, 0xaa, 0x83, 0xee, 0xdd, 0xcc,
+                      0x88, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88};
     init(data);
     expectNextValue(0xff);
     expectNextValue(0xbbaa);

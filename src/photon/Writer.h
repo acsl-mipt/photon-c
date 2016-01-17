@@ -19,9 +19,13 @@ typedef struct {
 
 void PhotonWriter_Init(PhotonWriter* self, void* dest, size_t size);
 
-PhotonResult PhotonWriter_WriteBer(PhotonWriter* self, uint64_t value);
+void PhotonWriter_WriteUint8(PhotonWriter* self, uint8_t value);
 void PhotonWriter_WriteUint16Be(PhotonWriter* self, uint16_t value);
-void PhotonWriter_WriteUint32Be(PhotonWriter* self, uint16_t value);
+void PhotonWriter_WriteUint16Le(PhotonWriter* self, uint16_t value);
+void PhotonWriter_WriteUint32Be(PhotonWriter* self, uint32_t value);
+void PhotonWriter_WriteUint32Le(PhotonWriter* self, uint32_t value);
+void PhotonWriter_WriteUint64Be(PhotonWriter* self, uint64_t value);
+void PhotonWriter_WriteUint64Le(PhotonWriter* self, uint64_t value);
 void PhotonWriter_Write(PhotonWriter* self, const void* src, size_t size);
 void PhotonWriter_Skip(PhotonWriter* self, size_t size);
 

@@ -4,6 +4,7 @@
 #include "photon/Result.h"
 #include "photon/Enums.h"
 #include "photon/Writer.h"
+#include "photon/Ber.h"
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -13,67 +14,67 @@
 extern "C" {
 #endif
 
-typedef uint64_t PhotonBerValue;
+typedef uint64_t PhotonBer;
 
 typedef PhotonResult (*PhotonGenerator)(void* data, PhotonWriter* dest);
 
 typedef struct {
-    PhotonBerValue segmentNumber;
-    PhotonBerValue maxSegmentNumber;
-    PhotonBerValue componentNumber;
-    PhotonBerValue messageNumber;
+    PhotonBer segmentNumber;
+    PhotonBer maxSegmentNumber;
+    PhotonBer componentNumber;
+    PhotonBer messageNumber;
     void* data;
     PhotonGenerator gen;
 } PhotonTmStatusMessageGen;
 
 typedef struct {
-    PhotonBerValue componentNumber;
-    PhotonBerValue messageNumber;
-    PhotonBerValue eventNumber;
-    PhotonBerValue timestamp;
+    PhotonBer componentNumber;
+    PhotonBer messageNumber;
+    PhotonBer eventNumber;
+    PhotonBer timestamp;
     void* data;
     PhotonGenerator gen;
 } PhotonTmEventMessageGen;
 
 typedef struct {
-    PhotonBerValue srcAddress;
-    PhotonBerValue srcComponentNumber;
-    PhotonBerValue destComponentNumber;
-    PhotonBerValue destAddress;
-    PhotonBerValue srcGroup;
-    PhotonBerValue destGroup;
+    PhotonBer srcAddress;
+    PhotonBer srcComponentNumber;
+    PhotonBer destComponentNumber;
+    PhotonBer destAddress;
+    PhotonBer srcGroup;
+    PhotonBer destGroup;
 } PhotonGroupAddress;
 
 typedef struct {
-    PhotonBerValue srcAddress;
-    PhotonBerValue srcComponentNumber;
-    PhotonBerValue destComponentNumber;
-    PhotonBerValue destAddress;
+    PhotonBer srcAddress;
+    PhotonBer srcComponentNumber;
+    PhotonBer destComponentNumber;
+    PhotonBer destAddress;
 } PhotonNetworkAddress;
 
 typedef struct {
-    PhotonBerValue srcAddress;
-    PhotonBerValue srcComponentNumber;
-    PhotonBerValue destComponentNumber;
+    PhotonBer srcAddress;
+    PhotonBer srcComponentNumber;
+    PhotonBer destComponentNumber;
 } PhotonMulticastAddress;
 
 typedef struct {
     PhotonAddressType addressType;
-    PhotonBerValue srcAddress;
-    PhotonBerValue srcComponentNumber;
-    PhotonBerValue destComponentNumber;
-    PhotonBerValue destAddress;
-    PhotonBerValue srcGroup;
-    PhotonBerValue destGroup;
-    PhotonBerValue timestampType;
-    PhotonBerValue timestamp;
+    PhotonBer srcAddress;
+    PhotonBer srcComponentNumber;
+    PhotonBer destComponentNumber;
+    PhotonBer destAddress;
+    PhotonBer srcGroup;
+    PhotonBer destGroup;
+    PhotonBer timestampType;
+    PhotonBer timestamp;
     void* data;
     PhotonGenerator gen;
 } PhotonAddressPacketEnc;
 
 typedef struct {
     PhotonErrorControlType errorControlType;
-    PhotonBerValue lastSequenceCounter;
+    PhotonBer lastSequenceCounter;
     void* data;
     PhotonGenerator gen;
 } PhotonReceiptPacketEnc;
@@ -81,7 +82,7 @@ typedef struct {
 typedef struct {
     PhotonStreamType streamType;
     PhotonErrorControlType errorControlType;
-    PhotonBerValue sequenceCounter;
+    PhotonBer sequenceCounter;
     void* data;
     PhotonGenerator gen;
 } PhotonCounterAdjustmentPacketEnc;
@@ -89,8 +90,8 @@ typedef struct {
 typedef struct {
     PhotonStreamType streamType;
     PhotonErrorControlType errorControlType;
-    PhotonBerValue windowSize;
-    PhotonBerValue sequenceCounter;
+    PhotonBer windowSize;
+    PhotonBer sequenceCounter;
     void* data;
     PhotonGenerator gen;
 } PhotonExchangePacketEnc;

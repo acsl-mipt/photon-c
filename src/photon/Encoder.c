@@ -75,7 +75,7 @@ PhotonResult PhotonEncoder_EncodeTmEventMessage(PhotonTmEventMessageGen* gen, Ph
 static PhotonResult addressPacketGen(void* data, PhotonWriter* dest)
 {
     PhotonAddressPacketEnc* gen = (PhotonAddressPacketEnc*)data;
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBerValue)gen->addressType));
+    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->addressType));
     PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->srcAddress));
     PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->srcComponentNumber));
     PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->destComponentNumber));
@@ -159,8 +159,8 @@ static PhotonResult receiptPacketGen(void* data, PhotonWriter* dest)
 {
     PhotonReceiptPacketEnc* gen = (PhotonReceiptPacketEnc*)data;
     PHOTON_TRY(PhotonWriter_WriteBer(dest, 1));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBerValue)PhotonStreamType_Commands));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBerValue)gen->errorControlType));
+    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)PhotonStreamType_Commands));
+    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->errorControlType));
     PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->lastSequenceCounter));
 
     return gen->gen(gen->data, dest);
@@ -175,8 +175,8 @@ static PhotonResult counterAdjustmentPacketGen(void* data, PhotonWriter* dest)
 {
     PhotonCounterAdjustmentPacketEnc* gen = (PhotonCounterAdjustmentPacketEnc*)data;
     PHOTON_TRY(PhotonWriter_WriteBer(dest, 1));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBerValue)gen->streamType));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBerValue)gen->errorControlType));
+    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->streamType));
+    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->errorControlType));
     PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->sequenceCounter));
 
     return gen->gen(gen->data, dest);
@@ -195,8 +195,8 @@ static PhotonResult exchangePacketGen(void* data, PhotonWriter* dest)
     PhotonWriter_Skip(dest, 3);
 
     PHOTON_TRY(PhotonWriter_WriteBer(dest, 1));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBerValue)gen->streamType));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBerValue)gen->errorControlType));
+    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->streamType));
+    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->errorControlType));
     PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->windowSize));
     PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->sequenceCounter));
 

@@ -42,14 +42,14 @@ static bool skipSeparator(PhotonRingBuf* ringBuf, uint16_t separator)
             return false;
         }
         if (firstByte != PhotonRingBuf_PeekUint8(ringBuf, 0)) {
-            PhotonRingBuf_Skip(ringBuf, 1);
+            PhotonRingBuf_Erase(ringBuf, 1);
             continue;
         }
         if (secondByte != PhotonRingBuf_PeekUint8(ringBuf, 1)) {
-            PhotonRingBuf_Skip(ringBuf, 2);
+            PhotonRingBuf_Erase(ringBuf, 2);
             continue;
         }
-        PhotonRingBuf_Skip(ringBuf, 2);
+        PhotonRingBuf_Erase(ringBuf, 2);
         return true;
     }
     return false;
@@ -128,10 +128,10 @@ static bool findPacketInRingBuf(PhotonRingBuf* ringBuf, uint16_t separator, uint
         size_t berSize = berHeader & 0x7f;
         if (berSize > 8) {
             //TODO: send error
-            PhotonRingBuf_Skip(ringBuf, 3);
+            PhotonRingBuf_Erase(ringBuf, 3);
             return false;
         }
-        PhotonBerValue dataSize;
+        PhotonBer dataSize;
         PhotonRingBuf_Peek(ringBuf, &dataSize, berSize, 3); // big endian?
         packetSize = 3 + berSize + dataSize;
     } else {

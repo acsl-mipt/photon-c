@@ -4,6 +4,7 @@
 #include "photon/Result.h"
 #include "photon/Reader.h"
 #include "photon/Enums.h"
+#include "photon/Ber.h"
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -24,7 +25,7 @@ extern "C" {
 
 typedef struct {
     uint16_t code;
-    PhotonBerValue length;
+    PhotonBer length;
 } PhotonDataHeader;
 
 typedef struct {
@@ -39,59 +40,59 @@ typedef struct {
 
 typedef struct {
     PhotonDataHeader header;
-    PhotonBerValue segmentNumber;
-    PhotonBerValue maxSegmentNumber;
-    PhotonBerValue componentNumber;
-    PhotonBerValue messageNumber;
+    PhotonBer segmentNumber;
+    PhotonBer maxSegmentNumber;
+    PhotonBer componentNumber;
+    PhotonBer messageNumber;
     PhotonReader parameters;
 } PhotonTmStatusMessage;
 
 typedef struct {
     PhotonDataHeader header;
-    PhotonBerValue componentNumber;
-    PhotonBerValue messageNumber;
-    PhotonBerValue eventNumber;
-    PhotonBerValue timestamp;
+    PhotonBer componentNumber;
+    PhotonBer messageNumber;
+    PhotonBer eventNumber;
+    PhotonBer timestamp;
     PhotonReader parameters;
 } PhotonTmEventMessage;
 
 typedef struct {
     PhotonDataHeader header;
     PhotonAddressType addressType;
-    PhotonBerValue srcAddress;
-    PhotonBerValue srcComponentNumber;
-    PhotonBerValue destComponentNumber;
-    PhotonBerValue destAddress;
-    PhotonBerValue srcGroup;
-    PhotonBerValue destGroup;
-    PhotonBerValue timestampType;
-    PhotonBerValue timestamp;
+    PhotonBer srcAddress;
+    PhotonBer srcComponentNumber;
+    PhotonBer destComponentNumber;
+    PhotonBer destAddress;
+    PhotonBer srcGroup;
+    PhotonBer destGroup;
+    PhotonBer timestampType;
+    PhotonBer timestamp;
     PhotonReader data;
 } PhotonAddressPacket;
 
 typedef struct {
     uint16_t code;
-    PhotonBerValue length;
-    PhotonBerValue reserved;
+    PhotonBer length;
+    PhotonBer reserved;
     PhotonStreamType streamType;
     PhotonErrorControlType errorControlType;
 } PhotonPacketHeader;
 
 typedef struct {
     PhotonPacketHeader header;
-    PhotonBerValue windowSize;
-    PhotonBerValue sequenceCounter;
+    PhotonBer windowSize;
+    PhotonBer sequenceCounter;
     PhotonReader data;
 } PhotonExchangePacket;
 
 typedef struct {
     PhotonPacketHeader header;
-    PhotonBerValue sequenceCounter;
+    PhotonBer sequenceCounter;
 } PhotonCounterAdjustmentPacket;
 
 typedef struct {
     PhotonPacketHeader header;
-    PhotonBerValue lastSequenceCounter;
+    PhotonBer lastSequenceCounter;
 } PhotonReceiptPacket;
 
 PhotonResult PhotonDecoder_DecodeExchangePacket(PhotonReader* src, PhotonExchangePacket* dest);
