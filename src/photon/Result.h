@@ -29,6 +29,8 @@ typedef enum {
     PhotonResult_InvalidErrorControlType,
     PhotonResult_InvalidWindowSize,
     PhotonResult_InvalidSequenceCounter,
+
+    PhotonResult_InvalidCommandId
 } PhotonResult;
 
 #ifdef __cplusplus

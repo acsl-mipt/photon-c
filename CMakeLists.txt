@@ -4,10 +4,6 @@ cmake_minimum_required(VERSION 2.8.7)
 enable_testing()
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-get_directory_property(HAS_PARENT_SCOPE PARENT_DIRECTORY)
-if(HAS_PARENT_SCOPE)
-    set(PHOTON_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src PARENT_SCOPE)
-endif()
 
 if(MSVC)
     foreach (flag_var
@@ -22,10 +18,19 @@ else()
     endif()
 endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+file(GLOB_RECURSE PHOTON_GENERATED_FILES gen/ *.c *.h)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/gen)
 add_subdirectory(src/photon)
+
+get_directory_property(HAS_PARENT_SCOPE PARENT_DIRECTORY)
 
 if(NOT HAS_PARENT_SCOPE)
     set(GTEST_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/gtest/include)
     add_subdirectory(tests)
+endif()
+
+if(HAS_PARENT_SCOPE)
+    set(PHOTON_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/gen PARENT_SCOPE)
+    set(PHOTON_LIBRARIES photon PARENT_SCOPE)
 endif()
