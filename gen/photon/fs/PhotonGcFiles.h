@@ -1,6 +1,6 @@
 /* Component Files interface */
-#ifndef __PHOTON_GC_FILES_H_ab17da87599f48bcb1720afe742efdd9__
-#define __PHOTON_GC_FILES_H_ab17da87599f48bcb1720afe742efdd9__ 
+#ifndef __PHOTON_GC_FILES_H_eb8acc8a5e1d022692535b1ffcba9fd7__
+#define __PHOTON_GC_FILES_H_eb8acc8a5e1d022692535b1ffcba9fd7__ 
 
 #include "photon/photon_prologue.h"
 

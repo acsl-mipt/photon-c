@@ -1,5 +1,5 @@
 /* Component Router implementation */
-#include "PhotonGcRouter.h"
+#include "photon/routing/PhotonGcRouter.h"
 
 PhotonResult PhotonGcRouter_SetRoute(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtAddress address;
@@ -32,13 +32,13 @@ PhotonResult PhotonGcRouter_DelGroupRoute(PhotonGcRouter* self, PhotonReader* re
 PhotonResult PhotonGcRouter_ExecuteCommand(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
-      return PhotonGcRouter_RouterSetRoute(self, reader, writer);
+      return PhotonGcRouter_SetRoute(self, reader, writer);
     case 1:
-      return PhotonGcRouter_RouterDelRoute(self, reader, writer);
+      return PhotonGcRouter_DelRoute(self, reader, writer);
     case 2:
-      return PhotonGcRouter_RouterSetGroupRoute(self, reader, writer);
+      return PhotonGcRouter_SetGroupRoute(self, reader, writer);
     case 3:
-      return PhotonGcRouter_RouterDelGroupRoute(self, reader, writer);
+      return PhotonGcRouter_DelGroupRoute(self, reader, writer);
     default:
       return PhotonResult_InvalidCommandId;
   }

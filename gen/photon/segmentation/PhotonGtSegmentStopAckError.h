@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_SEGMENT_STOP_ACK_ERROR_H_303c595d3adb8535db16b6f4e6b0c577__
-#define __PHOTON_GT_SEGMENT_STOP_ACK_ERROR_H_303c595d3adb8535db16b6f4e6b0c577__ 
+#ifndef __PHOTON_GT_SEGMENT_STOP_ACK_ERROR_H_f6fa41bfddcc27b0ac0e970839cbd6b6__
+#define __PHOTON_GT_SEGMENT_STOP_ACK_ERROR_H_f6fa41bfddcc27b0ac0e970839cbd6b6__ 
 
 #include "photon/photon_prologue.h"
 

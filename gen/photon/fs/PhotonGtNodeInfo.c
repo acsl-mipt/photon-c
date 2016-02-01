@@ -5,7 +5,7 @@
 PhotonResult PhotonGtNodeInfo_Serialize(PhotonGtNodeInfo* self, PhotonWriter* writer) {
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->name, writer));
   PhotonWriter_WriteUint8(writer, &self->isDir);
-  PhotonBer_Serialize(&self->attrs, writer);
+  PHOTON_TRY(PhotonBer_Serialize(&self->attrs, writer));
   return PhotonResult_Ok;
 }
 

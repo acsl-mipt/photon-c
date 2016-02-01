@@ -3,7 +3,7 @@
 
 
 PhotonResult PhotonGtFileUploadError_Serialize(PhotonGtFileUploadError* self, PhotonWriter* writer) {
-  PhotonBer_Serialize(self, writer);
+  PHOTON_TRY(PhotonBer_Serialize(self, writer));
   return PhotonResult_Ok;
 }
 

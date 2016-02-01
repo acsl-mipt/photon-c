@@ -1,5 +1,5 @@
 /* Component Tm implementation */
-#include "PhotonGcTm.h"
+#include "photon/tm/PhotonGcTm.h"
 
 PhotonResult PhotonGcTm_SendEventMessage(PhotonGcTm* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtEventInfo eventInfo;
@@ -64,21 +64,21 @@ PhotonResult PhotonGcTm_AllowEvent(PhotonGcTm* self, PhotonReader* reader, Photo
 PhotonResult PhotonGcTm_ExecuteCommand(PhotonGcTm* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
-      return PhotonGcTm_TmSendEventMessage(self, reader, writer);
+      return PhotonGcTm_SendEventMessage(self, reader, writer);
     case 1:
-      return PhotonGcTm_TmSendStatusMessage(self, reader, writer);
+      return PhotonGcTm_SendStatusMessage(self, reader, writer);
     case 2:
-      return PhotonGcTm_TmSetMessageRequest(self, reader, writer);
+      return PhotonGcTm_SetMessageRequest(self, reader, writer);
     case 3:
-      return PhotonGcTm_TmClearMessageRequest(self, reader, writer);
+      return PhotonGcTm_ClearMessageRequest(self, reader, writer);
     case 4:
-      return PhotonGcTm_TmDenyMessage(self, reader, writer);
+      return PhotonGcTm_DenyMessage(self, reader, writer);
     case 5:
-      return PhotonGcTm_TmAllowMessage(self, reader, writer);
+      return PhotonGcTm_AllowMessage(self, reader, writer);
     case 6:
-      return PhotonGcTm_TmDenyEvent(self, reader, writer);
+      return PhotonGcTm_DenyEvent(self, reader, writer);
     case 7:
-      return PhotonGcTm_TmAllowEvent(self, reader, writer);
+      return PhotonGcTm_AllowEvent(self, reader, writer);
     default:
       return PhotonResult_InvalidCommandId;
   }

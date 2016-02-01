@@ -1,6 +1,6 @@
 /* Component Router interface */
-#ifndef __PHOTON_GC_ROUTER_H_6b77317427c798092251b885801266ab__
-#define __PHOTON_GC_ROUTER_H_6b77317427c798092251b885801266ab__ 
+#ifndef __PHOTON_GC_ROUTER_H_d1511aaf5e24881b44ec61647f812934__
+#define __PHOTON_GC_ROUTER_H_d1511aaf5e24881b44ec61647f812934__ 
 
 #include "photon/photon_prologue.h"
 

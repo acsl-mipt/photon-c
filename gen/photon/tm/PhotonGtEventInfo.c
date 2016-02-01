@@ -4,7 +4,7 @@
 
 PhotonResult PhotonGtEventInfo_Serialize(PhotonGtEventInfo* self, PhotonWriter* writer) {
   PHOTON_TRY(PhotonGtCompMsg_Serialize(&self->componentMessage, writer));
-  PhotonBer_Serialize(&self->eventNum, writer);
+  PHOTON_TRY(PhotonBer_Serialize(&self->eventNum, writer));
   return PhotonResult_Ok;
 }
 

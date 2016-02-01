@@ -1,5 +1,5 @@
 /* Component SegmentSender implementation */
-#include "PhotonGcSegmentSender.h"
+#include "photon/segmentation/PhotonGcSegmentSender.h"
 
 PhotonResult PhotonGcSegmentSender_ProcessSegmentsAck(PhotonGcSegmentSender* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtArrBerMin1 segmentsReceived;
@@ -43,7 +43,7 @@ PhotonResult PhotonGcSegmentSender_SegmentStopAckOnEverySegmentMode(PhotonGcSegm
 PhotonResult PhotonGcSegmentSender_ExecuteCommand(PhotonGcSegmentSender* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
-      return PhotonGcSegmentSender_SegmentSenderProcessSegmentsAck(self, reader, writer);
+      return PhotonGcSegmentSender_ProcessSegmentsAck(self, reader, writer);
     case 1:
       return PhotonGcSegmentSender_SegmentStartSegmentAckMode(self, reader, writer);
     case 2:

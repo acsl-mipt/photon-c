@@ -1,5 +1,5 @@
 /* Component Scripting implementation */
-#include "PhotonGcScripting.h"
+#include "photon/scripting/PhotonGcScripting.h"
 
 PhotonResult PhotonGcScripting_UploadScript(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtScriptId scriptId;
@@ -50,17 +50,17 @@ PhotonResult PhotonGcScripting_DisableScriptRunTiming(PhotonGcScripting* self, P
 PhotonResult PhotonGcScripting_ExecuteCommand(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
-      return PhotonGcScripting_ScriptingUploadScript(self, reader, writer);
+      return PhotonGcScripting_UploadScript(self, reader, writer);
     case 1:
-      return PhotonGcScripting_ScriptingDeleteScript(self, reader, writer);
+      return PhotonGcScripting_DeleteScript(self, reader, writer);
     case 2:
-      return PhotonGcScripting_ScriptingRunScriptNow(self, reader, writer);
+      return PhotonGcScripting_RunScriptNow(self, reader, writer);
     case 3:
-      return PhotonGcScripting_ScriptingScheduleScriptRun(self, reader, writer);
+      return PhotonGcScripting_ScheduleScriptRun(self, reader, writer);
     case 4:
-      return PhotonGcScripting_ScriptingEnableScriptRunTiming(self, reader, writer);
+      return PhotonGcScripting_EnableScriptRunTiming(self, reader, writer);
     case 5:
-      return PhotonGcScripting_ScriptingDisableScriptRunTiming(self, reader, writer);
+      return PhotonGcScripting_DisableScriptRunTiming(self, reader, writer);
     default:
       return PhotonResult_InvalidCommandId;
   }

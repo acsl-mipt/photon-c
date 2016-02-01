@@ -1,5 +1,5 @@
 /* Component Identification implementation */
-#include "PhotonGcIdentification.h"
+#include "photon/identification/PhotonGcIdentification.h"
 
 PhotonResult PhotonGcIdentification_RequestShortId(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtShortId cmdResult = self->requestShortId(self);
@@ -21,11 +21,11 @@ PhotonResult PhotonGcIdentification_RequestComponentGuid(PhotonGcIdentification*
 PhotonResult PhotonGcIdentification_ExecuteCommand(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
-      return PhotonGcIdentification_IdentificationRequestShortId(self, reader, writer);
+      return PhotonGcIdentification_RequestShortId(self, reader, writer);
     case 1:
-      return PhotonGcIdentification_IdentificationRequestFullId(self, reader, writer);
+      return PhotonGcIdentification_RequestFullId(self, reader, writer);
     case 2:
-      return PhotonGcIdentification_IdentificationRequestComponentGuid(self, reader, writer);
+      return PhotonGcIdentification_RequestComponentGuid(self, reader, writer);
     default:
       return PhotonResult_InvalidCommandId;
   }

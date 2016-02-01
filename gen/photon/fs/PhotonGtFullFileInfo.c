@@ -4,7 +4,7 @@
 
 PhotonResult PhotonGtFullFileInfo_Serialize(PhotonGtFullFileInfo* self, PhotonWriter* writer) {
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->filePath, writer));
-  PhotonBer_Serialize(&self->fileAttrs, writer);
+  PHOTON_TRY(PhotonBer_Serialize(&self->fileAttrs, writer));
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->fileContents, writer));
   return PhotonResult_Ok;
 }

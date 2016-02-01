@@ -1,6 +1,6 @@
 /* Component Tm interface */
-#ifndef __PHOTON_GC_TM_H_5d375030b5f2fd0707973904849dc1d9__
-#define __PHOTON_GC_TM_H_5d375030b5f2fd0707973904849dc1d9__ 
+#ifndef __PHOTON_GC_TM_H_ed2df4646c1c8d6e2debad964feb584e__
+#define __PHOTON_GC_TM_H_ed2df4646c1c8d6e2debad964feb584e__ 
 
 #include "photon/photon_prologue.h"
 

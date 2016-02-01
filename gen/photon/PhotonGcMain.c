@@ -1,5 +1,5 @@
 /* Component Main implementation */
-#include "PhotonGcMain.h"
+#include "photon/PhotonGcMain.h"
 
 PhotonResult PhotonGcMain_FilesUploadFile(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtFullFileInfo fileInfo;

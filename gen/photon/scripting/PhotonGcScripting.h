@@ -1,6 +1,6 @@
 /* Component Scripting interface */
-#ifndef __PHOTON_GC_SCRIPTING_H_a46266096e73ed440fa52a48287e8f12__
-#define __PHOTON_GC_SCRIPTING_H_a46266096e73ed440fa52a48287e8f12__ 
+#ifndef __PHOTON_GC_SCRIPTING_H_16dca4327e81e061325d54867be17f62__
+#define __PHOTON_GC_SCRIPTING_H_16dca4327e81e061325d54867be17f62__ 
 
 #include "photon/photon_prologue.h"
 

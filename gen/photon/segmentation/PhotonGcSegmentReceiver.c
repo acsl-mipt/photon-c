@@ -1,5 +1,5 @@
 /* Component SegmentReceiver implementation */
-#include "PhotonGcSegmentReceiver.h"
+#include "photon/segmentation/PhotonGcSegmentReceiver.h"
 
 PhotonResult PhotonGcSegmentReceiver_RequestSegmentsAck(PhotonGcSegmentReceiver* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtArrBer cmdResult = self->requestSegmentsAck(self);
@@ -41,7 +41,7 @@ PhotonResult PhotonGcSegmentReceiver_SegmentStopAckOnEverySegmentMode(PhotonGcSe
 PhotonResult PhotonGcSegmentReceiver_ExecuteCommand(PhotonGcSegmentReceiver* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
-      return PhotonGcSegmentReceiver_SegmentReceiverRequestSegmentsAck(self, reader, writer);
+      return PhotonGcSegmentReceiver_RequestSegmentsAck(self, reader, writer);
     case 1:
       return PhotonGcSegmentReceiver_SegmentStartSegmentAckMode(self, reader, writer);
     case 2:

@@ -1,6 +1,6 @@
 /* Component Segment interface */
-#ifndef __PHOTON_GC_SEGMENT_H_4ca7a66bbdb6a8de043fee1218d92586__
-#define __PHOTON_GC_SEGMENT_H_4ca7a66bbdb6a8de043fee1218d92586__ 
+#ifndef __PHOTON_GC_SEGMENT_H_8f3607f35c2d31e7355c248c7effb430__
+#define __PHOTON_GC_SEGMENT_H_8f3607f35c2d31e7355c248c7effb430__ 
 
 #include "photon/photon_prologue.h"
 

@@ -1,6 +1,6 @@
 /* Component Identification interface */
-#ifndef __PHOTON_GC_IDENTIFICATION_H_67b3405a39796510b71548f6a2fb0ab0__
-#define __PHOTON_GC_IDENTIFICATION_H_67b3405a39796510b71548f6a2fb0ab0__ 
+#ifndef __PHOTON_GC_IDENTIFICATION_H_22ce64848fb9326a914f45c6515a3483__
+#define __PHOTON_GC_IDENTIFICATION_H_22ce64848fb9326a914f45c6515a3483__ 
 
 #include "photon/photon_prologue.h"
 

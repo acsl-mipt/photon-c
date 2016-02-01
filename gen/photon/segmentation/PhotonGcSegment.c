@@ -1,5 +1,5 @@
 /* Component Segment implementation */
-#include "PhotonGcSegment.h"
+#include "photon/segmentation/PhotonGcSegment.h"
 
 PhotonResult PhotonGcSegment_StartSegmentAckMode(PhotonGcSegment* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtOptionalSegmentStartAckError cmdResult = self->startSegmentAckMode(self);
@@ -36,17 +36,17 @@ PhotonResult PhotonGcSegment_StopAckOnEverySegmentMode(PhotonGcSegment* self, Ph
 PhotonResult PhotonGcSegment_ExecuteCommand(PhotonGcSegment* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
-      return PhotonGcSegment_SegmentStartSegmentAckMode(self, reader, writer);
+      return PhotonGcSegment_StartSegmentAckMode(self, reader, writer);
     case 1:
-      return PhotonGcSegment_SegmentStopSegmentAckMode(self, reader, writer);
+      return PhotonGcSegment_StopSegmentAckMode(self, reader, writer);
     case 2:
-      return PhotonGcSegment_SegmentRequestAckModeStatus(self, reader, writer);
+      return PhotonGcSegment_RequestAckModeStatus(self, reader, writer);
     case 3:
-      return PhotonGcSegment_SegmentProcessAckModeStatus(self, reader, writer);
+      return PhotonGcSegment_ProcessAckModeStatus(self, reader, writer);
     case 4:
-      return PhotonGcSegment_SegmentStartAckOnEverySegmentMode(self, reader, writer);
+      return PhotonGcSegment_StartAckOnEverySegmentMode(self, reader, writer);
     case 5:
-      return PhotonGcSegment_SegmentStopAckOnEverySegmentMode(self, reader, writer);
+      return PhotonGcSegment_StopAckOnEverySegmentMode(self, reader, writer);
     default:
       return PhotonResult_InvalidCommandId;
   }

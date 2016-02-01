@@ -1,5 +1,5 @@
 /* Component Files implementation */
-#include "PhotonGcFiles.h"
+#include "photon/fs/PhotonGcFiles.h"
 
 PhotonResult PhotonGcFiles_UploadFile(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtFullFileInfo fileInfo;
@@ -39,15 +39,15 @@ PhotonResult PhotonGcFiles_CreateDir(PhotonGcFiles* self, PhotonReader* reader, 
 PhotonResult PhotonGcFiles_ExecuteCommand(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
-      return PhotonGcFiles_FilesUploadFile(self, reader, writer);
+      return PhotonGcFiles_UploadFile(self, reader, writer);
     case 1:
-      return PhotonGcFiles_FilesDownloadFile(self, reader, writer);
+      return PhotonGcFiles_DownloadFile(self, reader, writer);
     case 2:
-      return PhotonGcFiles_FilesDeleteNode(self, reader, writer);
+      return PhotonGcFiles_DeleteNode(self, reader, writer);
     case 3:
-      return PhotonGcFiles_FilesRequestFileList(self, reader, writer);
+      return PhotonGcFiles_RequestFileList(self, reader, writer);
     case 4:
-      return PhotonGcFiles_FilesCreateDir(self, reader, writer);
+      return PhotonGcFiles_CreateDir(self, reader, writer);
     default:
       return PhotonResult_InvalidCommandId;
   }

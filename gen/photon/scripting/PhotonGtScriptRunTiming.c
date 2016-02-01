@@ -3,14 +3,14 @@
 
 
 PhotonResult PhotonGtScriptRunTiming_Serialize(PhotonGtScriptRunTiming* self, PhotonWriter* writer) {
-  PhotonBer_Serialize(&self->id, writer);
+  PHOTON_TRY(PhotonBer_Serialize(&self->id, writer));
   PhotonWriter_WriteUint8(writer, &self->isActive);
-  PhotonBer_Serialize(&self->scriptId, writer);
-  PhotonBer_Serialize(&self->runOn, writer);
+  PHOTON_TRY(PhotonBer_Serialize(&self->scriptId, writer));
+  PHOTON_TRY(PhotonBer_Serialize(&self->runOn, writer));
   PhotonWriter_WriteUint8(writer, &self->isRepeated);
-  PhotonBer_Serialize(&self->repeatPeriod, writer);
+  PHOTON_TRY(PhotonBer_Serialize(&self->repeatPeriod, writer));
   PhotonWriter_WriteUint8(writer, &self->isRepeatingLimitedByDate);
-  PhotonBer_Serialize(&self->repeatUntil, writer);
+  PHOTON_TRY(PhotonBer_Serialize(&self->repeatUntil, writer));
   return PhotonResult_Ok;
 }
 

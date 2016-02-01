@@ -3,8 +3,8 @@
 
 
 PhotonResult PhotonGtShortId_Serialize(PhotonGtShortId* self, PhotonWriter* writer) {
-  PhotonBer_Serialize(&self->deviceGuid, writer);
-  PhotonBer_Serialize(&self->rootComponentGuid, writer);
+  PHOTON_TRY(PhotonBer_Serialize(&self->deviceGuid, writer));
+  PHOTON_TRY(PhotonBer_Serialize(&self->rootComponentGuid, writer));
   return PhotonResult_Ok;
 }
 
