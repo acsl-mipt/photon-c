@@ -9,41 +9,8 @@
 #include "photon/foundation/PhotonGtB8.h"
 
 typedef struct {
-
-} PhotonGcIdentificationData;
-
-typedef struct {
-
-} PhotonGcRouterData;
-
-typedef struct {
-
-} PhotonGcScriptingData;
-
-typedef struct {
-
-} PhotonGcSegmentData;
-
-typedef struct {
-
-} PhotonGcSegmentSenderData;
-
-typedef struct {
-
-} PhotonGcSegmentReceiverData;
-
-typedef struct {
-
-} PhotonGcTmData;
-
-typedef struct {
-
-} PhotonGcFilesData;
-
-typedef struct {
-    double lonDeg;
-    double latDeg;
-    double altM;
-} PhotonGcMainData;
+    void* _stub;
+} PhotonGcIdentificationData, PhotonGcRouterData, PhotonGcScriptingData, PhotonGcSegmentData, PhotonGcSegmentSenderData,
+        PhotonGcSegmentReceiverData, PhotonGcTmData, PhotonGcFilesData, PhotonGcMainData;
 
 #endif
