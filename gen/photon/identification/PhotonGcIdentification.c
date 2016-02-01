@@ -30,3 +30,9 @@ PhotonResult PhotonGcIdentification_ExecuteCommand(PhotonGcIdentification* self,
       return PhotonResult_InvalidCommandId;
   }
 }
+
+PhotonResult PhotonGcIdentification_ReadExecuteCommand(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer) {
+  size_t commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcIdentification_ExecuteCommand(self, reader, writer, commandId);
+}

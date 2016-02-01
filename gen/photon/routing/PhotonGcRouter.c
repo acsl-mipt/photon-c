@@ -43,3 +43,9 @@ PhotonResult PhotonGcRouter_ExecuteCommand(PhotonGcRouter* self, PhotonReader* r
       return PhotonResult_InvalidCommandId;
   }
 }
+
+PhotonResult PhotonGcRouter_ReadExecuteCommand(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer) {
+  size_t commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcRouter_ExecuteCommand(self, reader, writer, commandId);
+}

@@ -1,6 +1,6 @@
 /* Component Files interface */
-#ifndef __PHOTON_GC_FILES_H_eb8acc8a5e1d022692535b1ffcba9fd7__
-#define __PHOTON_GC_FILES_H_eb8acc8a5e1d022692535b1ffcba9fd7__ 
+#ifndef __PHOTON_GC_FILES_H_8c119733b5a018ef609791638debc71e__
+#define __PHOTON_GC_FILES_H_8c119733b5a018ef609791638debc71e__ 
 
 #include "photon/photon_prologue.h"
 
@@ -33,8 +33,6 @@ PhotonResult PhotonGcFiles_DownloadFile(PhotonGcFiles* self, PhotonReader* reade
 PhotonResult PhotonGcFiles_DeleteNode(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcFiles_RequestFileList(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcFiles_CreateDir(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer);
-
-PhotonResult PhotonGcFiles_ExecuteCommand(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId);
 
 PhotonResult PhotonGcFiles_ReadExecuteCommand(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer);
 

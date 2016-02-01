@@ -58,3 +58,9 @@ PhotonResult PhotonGcSegmentReceiver_ExecuteCommand(PhotonGcSegmentReceiver* sel
       return PhotonResult_InvalidCommandId;
   }
 }
+
+PhotonResult PhotonGcSegmentReceiver_ReadExecuteCommand(PhotonGcSegmentReceiver* self, PhotonReader* reader, PhotonWriter* writer) {
+  size_t commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcSegmentReceiver_ExecuteCommand(self, reader, writer, commandId);
+}

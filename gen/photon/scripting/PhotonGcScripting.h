@@ -1,6 +1,6 @@
 /* Component Scripting interface */
-#ifndef __PHOTON_GC_SCRIPTING_H_16dca4327e81e061325d54867be17f62__
-#define __PHOTON_GC_SCRIPTING_H_16dca4327e81e061325d54867be17f62__ 
+#ifndef __PHOTON_GC_SCRIPTING_H_2059943bf4026a1dd93485acc2516b60__
+#define __PHOTON_GC_SCRIPTING_H_2059943bf4026a1dd93485acc2516b60__ 
 
 #include "photon/photon_prologue.h"
 
@@ -8,9 +8,9 @@
 #include "photon/foundation/PhotonGtArrU8.h"
 #include "photon/scripting/PhotonGtArrScriptInfo.h"
 #include "photon/scripting/PhotonGtScriptId.h"
-#include "photon/foundation/PhotonGtGuid.h"
 #include "photon/foundation/PhotonGtArrGuid.h"
 #include "photon/scripting/PhotonGtScriptRunTiming.h"
+#include "photon/foundation/PhotonGtGuid.h"
 #include "photon/scripting/PhotonGtArrScriptRunTiming.h"
 
 #ifdef __cplusplus
@@ -39,8 +39,6 @@ PhotonResult PhotonGcScripting_RunScriptNow(PhotonGcScripting* self, PhotonReade
 PhotonResult PhotonGcScripting_ScheduleScriptRun(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcScripting_EnableScriptRunTiming(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcScripting_DisableScriptRunTiming(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
-
-PhotonResult PhotonGcScripting_ExecuteCommand(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId);
 
 PhotonResult PhotonGcScripting_ReadExecuteCommand(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
 

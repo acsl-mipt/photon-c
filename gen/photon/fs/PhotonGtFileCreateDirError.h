@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_FILE_CREATE_DIR_ERROR_H_a6b42cbeb01d8eb54cbccd24148b6e78__
-#define __PHOTON_GT_FILE_CREATE_DIR_ERROR_H_a6b42cbeb01d8eb54cbccd24148b6e78__ 
+#ifndef __PHOTON_GT_FILE_CREATE_DIR_ERROR_H_14da753457d122785fab3fb0cd83221a__
+#define __PHOTON_GT_FILE_CREATE_DIR_ERROR_H_14da753457d122785fab3fb0cd83221a__ 
 
 #include "photon/photon_prologue.h"
 

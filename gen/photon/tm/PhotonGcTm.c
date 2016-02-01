@@ -83,3 +83,9 @@ PhotonResult PhotonGcTm_ExecuteCommand(PhotonGcTm* self, PhotonReader* reader, P
       return PhotonResult_InvalidCommandId;
   }
 }
+
+PhotonResult PhotonGcTm_ReadExecuteCommand(PhotonGcTm* self, PhotonReader* reader, PhotonWriter* writer) {
+  size_t commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcTm_ExecuteCommand(self, reader, writer, commandId);
+}

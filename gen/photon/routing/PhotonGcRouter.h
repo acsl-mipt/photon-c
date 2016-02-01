@@ -1,6 +1,6 @@
 /* Component Router interface */
-#ifndef __PHOTON_GC_ROUTER_H_d1511aaf5e24881b44ec61647f812934__
-#define __PHOTON_GC_ROUTER_H_d1511aaf5e24881b44ec61647f812934__ 
+#ifndef __PHOTON_GC_ROUTER_H_e464da5cf498386a5c19dea375394712__
+#define __PHOTON_GC_ROUTER_H_e464da5cf498386a5c19dea375394712__ 
 
 #include "photon/photon_prologue.h"
 
@@ -28,8 +28,6 @@ PhotonResult PhotonGcRouter_SetRoute(PhotonGcRouter* self, PhotonReader* reader,
 PhotonResult PhotonGcRouter_DelRoute(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcRouter_SetGroupRoute(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcRouter_DelGroupRoute(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer);
-
-PhotonResult PhotonGcRouter_ExecuteCommand(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId);
 
 PhotonResult PhotonGcRouter_ReadExecuteCommand(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer);
 
