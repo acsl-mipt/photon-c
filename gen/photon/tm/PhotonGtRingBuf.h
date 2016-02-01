@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_RING_BUF_H_a5b4f6a00982bfc49586c71ad58e7d55__
-#define __PHOTON_GT_RING_BUF_H_a5b4f6a00982bfc49586c71ad58e7d55__ 
+#ifndef __PHOTON_GT_RING_BUF_H_cb4deffbdce14941a6cd69f608d0c9b9__
+#define __PHOTON_GT_RING_BUF_H_cb4deffbdce14941a6cd69f608d0c9b9__ 
 
 #include "photon/photon_prologue.h"
 

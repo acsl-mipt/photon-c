@@ -1,4 +1,4 @@
 /* Types of decode namespace */
-#ifndef __TYPES_H_7fcac206795b62d293c4dd1baf6b8464__
-#define __TYPES_H_7fcac206795b62d293c4dd1baf6b8464__ 
+#ifndef __TYPES_H_41dc08caa15e96d44cdca2d701f597f0__
+#define __TYPES_H_41dc08caa15e96d44cdca2d701f597f0__ 
 #endif

@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_OPTIONAL_FILE_UPLOAD_ERROR_H_644c5bca00ae09e7bd2672c2ec49b046__
-#define __PHOTON_GT_OPTIONAL_FILE_UPLOAD_ERROR_H_644c5bca00ae09e7bd2672c2ec49b046__ 
+#ifndef __PHOTON_GT_OPTIONAL_FILE_UPLOAD_ERROR_H_5fea358d9764accdbd908a7c1b560cca__
+#define __PHOTON_GT_OPTIONAL_FILE_UPLOAD_ERROR_H_5fea358d9764accdbd908a7c1b560cca__ 
 
 #include "photon/photon_prologue.h"
 

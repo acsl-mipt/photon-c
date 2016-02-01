@@ -1,4 +1,4 @@
 /* Types of ru.mipt.acsl.routing namespace */
-#ifndef __TYPES_H_15ab5b4e0855dbc5410467a9263d54c9__
-#define __TYPES_H_15ab5b4e0855dbc5410467a9263d54c9__ 
+#ifndef __TYPES_H_3306bc88f1da6240ceb004fb54f5222a__
+#define __TYPES_H_3306bc88f1da6240ceb004fb54f5222a__ 
 #endif

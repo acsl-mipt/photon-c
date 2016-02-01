@@ -1,17 +1,17 @@
 /* Component Scripting interface */
-#ifndef __PHOTON_GC_SCRIPTING_H_147a4b226aab50c957356af7b70fd6b7__
-#define __PHOTON_GC_SCRIPTING_H_147a4b226aab50c957356af7b70fd6b7__ 
+#ifndef __PHOTON_GC_SCRIPTING_H_a46266096e73ed440fa52a48287e8f12__
+#define __PHOTON_GC_SCRIPTING_H_a46266096e73ed440fa52a48287e8f12__ 
 
 #include "photon/photon_prologue.h"
 
-#include "photon/scripting/PhotonGtArrScriptInfo.h"
-#include "photon/foundation/PhotonGtArrGuid.h"
-#include "photon/scripting/PhotonGtScriptId.h"
-#include "photon/scripting/PhotonGtArrScriptRunTiming.h"
-#include "photon/foundation/PhotonGtGuid.h"
-#include "photon/foundation/PhotonGtArrU8.h"
 #include "photon/decode/PhotonGtOptionalScriptingError.h"
+#include "photon/foundation/PhotonGtArrU8.h"
+#include "photon/scripting/PhotonGtArrScriptInfo.h"
+#include "photon/scripting/PhotonGtScriptId.h"
+#include "photon/foundation/PhotonGtGuid.h"
+#include "photon/foundation/PhotonGtArrGuid.h"
 #include "photon/scripting/PhotonGtScriptRunTiming.h"
+#include "photon/scripting/PhotonGtArrScriptRunTiming.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -26,12 +26,12 @@ struct PhotonGcScripting_s {
   PhotonGtArrGuid (*scriptsIds)(PhotonGcScripting*);
   PhotonGtArrScriptInfo (*scripts)(PhotonGcScripting*);
   PhotonGtArrScriptRunTiming (*scriptsRunTimings)(PhotonGcScripting*);
-  PhotonGtOptionalScriptingError (*uploadScript)(PhotonGcScripting*, PhotonGtScriptId, PhotonGtArrU8, PhotonGtArrU8);
-  PhotonGtOptionalScriptingError (*deleteScript)(PhotonGcScripting*, PhotonGtScriptId);
-  PhotonGtOptionalScriptingError (*runScriptNow)(PhotonGcScripting*, PhotonGtScriptId);
-  PhotonGtOptionalScriptingError (*scheduleScriptRun)(PhotonGcScripting*, PhotonGtScriptRunTiming);
-  PhotonGtOptionalScriptingError (*enableScriptRunTiming)(PhotonGcScripting*, PhotonGtGuid);
-  PhotonGtOptionalScriptingError (*disableScriptRunTiming)(PhotonGcScripting*, PhotonGtGuid);
+  PhotonGtOptionalScriptingError (*uploadScript)(PhotonGcScripting*, PhotonGtScriptId*, PhotonGtArrU8*, PhotonGtArrU8*);
+  PhotonGtOptionalScriptingError (*deleteScript)(PhotonGcScripting*, PhotonGtScriptId*);
+  PhotonGtOptionalScriptingError (*runScriptNow)(PhotonGcScripting*, PhotonGtScriptId*);
+  PhotonGtOptionalScriptingError (*scheduleScriptRun)(PhotonGcScripting*, PhotonGtScriptRunTiming*);
+  PhotonGtOptionalScriptingError (*enableScriptRunTiming)(PhotonGcScripting*, PhotonGtGuid*);
+  PhotonGtOptionalScriptingError (*disableScriptRunTiming)(PhotonGcScripting*, PhotonGtGuid*);
 };
 PhotonResult PhotonGcScripting_UploadScript(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcScripting_DeleteScript(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);

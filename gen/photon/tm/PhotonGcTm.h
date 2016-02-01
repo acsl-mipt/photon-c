@@ -1,16 +1,16 @@
 /* Component Tm interface */
-#ifndef __PHOTON_GC_TM_H_b70896a1cff31c32cf28cab825e4db4c__
-#define __PHOTON_GC_TM_H_b70896a1cff31c32cf28cab825e4db4c__ 
+#ifndef __PHOTON_GC_TM_H_5d375030b5f2fd0707973904849dc1d9__
+#define __PHOTON_GC_TM_H_5d375030b5f2fd0707973904849dc1d9__ 
 
 #include "photon/photon_prologue.h"
 
-#include "photon/foundation/PhotonGtArrU8.h"
-#include "photon/tm/PhotonGtRingBuf.h"
 #include "photon/tm/PhotonGtArrEventInfo.h"
+#include "photon/tm/PhotonGtRingBuf.h"
+#include "photon/foundation/PhotonGtArrU8.h"
 #include "photon/decode/PhotonGtOptionalTmCmdError.h"
-#include "photon/foundation/PhotonGtArrArrU8.h"
-#include "photon/tm/PhotonGtEventInfo.h"
 #include "photon/tm/PhotonGtCompMsg.h"
+#include "photon/tm/PhotonGtEventInfo.h"
+#include "photon/foundation/PhotonGtArrArrU8.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -27,14 +27,14 @@ struct PhotonGcTm_s {
   PhotonGtArrArrU8 (*priorityOrderedRequests)(PhotonGcTm*);
   PhotonGtRingBuf (*outOfOrderMesages)(PhotonGcTm*);
   PhotonGtArrEventInfo (*lostEvents)(PhotonGcTm*);
-  PhotonGtOptionalTmCmdError (*sendEventMessage)(PhotonGcTm*, PhotonGtEventInfo);
-  PhotonGtOptionalTmCmdError (*sendStatusMessage)(PhotonGcTm*, PhotonGtCompMsg);
-  PhotonGtOptionalTmCmdError (*setMessageRequest)(PhotonGcTm*, PhotonGtCompMsg, PhotonBer);
-  PhotonGtOptionalTmCmdError (*clearMessageRequest)(PhotonGcTm*, PhotonGtCompMsg, PhotonBer);
-  PhotonGtOptionalTmCmdError (*denyMessage)(PhotonGcTm*, PhotonGtCompMsg);
-  PhotonGtOptionalTmCmdError (*allowMessage)(PhotonGcTm*, PhotonGtCompMsg);
-  PhotonGtOptionalTmCmdError (*denyEvent)(PhotonGcTm*, PhotonGtEventInfo);
-  PhotonGtOptionalTmCmdError (*allowEvent)(PhotonGcTm*, PhotonGtEventInfo);
+  PhotonGtOptionalTmCmdError (*sendEventMessage)(PhotonGcTm*, PhotonGtEventInfo*);
+  PhotonGtOptionalTmCmdError (*sendStatusMessage)(PhotonGcTm*, PhotonGtCompMsg*);
+  PhotonGtOptionalTmCmdError (*setMessageRequest)(PhotonGcTm*, PhotonGtCompMsg*, PhotonBer*);
+  PhotonGtOptionalTmCmdError (*clearMessageRequest)(PhotonGcTm*, PhotonGtCompMsg*, PhotonBer*);
+  PhotonGtOptionalTmCmdError (*denyMessage)(PhotonGcTm*, PhotonGtCompMsg*);
+  PhotonGtOptionalTmCmdError (*allowMessage)(PhotonGcTm*, PhotonGtCompMsg*);
+  PhotonGtOptionalTmCmdError (*denyEvent)(PhotonGcTm*, PhotonGtEventInfo*);
+  PhotonGtOptionalTmCmdError (*allowEvent)(PhotonGcTm*, PhotonGtEventInfo*);
 };
 PhotonResult PhotonGcTm_SendEventMessage(PhotonGcTm* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcTm_SendStatusMessage(PhotonGcTm* self, PhotonReader* reader, PhotonWriter* writer);

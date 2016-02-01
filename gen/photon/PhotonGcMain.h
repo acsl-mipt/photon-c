@@ -1,6 +1,6 @@
 /* Component Main interface */
-#ifndef __PHOTON_GC_MAIN_H_158da556e1de26f470f14aa84019ecc3__
-#define __PHOTON_GC_MAIN_H_158da556e1de26f470f14aa84019ecc3__ 
+#ifndef __PHOTON_GC_MAIN_H_360d71d7da04408b9960bc5ea58c1736__
+#define __PHOTON_GC_MAIN_H_360d71d7da04408b9960bc5ea58c1736__ 
 
 #include "photon/photon_prologue.h"
 
@@ -22,40 +22,40 @@ typedef struct PhotonGcMain_s PhotonGcMain;
 
 struct PhotonGcMain_s {
   PhotonGcMainData* data;
-  void (*routerSetRoute)(PhotonGcMain*, PhotonGtAddress*, PhotonGtAddress*);
-  void (*routerDelRoute)(PhotonGcMain*, PhotonGtAddress*);
-  void (*routerSetGroupRoute)(PhotonGcMain*, PhotonGtAddress*, PhotonGtAddress*);
-  void (*routerDelGroupRoute)(PhotonGcMain*, PhotonGtAddress*);
-  PhotonGtShortId (*identificationRequestShortId)(PhotonGcMain*);
-  PhotonGtFullId (*identificationRequestFullId)(PhotonGcMain*);
-  PhotonGtGuid (*identificationRequestComponentGuid)(PhotonGcMain*, PhotonBer*);
-  PhotonGtOptionalFileUploadError (*filesUploadFile)(PhotonGcMain*, PhotonGtFullFileInfo*);
-  PhotonGtOrFullFileInfoFileDownloadError (*filesDownloadFile)(PhotonGcMain*, PhotonGtString*);
-  PhotonGtOptionalFileDeleteError (*filesDeleteNode)(PhotonGcMain*, PhotonGtString*);
-  PhotonGtOrArrNodeInfoFileListError (*filesRequestFileList)(PhotonGcMain*, PhotonGtString*);
-  PhotonGtOptionalFileCreateDirError (*filesCreateDir)(PhotonGcMain*, PhotonGtString*);
-  PhotonGtOptionalSegmentProcessAckError (*segmentSenderProcessSegmentsAck)(PhotonGcMain*, PhotonGtArrBerMin1*);
-  PhotonGtOptionalSegmentStartAckError (*segmentStartSegmentAckMode)(PhotonGcMain*);
-  PhotonGtOptionalSegmentStopAckError (*segmentStopSegmentAckMode)(PhotonGcMain*);
-  PhotonGtB8 (*segmentRequestAckModeStatus)(PhotonGcMain*);
-  PhotonGtOptionalSegmentProcessAckError (*segmentProcessAckModeStatus)(PhotonGcMain*, PhotonGtB8*);
-  PhotonGtOptionalSegmentStartAckError (*segmentStartAckOnEverySegmentMode)(PhotonGcMain*);
-  PhotonGtOptionalSegmentStopAckError (*segmentStopAckOnEverySegmentMode)(PhotonGcMain*);
-  PhotonGtOptionalTmCmdError (*tmSendEventMessage)(PhotonGcMain*, PhotonGtEventInfo*);
-  PhotonGtOptionalTmCmdError (*tmSendStatusMessage)(PhotonGcMain*, PhotonGtCompMsg*);
-  PhotonGtOptionalTmCmdError (*tmSetMessageRequest)(PhotonGcMain*, PhotonGtCompMsg*, PhotonBer*);
-  PhotonGtOptionalTmCmdError (*tmClearMessageRequest)(PhotonGcMain*, PhotonGtCompMsg*, PhotonBer*);
-  PhotonGtOptionalTmCmdError (*tmDenyMessage)(PhotonGcMain*, PhotonGtCompMsg*);
-  PhotonGtOptionalTmCmdError (*tmAllowMessage)(PhotonGcMain*, PhotonGtCompMsg*);
-  PhotonGtOptionalTmCmdError (*tmDenyEvent)(PhotonGcMain*, PhotonGtEventInfo*);
-  PhotonGtOptionalTmCmdError (*tmAllowEvent)(PhotonGcMain*, PhotonGtEventInfo*);
-  PhotonGtArrBer (*segmentReceiverRequestSegmentsAck)(PhotonGcMain*);
-  PhotonGtOptionalScriptingError (*scriptingUploadScript)(PhotonGcMain*, PhotonGtScriptId*, PhotonGtArrU8*, PhotonGtArrU8*);
-  PhotonGtOptionalScriptingError (*scriptingDeleteScript)(PhotonGcMain*, PhotonGtScriptId*);
-  PhotonGtOptionalScriptingError (*scriptingRunScriptNow)(PhotonGcMain*, PhotonGtScriptId*);
-  PhotonGtOptionalScriptingError (*scriptingScheduleScriptRun)(PhotonGcMain*, PhotonGtScriptRunTiming*);
-  PhotonGtOptionalScriptingError (*scriptingEnableScriptRunTiming)(PhotonGcMain*, PhotonGtGuid*);
-  PhotonGtOptionalScriptingError (*scriptingDisableScriptRunTiming)(PhotonGcMain*, PhotonGtGuid*);
+  void (*routerSetRoute)(PhotonGcRouter*, PhotonGtAddress*, PhotonGtAddress*);
+  void (*routerDelRoute)(PhotonGcRouter*, PhotonGtAddress*);
+  void (*routerSetGroupRoute)(PhotonGcRouter*, PhotonGtAddress*, PhotonGtAddress*);
+  void (*routerDelGroupRoute)(PhotonGcRouter*, PhotonGtAddress*);
+  PhotonGtShortId (*identificationRequestShortId)(PhotonGcIdentification*);
+  PhotonGtFullId (*identificationRequestFullId)(PhotonGcIdentification*);
+  PhotonGtGuid (*identificationRequestComponentGuid)(PhotonGcIdentification*, PhotonBer*);
+  PhotonGtOptionalFileUploadError (*filesUploadFile)(PhotonGcFiles*, PhotonGtFullFileInfo*);
+  PhotonGtOrFullFileInfoFileDownloadError (*filesDownloadFile)(PhotonGcFiles*, PhotonGtString*);
+  PhotonGtOptionalFileDeleteError (*filesDeleteNode)(PhotonGcFiles*, PhotonGtString*);
+  PhotonGtOrArrNodeInfoFileListError (*filesRequestFileList)(PhotonGcFiles*, PhotonGtString*);
+  PhotonGtOptionalFileCreateDirError (*filesCreateDir)(PhotonGcFiles*, PhotonGtString*);
+  PhotonGtOptionalSegmentProcessAckError (*segmentSenderProcessSegmentsAck)(PhotonGcSegmentSender*, PhotonGtArrBerMin1*);
+  PhotonGtOptionalSegmentStartAckError (*segmentStartSegmentAckMode)(PhotonGcSegment*);
+  PhotonGtOptionalSegmentStopAckError (*segmentStopSegmentAckMode)(PhotonGcSegment*);
+  PhotonGtB8 (*segmentRequestAckModeStatus)(PhotonGcSegment*);
+  PhotonGtOptionalSegmentProcessAckError (*segmentProcessAckModeStatus)(PhotonGcSegment*, PhotonGtB8*);
+  PhotonGtOptionalSegmentStartAckError (*segmentStartAckOnEverySegmentMode)(PhotonGcSegment*);
+  PhotonGtOptionalSegmentStopAckError (*segmentStopAckOnEverySegmentMode)(PhotonGcSegment*);
+  PhotonGtOptionalTmCmdError (*tmSendEventMessage)(PhotonGcTm*, PhotonGtEventInfo*);
+  PhotonGtOptionalTmCmdError (*tmSendStatusMessage)(PhotonGcTm*, PhotonGtCompMsg*);
+  PhotonGtOptionalTmCmdError (*tmSetMessageRequest)(PhotonGcTm*, PhotonGtCompMsg*, PhotonBer*);
+  PhotonGtOptionalTmCmdError (*tmClearMessageRequest)(PhotonGcTm*, PhotonGtCompMsg*, PhotonBer*);
+  PhotonGtOptionalTmCmdError (*tmDenyMessage)(PhotonGcTm*, PhotonGtCompMsg*);
+  PhotonGtOptionalTmCmdError (*tmAllowMessage)(PhotonGcTm*, PhotonGtCompMsg*);
+  PhotonGtOptionalTmCmdError (*tmDenyEvent)(PhotonGcTm*, PhotonGtEventInfo*);
+  PhotonGtOptionalTmCmdError (*tmAllowEvent)(PhotonGcTm*, PhotonGtEventInfo*);
+  PhotonGtArrBer (*segmentReceiverRequestSegmentsAck)(PhotonGcSegmentReceiver*);
+  PhotonGtOptionalScriptingError (*scriptingUploadScript)(PhotonGcScripting*, PhotonGtScriptId*, PhotonGtArrU8*, PhotonGtArrU8*);
+  PhotonGtOptionalScriptingError (*scriptingDeleteScript)(PhotonGcScripting*, PhotonGtScriptId*);
+  PhotonGtOptionalScriptingError (*scriptingRunScriptNow)(PhotonGcScripting*, PhotonGtScriptId*);
+  PhotonGtOptionalScriptingError (*scriptingScheduleScriptRun)(PhotonGcScripting*, PhotonGtScriptRunTiming*);
+  PhotonGtOptionalScriptingError (*scriptingEnableScriptRunTiming)(PhotonGcScripting*, PhotonGtGuid*);
+  PhotonGtOptionalScriptingError (*scriptingDisableScriptRunTiming)(PhotonGcScripting*, PhotonGtGuid*);
 };
 PhotonResult PhotonGcMain_FilesUploadFile(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_FilesDownloadFile(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);

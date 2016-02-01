@@ -1,6 +1,6 @@
 /* Component Router interface */
-#ifndef __PHOTON_GC_ROUTER_H_d27678dda6e4e44f691f832c3538f6fd__
-#define __PHOTON_GC_ROUTER_H_d27678dda6e4e44f691f832c3538f6fd__ 
+#ifndef __PHOTON_GC_ROUTER_H_6b77317427c798092251b885801266ab__
+#define __PHOTON_GC_ROUTER_H_6b77317427c798092251b885801266ab__ 
 
 #include "photon/photon_prologue.h"
 
@@ -19,10 +19,10 @@ struct PhotonGcRouter_s {
   PhotonGcRouterData* data;
   PhotonGtArrRoute (*routes)(PhotonGcRouter*);
   PhotonGtArrRoute (*groupRoutes)(PhotonGcRouter*);
-  void (*setRoute)(PhotonGcRouter*, PhotonGtAddress, PhotonGtAddress);
-  void (*delRoute)(PhotonGcRouter*, PhotonGtAddress);
-  void (*setGroupRoute)(PhotonGcRouter*, PhotonGtAddress, PhotonGtAddress);
-  void (*delGroupRoute)(PhotonGcRouter*, PhotonGtAddress);
+  void (*setRoute)(PhotonGcRouter*, PhotonGtAddress*, PhotonGtAddress*);
+  void (*delRoute)(PhotonGcRouter*, PhotonGtAddress*);
+  void (*setGroupRoute)(PhotonGcRouter*, PhotonGtAddress*, PhotonGtAddress*);
+  void (*delGroupRoute)(PhotonGcRouter*, PhotonGtAddress*);
 };
 PhotonResult PhotonGcRouter_SetRoute(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcRouter_DelRoute(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer);

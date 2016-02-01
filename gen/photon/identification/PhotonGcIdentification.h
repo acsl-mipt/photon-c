@@ -1,6 +1,6 @@
 /* Component Identification interface */
-#ifndef __PHOTON_GC_IDENTIFICATION_H_bfca7fe38b81eca3e2a215581a0c86fb__
-#define __PHOTON_GC_IDENTIFICATION_H_bfca7fe38b81eca3e2a215581a0c86fb__ 
+#ifndef __PHOTON_GC_IDENTIFICATION_H_67b3405a39796510b71548f6a2fb0ab0__
+#define __PHOTON_GC_IDENTIFICATION_H_67b3405a39796510b71548f6a2fb0ab0__ 
 
 #include "photon/photon_prologue.h"
 
@@ -21,7 +21,7 @@ struct PhotonGcIdentification_s {
   PhotonGtFullId (*fullId)(PhotonGcIdentification*);
   PhotonGtShortId (*requestShortId)(PhotonGcIdentification*);
   PhotonGtFullId (*requestFullId)(PhotonGcIdentification*);
-  PhotonGtGuid (*requestComponentGuid)(PhotonGcIdentification*, PhotonBer);
+  PhotonGtGuid (*requestComponentGuid)(PhotonGcIdentification*, PhotonBer*);
 };
 PhotonResult PhotonGcIdentification_RequestShortId(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcIdentification_RequestFullId(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer);
