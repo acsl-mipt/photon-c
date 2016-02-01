@@ -1,3 +1,4 @@
+#include "photon/Config.h"
 #include "photon/Writer.h"
 #include "photon/Endian.h"
 #include "photon/Ber.h"

@@ -1,6 +1,7 @@
-#ifndef __PHOTON_WRITER__
-#define __PHOTON_WRITER__
+#ifndef __PHOTON_WRITER_H__
+#define __PHOTON_WRITER_H__
 
+#include "photon/Config.h"
 #include "photon/Result.h"
 
 #include <stdbool.h>

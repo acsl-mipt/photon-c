@@ -1,3 +1,4 @@
+#include "photon/Config.h"
 #include "photon/Reader.h"
 #include "photon/Endian.h"
 

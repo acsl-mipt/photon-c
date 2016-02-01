@@ -1,5 +1,7 @@
-#ifndef __PHOTON_RESULT__
-#define __PHOTON_RESULT__
+#ifndef __PHOTON_RESULT_H__
+#define __PHOTON_RESULT_H__
+
+#include "photon/Config.h"
 
 #ifdef __cplusplus
 extern "C" {

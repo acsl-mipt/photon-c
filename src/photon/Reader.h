@@ -1,6 +1,7 @@
-#ifndef __PHOTON_READER__
-#define __PHOTON_READER__
+#ifndef __PHOTON_READER_H__
+#define __PHOTON_READER_H__
 
+#include "photon/Config.h"
 #include "photon/Result.h"
 
 #include <stdbool.h>

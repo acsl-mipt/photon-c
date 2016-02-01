@@ -1,3 +1,4 @@
+#include "photon/Config.h"
 #include "photon/Exchange.h"
 #include "photon/RingBuffer.h"
 

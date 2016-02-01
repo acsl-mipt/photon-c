@@ -14,6 +14,7 @@ add_library(photon
     Decoder.h
     Encoder.c
     Encoder.h
+    Endian.h
     Parser.c
     Parser.h
     Exchange.c

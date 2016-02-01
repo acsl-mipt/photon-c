@@ -1,6 +1,7 @@
 #ifndef __PHOTON_EXCHANGE_H__
 #define __PHOTON_EXCHANGE_H__
 
+#include "photon/Config.h"
 #include "photon/RingBuffer.h"
 #include "photon/Decoder.h"
 #include "photon/Encoder.h"

@@ -1,3 +1,4 @@
+#include "photon/Config.h"
 #include "photon/Parser.h"
 
 static PhotonResult peekHeader(PhotonReader* src, uint16_t* dest)

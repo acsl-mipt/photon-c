@@ -1,3 +1,4 @@
+#include "photon/Config.h"
 #include "photon/Decoder.h"
 #include "photon/Ber.h"
 

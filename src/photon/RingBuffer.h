@@ -1,13 +1,15 @@
-#ifndef __PHOTON_RINGBUFFER__
-#define __PHOTON_RINGBUFFER__
+#ifndef __PHOTON_RINGBUFFER_H__
+#define __PHOTON_RINGBUFFER_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "photon/Config.h"
 
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct {
     uint8_t* data;

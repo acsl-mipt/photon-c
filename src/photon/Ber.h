@@ -1,6 +1,7 @@
 #ifndef __PHOTON_BER_H__
 #define __PHOTON_BER_H__
 
+#include "photon/Config.h"
 #include "photon/Result.h"
 #include "photon/Reader.h"
 #include "photon/Writer.h"

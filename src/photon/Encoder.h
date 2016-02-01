@@ -1,6 +1,7 @@
-#ifndef __PHOTON_ENCODER__
-#define __PHOTON_ENCODER__
+#ifndef __PHOTON_ENCODER_H__
+#define __PHOTON_ENCODER_H__
 
+#include "photon/Config.h"
 #include "photon/Result.h"
 #include "photon/Enums.h"
 #include "photon/Writer.h"

@@ -1,5 +1,7 @@
-#ifndef __PHOTON_ENUMS__
-#define __PHOTON_ENUMS__
+#ifndef __PHOTON_ENUMS_H__
+#define __PHOTON_ENUMS_H__
+
+#include "photon/Config.h"
 
 #ifdef __cplusplus
 extern "C" {

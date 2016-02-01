@@ -1,3 +1,4 @@
+#include "photon/Config.h"
 #include "photon/Ber.h"
 
 unsigned int PhotonBer_ByteSize(PhotonBer self)

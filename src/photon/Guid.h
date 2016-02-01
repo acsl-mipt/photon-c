@@ -1,6 +1,7 @@
 #ifndef __PHOTON_GUID_H__
 #define __PHOTON_GUID_H__
 
+#include "photon/Config.h"
 #include "photon/Writer.h"
 
 #include <stdint.h>

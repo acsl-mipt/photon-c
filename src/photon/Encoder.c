@@ -1,3 +1,4 @@
+#include "photon/Config.h"
 #include "photon/Encoder.h"
 #include "photon/Result.h"
 
@@ -6,7 +7,7 @@
 #include <stddef.h>
 #include <string.h>
 
-static inline void writeBer16Fixed(uint16_t value, uint8_t* dest)
+static PHOTON_INLINE void writeBer16Fixed(uint16_t value, uint8_t* dest)
 {
     *dest = 0x80 & 3;
     *(dest + 1) = (value & 0xf0) >> 8;

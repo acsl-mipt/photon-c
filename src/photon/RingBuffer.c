@@ -1,3 +1,4 @@
+#include "photon/Config.h"
 #include "photon/RingBuffer.h"
 
 #include <stdbool.h>

@@ -1,6 +1,7 @@
-#ifndef __PHOTON_PARSER__
-#define __PHOTON_PARSER__
+#ifndef __PHOTON_PARSER_H__
+#define __PHOTON_PARSER_H__
 
+#include "photon/Config.h"
 #include "photon/Result.h"
 #include "photon/Reader.h"
 #include "photon/Decoder.h"
