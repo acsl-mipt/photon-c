@@ -1,6 +1,6 @@
 /* Component SegmentReceiver interface */
-#ifndef __PHOTON_GC_SEGMENT_RECEIVER_H_57dac6976bafd14540240575b8d31485__
-#define __PHOTON_GC_SEGMENT_RECEIVER_H_57dac6976bafd14540240575b8d31485__ 
+#ifndef __PHOTON_GC_SEGMENT_RECEIVER_H_ca6c7cec10e70563591a134132ddd24b__
+#define __PHOTON_GC_SEGMENT_RECEIVER_H_ca6c7cec10e70563591a134132ddd24b__ 
 
 #include "photon/photon_prologue.h"
 
@@ -24,6 +24,9 @@ struct PhotonGcSegmentReceiver_s {
   PhotonGtOptionalSegmentProcessAckError (*segmentProcessAckModeStatus)(PhotonGcSegmentReceiver*, PhotonGtB8*);
   PhotonGtOptionalSegmentStartAckError (*segmentStartAckOnEverySegmentMode)(PhotonGcSegmentReceiver*);
   PhotonGtOptionalSegmentStopAckError (*segmentStopAckOnEverySegmentMode)(PhotonGcSegmentReceiver*);
+  PhotonGtB8 (*segmentIsSegmentationAckModeActive)(PhotonGcSegmentReceiver*);
+  PhotonBer (*segmentMaxSegmentNumber)(PhotonGcSegmentReceiver*);
+  PhotonGtB8 (*segmentIsAckOnEverySegmentModeActive)(PhotonGcSegmentReceiver*);
   PhotonGtArrBer (*segmentsReceived)(PhotonGcSegmentReceiver*);
   PhotonGtArrBer (*requestSegmentsAck)(PhotonGcSegmentReceiver*);
 };

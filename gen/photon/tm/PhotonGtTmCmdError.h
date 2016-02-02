@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_TM_CMD_ERROR_H_3bf09d9b32a9b288481b8d722f3bceec__
-#define __PHOTON_GT_TM_CMD_ERROR_H_3bf09d9b32a9b288481b8d722f3bceec__ 
+#ifndef __PHOTON_GT_TM_CMD_ERROR_H_088da02c87b3f603256764bacc825d07__
+#define __PHOTON_GT_TM_CMD_ERROR_H_088da02c87b3f603256764bacc825d07__ 
 
 #include "photon/photon_prologue.h"
 

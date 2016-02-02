@@ -1,13 +1,13 @@
 /* Component Segment interface */
-#ifndef __PHOTON_GC_SEGMENT_H_22828325dce031b44757a02d864d8892__
-#define __PHOTON_GC_SEGMENT_H_22828325dce031b44757a02d864d8892__ 
+#ifndef __PHOTON_GC_SEGMENT_H_b7fdb6193e12300420368f855d204682__
+#define __PHOTON_GC_SEGMENT_H_b7fdb6193e12300420368f855d204682__ 
 
 #include "photon/photon_prologue.h"
 
+#include "photon/decode/PhotonGtOptionalSegmentProcessAckError.h"
 #include "photon/decode/PhotonGtOptionalSegmentStartAckError.h"
 #include "photon/foundation/PhotonGtB8.h"
 #include "photon/decode/PhotonGtOptionalSegmentStopAckError.h"
-#include "photon/decode/PhotonGtOptionalSegmentProcessAckError.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -8,6 +8,6 @@ PhotonResult PhotonGtF64_Serialize(PhotonGtF64* self, PhotonWriter* writer) {
 }
 
 PhotonResult PhotonGtF64_Deserialize(PhotonGtF64* self, PhotonReader* reader) {
-  *self = PhotonReader_ReadFloat64Le(reader);
+  PhotonReader_ReadFloat64Le(reader);
   return PhotonResult_Ok;
 }

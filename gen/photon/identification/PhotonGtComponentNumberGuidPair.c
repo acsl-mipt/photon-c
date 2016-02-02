@@ -3,8 +3,8 @@
 
 
 PhotonResult PhotonGtComponentNumberGuidPair_Serialize(PhotonGtComponentNumberGuidPair* self, PhotonWriter* writer) {
-  PHOTON_TRY(PhotonBer_Serialize(&self->number, writer));
-  PHOTON_TRY(PhotonBer_Serialize(&self->guid, writer));
+  PHOTON_TRY(PhotonBer_Serialize(self->number, writer));
+  PHOTON_TRY(PhotonBer_Serialize(self->guid, writer));
   return PhotonResult_Ok;
 }
 

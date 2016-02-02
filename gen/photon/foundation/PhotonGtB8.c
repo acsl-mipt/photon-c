@@ -8,6 +8,6 @@ PhotonResult PhotonGtB8_Serialize(PhotonGtB8* self, PhotonWriter* writer) {
 }
 
 PhotonResult PhotonGtB8_Deserialize(PhotonGtB8* self, PhotonReader* reader) {
-  *self = PhotonReader_ReadUint8(reader);
+  PhotonReader_ReadUint8(reader);
   return PhotonResult_Ok;
 }

@@ -3,7 +3,7 @@
 
 
 PhotonResult PhotonGtScriptInfo_Serialize(PhotonGtScriptInfo* self, PhotonWriter* writer) {
-  PHOTON_TRY(PhotonBer_Serialize(&self->scriptId, writer));
+  PHOTON_TRY(PhotonBer_Serialize(self->scriptId, writer));
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->scriptData, writer));
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->scriptCode, writer));
   return PhotonResult_Ok;

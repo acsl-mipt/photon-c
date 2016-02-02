@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_ARR_GUID_H_ee7e073150ed612ecfff1f6eff3c8023__
-#define __PHOTON_GT_ARR_GUID_H_ee7e073150ed612ecfff1f6eff3c8023__ 
+#ifndef __PHOTON_GT_ARR_GUID_H_5a9b220cc69a8a2034156a3c2f3734d9__
+#define __PHOTON_GT_ARR_GUID_H_5a9b220cc69a8a2034156a3c2f3734d9__ 
 
 #include "photon/photon_prologue.h"
 

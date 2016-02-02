@@ -1,6 +1,6 @@
 /* Component SegmentSender interface */
-#ifndef __PHOTON_GC_SEGMENT_SENDER_H_46dbd65d49e6d86828b93cbee924b7b6__
-#define __PHOTON_GC_SEGMENT_SENDER_H_46dbd65d49e6d86828b93cbee924b7b6__ 
+#ifndef __PHOTON_GC_SEGMENT_SENDER_H_d970bfaa856afbcfee73e7930a62e906__
+#define __PHOTON_GC_SEGMENT_SENDER_H_d970bfaa856afbcfee73e7930a62e906__ 
 
 #include "photon/photon_prologue.h"
 
@@ -25,6 +25,9 @@ struct PhotonGcSegmentSender_s {
   PhotonGtOptionalSegmentProcessAckError (*segmentProcessAckModeStatus)(PhotonGcSegmentSender*, PhotonGtB8*);
   PhotonGtOptionalSegmentStartAckError (*segmentStartAckOnEverySegmentMode)(PhotonGcSegmentSender*);
   PhotonGtOptionalSegmentStopAckError (*segmentStopAckOnEverySegmentMode)(PhotonGcSegmentSender*);
+  PhotonGtB8 (*segmentIsSegmentationAckModeActive)(PhotonGcSegmentSender*);
+  PhotonBer (*segmentMaxSegmentNumber)(PhotonGcSegmentSender*);
+  PhotonGtB8 (*segmentIsAckOnEverySegmentModeActive)(PhotonGcSegmentSender*);
   PhotonGtOptionalSegmentProcessAckError (*processSegmentsAck)(PhotonGcSegmentSender*, PhotonGtArrBerMin1*);
 };
 PhotonResult PhotonGcSegmentSender_ProcessSegmentsAck(PhotonGcSegmentSender* self, PhotonReader* reader, PhotonWriter* writer);

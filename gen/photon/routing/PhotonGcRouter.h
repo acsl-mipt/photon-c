@@ -1,11 +1,11 @@
 /* Component Router interface */
-#ifndef __PHOTON_GC_ROUTER_H_e464da5cf498386a5c19dea375394712__
-#define __PHOTON_GC_ROUTER_H_e464da5cf498386a5c19dea375394712__ 
+#ifndef __PHOTON_GC_ROUTER_H_d9ea7a0f25cac06fb9471754fa9071af__
+#define __PHOTON_GC_ROUTER_H_d9ea7a0f25cac06fb9471754fa9071af__ 
 
 #include "photon/photon_prologue.h"
 
-#include "photon/routing/PhotonGtArrRoute.h"
 #include "photon/routing/PhotonGtAddress.h"
+#include "photon/routing/PhotonGtArrRoute.h"
 
 #ifdef __cplusplus
 extern "C" {

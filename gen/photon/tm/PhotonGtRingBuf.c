@@ -4,8 +4,8 @@
 
 PhotonResult PhotonGtRingBuf_Serialize(PhotonGtRingBuf* self, PhotonWriter* writer) {
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->data, writer));
-  PHOTON_TRY(PhotonBer_Serialize(&self->startOffset, writer));
-  PHOTON_TRY(PhotonBer_Serialize(&self->endOffset, writer));
+  PHOTON_TRY(PhotonBer_Serialize(self->startOffset, writer));
+  PHOTON_TRY(PhotonBer_Serialize(self->endOffset, writer));
   return PhotonResult_Ok;
 }
 

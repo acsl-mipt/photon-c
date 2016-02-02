@@ -8,6 +8,6 @@ PhotonResult PhotonGtU32_Serialize(PhotonGtU32* self, PhotonWriter* writer) {
 }
 
 PhotonResult PhotonGtU32_Deserialize(PhotonGtU32* self, PhotonReader* reader) {
-  *self = PhotonReader_ReadUint32Le(reader);
+  PhotonReader_ReadUint32Le(reader);
   return PhotonResult_Ok;
 }
