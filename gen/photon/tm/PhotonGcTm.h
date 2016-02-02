@@ -1,6 +1,6 @@
 /* Component Tm interface */
-#ifndef __PHOTON_GC_TM_H_9a2b77986f95c0c618e9745b5e1c91be__
-#define __PHOTON_GC_TM_H_9a2b77986f95c0c618e9745b5e1c91be__ 
+#ifndef __PHOTON_GC_TM_H_bf27681751b715eaa480bcf28681ee46__
+#define __PHOTON_GC_TM_H_bf27681751b715eaa480bcf28681ee46__ 
 
 #include "photon/photon_prologue.h"
 
@@ -29,8 +29,8 @@ struct PhotonGcTm_s {
   PhotonGtArrEventInfo (*lostEvents)(PhotonGcTm*);
   PhotonGtOptionalTmCmdError (*sendEventMessage)(PhotonGcTm*, PhotonGtEventInfo*);
   PhotonGtOptionalTmCmdError (*sendStatusMessage)(PhotonGcTm*, PhotonGtCompMsg*);
-  PhotonGtOptionalTmCmdError (*setMessageRequest)(PhotonGcTm*, PhotonGtCompMsg*, PhotonBer*);
-  PhotonGtOptionalTmCmdError (*clearMessageRequest)(PhotonGcTm*, PhotonGtCompMsg*, PhotonBer*);
+  PhotonGtOptionalTmCmdError (*setMessageRequest)(PhotonGcTm*, PhotonGtCompMsg*, PhotonBer);
+  PhotonGtOptionalTmCmdError (*clearMessageRequest)(PhotonGcTm*, PhotonGtCompMsg*, PhotonBer);
   PhotonGtOptionalTmCmdError (*denyMessage)(PhotonGcTm*, PhotonGtCompMsg*);
   PhotonGtOptionalTmCmdError (*allowMessage)(PhotonGcTm*, PhotonGtCompMsg*);
   PhotonGtOptionalTmCmdError (*denyEvent)(PhotonGcTm*, PhotonGtEventInfo*);

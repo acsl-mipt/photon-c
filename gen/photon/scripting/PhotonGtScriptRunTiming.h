@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_SCRIPT_RUN_TIMING_H_3833b1502fa72d6e9290aa4e61a55baf__
-#define __PHOTON_GT_SCRIPT_RUN_TIMING_H_3833b1502fa72d6e9290aa4e61a55baf__ 
+#ifndef __PHOTON_GT_SCRIPT_RUN_TIMING_H_0450ba62e0157f9e33a098368c4f9850__
+#define __PHOTON_GT_SCRIPT_RUN_TIMING_H_0450ba62e0157f9e33a098368c4f9850__ 
 
 #include "photon/photon_prologue.h"
 

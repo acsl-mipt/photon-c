@@ -231,6 +231,15 @@ PhotonResult PhotonGcMain_TmAllowEvent(PhotonGcMain* self, PhotonReader* reader,
   return PhotonGtOptionalTmCmdError_Serialize(&cmdResult, writer);
 }
 
+PhotonResult PhotonGcMain_WriteScriptingAvailableScriptsIds(PhotonGcMain* self, PhotonWriter* writer) {
+}
+
+PhotonResult PhotonGcMain_WriteScriptingScriptsRunTimings(PhotonGcMain* self, PhotonWriter* writer) {
+}
+
+PhotonResult PhotonGcMain_WriteSegmentReceiverSegmentsReceived(PhotonGcMain* self, PhotonWriter* writer) {
+}
+
 PhotonResult PhotonGcMain_ExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:

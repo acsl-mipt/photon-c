@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_FILE_DELETE_ERROR_H_c767cecf49d67d58fcd62c9bfdfb22eb__
-#define __PHOTON_GT_FILE_DELETE_ERROR_H_c767cecf49d67d58fcd62c9bfdfb22eb__ 
+#ifndef __PHOTON_GT_FILE_DELETE_ERROR_H_773b124d6ccee142a19a49451b33a123__
+#define __PHOTON_GT_FILE_DELETE_ERROR_H_773b124d6ccee142a19a49451b33a123__ 
 
 #include "photon/photon_prologue.h"
 

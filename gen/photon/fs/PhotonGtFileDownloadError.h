@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_FILE_DOWNLOAD_ERROR_H_025aa60e0dc0e301fa33e938dbfdaa61__
-#define __PHOTON_GT_FILE_DOWNLOAD_ERROR_H_025aa60e0dc0e301fa33e938dbfdaa61__ 
+#ifndef __PHOTON_GT_FILE_DOWNLOAD_ERROR_H_1f7b69700c701e5b9a7f039912462bd6__
+#define __PHOTON_GT_FILE_DOWNLOAD_ERROR_H_1f7b69700c701e5b9a7f039912462bd6__ 
 
 #include "photon/photon_prologue.h"
 

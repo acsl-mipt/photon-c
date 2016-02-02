@@ -47,6 +47,12 @@ PhotonResult PhotonGcScripting_DisableScriptRunTiming(PhotonGcScripting* self, P
   return PhotonGtOptionalScriptingError_Serialize(&cmdResult, writer);
 }
 
+PhotonResult PhotonGcScripting_WriteAvailableScriptsIds(PhotonGcScripting* self, PhotonWriter* writer) {
+}
+
+PhotonResult PhotonGcScripting_WriteScriptsRunTimings(PhotonGcScripting* self, PhotonWriter* writer) {
+}
+
 PhotonResult PhotonGcScripting_ExecuteCommand(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:

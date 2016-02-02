@@ -1,6 +1,6 @@
 /* Component Scripting interface */
-#ifndef __PHOTON_GC_SCRIPTING_H_e817d0387769bf1f445d4b36878b4427__
-#define __PHOTON_GC_SCRIPTING_H_e817d0387769bf1f445d4b36878b4427__ 
+#ifndef __PHOTON_GC_SCRIPTING_H_6a2ef03c3d8f0042dc62695fc96aa458__
+#define __PHOTON_GC_SCRIPTING_H_6a2ef03c3d8f0042dc62695fc96aa458__ 
 
 #include "photon/photon_prologue.h"
 
@@ -26,12 +26,12 @@ struct PhotonGcScripting_s {
   PhotonGtArrGuid (*scriptsIds)(PhotonGcScripting*);
   PhotonGtArrScriptInfo (*scripts)(PhotonGcScripting*);
   PhotonGtArrScriptRunTiming (*scriptsRunTimings)(PhotonGcScripting*);
-  PhotonGtOptionalScriptingError (*uploadScript)(PhotonGcScripting*, PhotonGtScriptId*, PhotonGtArrU8*, PhotonGtArrU8*);
-  PhotonGtOptionalScriptingError (*deleteScript)(PhotonGcScripting*, PhotonGtScriptId*);
-  PhotonGtOptionalScriptingError (*runScriptNow)(PhotonGcScripting*, PhotonGtScriptId*);
+  PhotonGtOptionalScriptingError (*uploadScript)(PhotonGcScripting*, PhotonGtScriptId, PhotonGtArrU8*, PhotonGtArrU8*);
+  PhotonGtOptionalScriptingError (*deleteScript)(PhotonGcScripting*, PhotonGtScriptId);
+  PhotonGtOptionalScriptingError (*runScriptNow)(PhotonGcScripting*, PhotonGtScriptId);
   PhotonGtOptionalScriptingError (*scheduleScriptRun)(PhotonGcScripting*, PhotonGtScriptRunTiming*);
-  PhotonGtOptionalScriptingError (*enableScriptRunTiming)(PhotonGcScripting*, PhotonGtGuid*);
-  PhotonGtOptionalScriptingError (*disableScriptRunTiming)(PhotonGcScripting*, PhotonGtGuid*);
+  PhotonGtOptionalScriptingError (*enableScriptRunTiming)(PhotonGcScripting*, PhotonGtGuid);
+  PhotonGtOptionalScriptingError (*disableScriptRunTiming)(PhotonGcScripting*, PhotonGtGuid);
 };
 PhotonResult PhotonGcScripting_UploadScript(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcScripting_DeleteScript(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
@@ -39,6 +39,8 @@ PhotonResult PhotonGcScripting_RunScriptNow(PhotonGcScripting* self, PhotonReade
 PhotonResult PhotonGcScripting_ScheduleScriptRun(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcScripting_EnableScriptRunTiming(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcScripting_DisableScriptRunTiming(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
+PhotonResult PhotonGcScripting_WriteAvailableScriptsIds(PhotonGcScripting* self, PhotonWriter* writer);
+PhotonResult PhotonGcScripting_WriteScriptsRunTimings(PhotonGcScripting* self, PhotonWriter* writer);
 
 PhotonResult PhotonGcScripting_ReadExecuteCommand(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
 

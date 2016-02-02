@@ -1,6 +1,6 @@
 /* Component Main interface */
-#ifndef __PHOTON_GC_MAIN_H_9bf48d33bae9979757d07f9707def9fd__
-#define __PHOTON_GC_MAIN_H_9bf48d33bae9979757d07f9707def9fd__ 
+#ifndef __PHOTON_GC_MAIN_H_c166b1e658c0e0fd0ef43ce5775396d2__
+#define __PHOTON_GC_MAIN_H_c166b1e658c0e0fd0ef43ce5775396d2__ 
 
 #include "photon/photon_prologue.h"
 
@@ -23,17 +23,17 @@ typedef struct PhotonGcMain_s PhotonGcMain;
 struct PhotonGcMain_s {
   PhotonGcMainData* data;
   PhotonGtArrBer (*segmentReceiverRequestSegmentsAck)(PhotonGcMain*);
-  PhotonGtOptionalScriptingError (*scriptingUploadScript)(PhotonGcMain*, PhotonGtScriptId*, PhotonGtArrU8*, PhotonGtArrU8*);
-  PhotonGtOptionalScriptingError (*scriptingDeleteScript)(PhotonGcMain*, PhotonGtScriptId*);
-  PhotonGtOptionalScriptingError (*scriptingRunScriptNow)(PhotonGcMain*, PhotonGtScriptId*);
+  PhotonGtOptionalScriptingError (*scriptingUploadScript)(PhotonGcMain*, PhotonGtScriptId, PhotonGtArrU8*, PhotonGtArrU8*);
+  PhotonGtOptionalScriptingError (*scriptingDeleteScript)(PhotonGcMain*, PhotonGtScriptId);
+  PhotonGtOptionalScriptingError (*scriptingRunScriptNow)(PhotonGcMain*, PhotonGtScriptId);
   PhotonGtOptionalScriptingError (*scriptingScheduleScriptRun)(PhotonGcMain*, PhotonGtScriptRunTiming*);
-  PhotonGtOptionalScriptingError (*scriptingEnableScriptRunTiming)(PhotonGcMain*, PhotonGtGuid*);
-  PhotonGtOptionalScriptingError (*scriptingDisableScriptRunTiming)(PhotonGcMain*, PhotonGtGuid*);
+  PhotonGtOptionalScriptingError (*scriptingEnableScriptRunTiming)(PhotonGcMain*, PhotonGtGuid);
+  PhotonGtOptionalScriptingError (*scriptingDisableScriptRunTiming)(PhotonGcMain*, PhotonGtGuid);
   PhotonGtOptionalSegmentProcessAckError (*segmentSenderProcessSegmentsAck)(PhotonGcMain*, PhotonGtArrBerMin1*);
   PhotonGtOptionalSegmentStartAckError (*segmentStartSegmentAckMode)(PhotonGcMain*);
   PhotonGtOptionalSegmentStopAckError (*segmentStopSegmentAckMode)(PhotonGcMain*);
   PhotonGtB8 (*segmentRequestAckModeStatus)(PhotonGcMain*);
-  PhotonGtOptionalSegmentProcessAckError (*segmentProcessAckModeStatus)(PhotonGcMain*, PhotonGtB8*);
+  PhotonGtOptionalSegmentProcessAckError (*segmentProcessAckModeStatus)(PhotonGcMain*, PhotonGtB8);
   PhotonGtOptionalSegmentStartAckError (*segmentStartAckOnEverySegmentMode)(PhotonGcMain*);
   PhotonGtOptionalSegmentStopAckError (*segmentStopAckOnEverySegmentMode)(PhotonGcMain*);
   PhotonGtOptionalFileUploadError (*filesUploadFile)(PhotonGcMain*, PhotonGtFullFileInfo*);
@@ -43,19 +43,19 @@ struct PhotonGcMain_s {
   PhotonGtOptionalFileCreateDirError (*filesCreateDir)(PhotonGcMain*, PhotonGtString*);
   PhotonGtShortId (*identificationRequestShortId)(PhotonGcMain*);
   PhotonGtFullId (*identificationRequestFullId)(PhotonGcMain*);
-  PhotonGtGuid (*identificationRequestComponentGuid)(PhotonGcMain*, PhotonBer*);
+  PhotonGtGuid (*identificationRequestComponentGuid)(PhotonGcMain*, PhotonBer);
   PhotonGtOptionalTmCmdError (*tmSendEventMessage)(PhotonGcMain*, PhotonGtEventInfo*);
   PhotonGtOptionalTmCmdError (*tmSendStatusMessage)(PhotonGcMain*, PhotonGtCompMsg*);
-  PhotonGtOptionalTmCmdError (*tmSetMessageRequest)(PhotonGcMain*, PhotonGtCompMsg*, PhotonBer*);
-  PhotonGtOptionalTmCmdError (*tmClearMessageRequest)(PhotonGcMain*, PhotonGtCompMsg*, PhotonBer*);
+  PhotonGtOptionalTmCmdError (*tmSetMessageRequest)(PhotonGcMain*, PhotonGtCompMsg*, PhotonBer);
+  PhotonGtOptionalTmCmdError (*tmClearMessageRequest)(PhotonGcMain*, PhotonGtCompMsg*, PhotonBer);
   PhotonGtOptionalTmCmdError (*tmDenyMessage)(PhotonGcMain*, PhotonGtCompMsg*);
   PhotonGtOptionalTmCmdError (*tmAllowMessage)(PhotonGcMain*, PhotonGtCompMsg*);
   PhotonGtOptionalTmCmdError (*tmDenyEvent)(PhotonGcMain*, PhotonGtEventInfo*);
   PhotonGtOptionalTmCmdError (*tmAllowEvent)(PhotonGcMain*, PhotonGtEventInfo*);
-  void (*routerSetRoute)(PhotonGcMain*, PhotonGtAddress*, PhotonGtAddress*);
-  void (*routerDelRoute)(PhotonGcMain*, PhotonGtAddress*);
-  void (*routerSetGroupRoute)(PhotonGcMain*, PhotonGtAddress*, PhotonGtAddress*);
-  void (*routerDelGroupRoute)(PhotonGcMain*, PhotonGtAddress*);
+  void (*routerSetRoute)(PhotonGcMain*, PhotonGtAddress, PhotonGtAddress);
+  void (*routerDelRoute)(PhotonGcMain*, PhotonGtAddress);
+  void (*routerSetGroupRoute)(PhotonGcMain*, PhotonGtAddress, PhotonGtAddress);
+  void (*routerDelGroupRoute)(PhotonGcMain*, PhotonGtAddress);
   PhotonGtArrBer (*segmentReceiverSegmentsReceived)(PhotonGcMain*);
   PhotonGtArrGuid (*scriptingScriptsIds)(PhotonGcMain*);
   PhotonGtArrScriptInfo (*scriptingScripts)(PhotonGcMain*);
@@ -106,6 +106,9 @@ PhotonResult PhotonGcMain_TmDenyMessage(PhotonGcMain* self, PhotonReader* reader
 PhotonResult PhotonGcMain_TmAllowMessage(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_TmDenyEvent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_TmAllowEvent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
+PhotonResult PhotonGcMain_WriteScriptingAvailableScriptsIds(PhotonGcMain* self, PhotonWriter* writer);
+PhotonResult PhotonGcMain_WriteScriptingScriptsRunTimings(PhotonGcMain* self, PhotonWriter* writer);
+PhotonResult PhotonGcMain_WriteSegmentReceiverSegmentsReceived(PhotonGcMain* self, PhotonWriter* writer);
 
 PhotonResult PhotonGcMain_ReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 

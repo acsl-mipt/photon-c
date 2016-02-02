@@ -1,6 +1,6 @@
 /* Component SegmentSender interface */
-#ifndef __PHOTON_GC_SEGMENT_SENDER_H_d970bfaa856afbcfee73e7930a62e906__
-#define __PHOTON_GC_SEGMENT_SENDER_H_d970bfaa856afbcfee73e7930a62e906__ 
+#ifndef __PHOTON_GC_SEGMENT_SENDER_H_8a933b3cfc048592a2ea20cbdb42ee61__
+#define __PHOTON_GC_SEGMENT_SENDER_H_8a933b3cfc048592a2ea20cbdb42ee61__ 
 
 #include "photon/photon_prologue.h"
 
@@ -22,7 +22,7 @@ struct PhotonGcSegmentSender_s {
   PhotonGtOptionalSegmentStartAckError (*segmentStartSegmentAckMode)(PhotonGcSegmentSender*);
   PhotonGtOptionalSegmentStopAckError (*segmentStopSegmentAckMode)(PhotonGcSegmentSender*);
   PhotonGtB8 (*segmentRequestAckModeStatus)(PhotonGcSegmentSender*);
-  PhotonGtOptionalSegmentProcessAckError (*segmentProcessAckModeStatus)(PhotonGcSegmentSender*, PhotonGtB8*);
+  PhotonGtOptionalSegmentProcessAckError (*segmentProcessAckModeStatus)(PhotonGcSegmentSender*, PhotonGtB8);
   PhotonGtOptionalSegmentStartAckError (*segmentStartAckOnEverySegmentMode)(PhotonGcSegmentSender*);
   PhotonGtOptionalSegmentStopAckError (*segmentStopAckOnEverySegmentMode)(PhotonGcSegmentSender*);
   PhotonGtB8 (*segmentIsSegmentationAckModeActive)(PhotonGcSegmentSender*);

@@ -38,6 +38,9 @@ PhotonResult PhotonGcSegmentReceiver_SegmentStopAckOnEverySegmentMode(PhotonGcSe
   return PhotonGtOptionalSegmentStopAckError_Serialize(&cmdResult, writer);
 }
 
+PhotonResult PhotonGcSegmentReceiver_WriteSegmentsReceived(PhotonGcSegmentReceiver* self, PhotonWriter* writer) {
+}
+
 PhotonResult PhotonGcSegmentReceiver_ExecuteCommand(PhotonGcSegmentReceiver* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:

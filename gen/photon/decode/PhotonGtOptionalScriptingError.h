@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_OPTIONAL_SCRIPTING_ERROR_H_56ce81fb5add25bcbd6080682c1240db__
-#define __PHOTON_GT_OPTIONAL_SCRIPTING_ERROR_H_56ce81fb5add25bcbd6080682c1240db__ 
+#ifndef __PHOTON_GT_OPTIONAL_SCRIPTING_ERROR_H_192063a5ee88492a94a46ffa95c1dcd1__
+#define __PHOTON_GT_OPTIONAL_SCRIPTING_ERROR_H_192063a5ee88492a94a46ffa95c1dcd1__ 
 
 #include "photon/photon_prologue.h"
 
