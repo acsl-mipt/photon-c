@@ -1,5 +1,5 @@
-#ifndef __PHOTON_GC_MAIN_SINGLETON_H_321e8f635830a6976931f3c6d8be8d59__
-#define __PHOTON_GC_MAIN_SINGLETON_H_321e8f635830a6976931f3c6d8be8d59__ 
+#ifndef __PHOTON_GC_MAIN_SINGLETON_H_eacbd1b45e1ca2cd6f14f0ee232ef15e__
+#define __PHOTON_GC_MAIN_SINGLETON_H_eacbd1b45e1ca2cd6f14f0ee232ef15e__ 
 
 #include "photon/PhotonGcMain.h"
 

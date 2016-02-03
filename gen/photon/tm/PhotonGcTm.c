@@ -89,3 +89,10 @@ PhotonResult PhotonGcTm_ReadExecuteCommand(PhotonGcTm* self, PhotonReader* reade
   PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
   return PhotonGcTm_ExecuteCommand(self, reader, writer, commandId);
 }
+
+PhotonResult PhotonGcTm_WriteMessage(PhotonGcTm* self, PhotonWriter* writer, size_t messageId) {
+  switch (messageId) {
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}

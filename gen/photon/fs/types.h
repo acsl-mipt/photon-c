@@ -1,4 +1,4 @@
 /* Types of ru.mipt.acsl.fs namespace */
-#ifndef __TYPES_H_072ca8de87d6e2fbc8edd8caa3619759__
-#define __TYPES_H_072ca8de87d6e2fbc8edd8caa3619759__ 
+#ifndef __TYPES_H_d96757336a526e5ce0c98e5221a57f3c__
+#define __TYPES_H_d96757336a526e5ce0c98e5221a57f3c__ 
 #endif

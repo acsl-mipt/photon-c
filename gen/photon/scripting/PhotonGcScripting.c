@@ -48,9 +48,15 @@ PhotonResult PhotonGcScripting_DisableScriptRunTiming(PhotonGcScripting* self, P
 }
 
 PhotonResult PhotonGcScripting_WriteAvailableScriptsIds(PhotonGcScripting* self, PhotonWriter* writer) {
+  PhotonGtArrGuid scriptsids = self->scriptsIds(self);
+  PHOTON_TRY(PhotonGtArrGuid_Serialize(&scriptsids, writer));
+  return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcScripting_WriteScriptsRunTimings(PhotonGcScripting* self, PhotonWriter* writer) {
+  PhotonGtArrScriptRunTiming scriptsruntimings = self->scriptsRunTimings(self);
+  PHOTON_TRY(PhotonGtArrScriptRunTiming_Serialize(&scriptsruntimings, writer));
+  return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcScripting_ExecuteCommand(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
@@ -76,4 +82,15 @@ PhotonResult PhotonGcScripting_ReadExecuteCommand(PhotonGcScripting* self, Photo
   size_t commandId;
   PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
   return PhotonGcScripting_ExecuteCommand(self, reader, writer, commandId);
+}
+
+PhotonResult PhotonGcScripting_WriteMessage(PhotonGcScripting* self, PhotonWriter* writer, size_t messageId) {
+  switch (messageId) {
+    case 0:
+      return PhotonGcScripting_WriteAvailableScriptsIds(self, writer);
+    case 1:
+      return PhotonGcScripting_WriteScriptsRunTimings(self, writer);
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
 }

@@ -1,6 +1,6 @@
 /* Component Files interface */
-#ifndef __PHOTON_GC_FILES_H_054dcfa6ebb579eec3621ba81e3b77d5__
-#define __PHOTON_GC_FILES_H_054dcfa6ebb579eec3621ba81e3b77d5__ 
+#ifndef __PHOTON_GC_FILES_H_9df20b4825cef8804127f33de0daee9c__
+#define __PHOTON_GC_FILES_H_9df20b4825cef8804127f33de0daee9c__ 
 
 #include "photon/photon_prologue.h"
 
@@ -35,6 +35,7 @@ PhotonResult PhotonGcFiles_RequestFileList(PhotonGcFiles* self, PhotonReader* re
 PhotonResult PhotonGcFiles_CreateDir(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer);
 
 PhotonResult PhotonGcFiles_ReadExecuteCommand(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer);
+PhotonResult PhotonGcFiles_WriteMessage(PhotonGcFiles* self, PhotonWriter* writer, size_t messageId);
 
 
 #ifdef __cplusplus

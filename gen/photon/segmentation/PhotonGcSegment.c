@@ -57,3 +57,10 @@ PhotonResult PhotonGcSegment_ReadExecuteCommand(PhotonGcSegment* self, PhotonRea
   PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
   return PhotonGcSegment_ExecuteCommand(self, reader, writer, commandId);
 }
+
+PhotonResult PhotonGcSegment_WriteMessage(PhotonGcSegment* self, PhotonWriter* writer, size_t messageId) {
+  switch (messageId) {
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}

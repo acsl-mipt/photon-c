@@ -1,4 +1,4 @@
 /* Types of ru.mipt.acsl.identification namespace */
-#ifndef __TYPES_H_32894aa99d11830dc238f8d0108ea98c__
-#define __TYPES_H_32894aa99d11830dc238f8d0108ea98c__ 
+#ifndef __TYPES_H_aac5ec164c916e52c4d409965748e463__
+#define __TYPES_H_aac5ec164c916e52c4d409965748e463__ 
 #endif

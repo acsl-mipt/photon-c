@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_I16_H_4ad7850bd6e97abb4c326e82bd6ca783__
-#define __PHOTON_GT_I16_H_4ad7850bd6e97abb4c326e82bd6ca783__ 
+#ifndef __PHOTON_GT_I16_H_1957a8b44c5defb843a75c2b81c292f7__
+#define __PHOTON_GT_I16_H_1957a8b44c5defb843a75c2b81c292f7__ 
 
 #include "photon/photon_prologue.h"
 

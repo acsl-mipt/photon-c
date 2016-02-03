@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_ROUTE_H_76609887d45f856bf91aeb61ef4891f5__
-#define __PHOTON_GT_ROUTE_H_76609887d45f856bf91aeb61ef4891f5__ 
+#ifndef __PHOTON_GT_ROUTE_H_dabee3934ccadffdde8739404aaa0113__
+#define __PHOTON_GT_ROUTE_H_dabee3934ccadffdde8739404aaa0113__ 
 
 #include "photon/photon_prologue.h"
 

@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_ADDRESS_H_f3a5109ea79606ae4c8c0f5d00395173__
-#define __PHOTON_GT_ADDRESS_H_f3a5109ea79606ae4c8c0f5d00395173__ 
+#ifndef __PHOTON_GT_ADDRESS_H_c1f0be507474fbe5c41a42ced07eb418__
+#define __PHOTON_GT_ADDRESS_H_c1f0be507474fbe5c41a42ced07eb418__ 
 
 #include "photon/photon_prologue.h"
 

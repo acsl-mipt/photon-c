@@ -36,3 +36,10 @@ PhotonResult PhotonGcIdentification_ReadExecuteCommand(PhotonGcIdentification* s
   PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
   return PhotonGcIdentification_ExecuteCommand(self, reader, writer, commandId);
 }
+
+PhotonResult PhotonGcIdentification_WriteMessage(PhotonGcIdentification* self, PhotonWriter* writer, size_t messageId) {
+  switch (messageId) {
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}

@@ -1,6 +1,6 @@
 /* Component Identification interface */
-#ifndef __PHOTON_GC_IDENTIFICATION_H_904182807b23cb4e8312c48d0892965f__
-#define __PHOTON_GC_IDENTIFICATION_H_904182807b23cb4e8312c48d0892965f__ 
+#ifndef __PHOTON_GC_IDENTIFICATION_H_1aa7428d5031017d07eb758a9f743e8a__
+#define __PHOTON_GC_IDENTIFICATION_H_1aa7428d5031017d07eb758a9f743e8a__ 
 
 #include "photon/photon_prologue.h"
 
@@ -28,6 +28,7 @@ PhotonResult PhotonGcIdentification_RequestFullId(PhotonGcIdentification* self, 
 PhotonResult PhotonGcIdentification_RequestComponentGuid(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer);
 
 PhotonResult PhotonGcIdentification_ReadExecuteCommand(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer);
+PhotonResult PhotonGcIdentification_WriteMessage(PhotonGcIdentification* self, PhotonWriter* writer, size_t messageId);
 
 
 #ifdef __cplusplus

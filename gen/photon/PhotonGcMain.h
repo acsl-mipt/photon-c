@@ -1,6 +1,6 @@
 /* Component Main interface */
-#ifndef __PHOTON_GC_MAIN_H_c166b1e658c0e0fd0ef43ce5775396d2__
-#define __PHOTON_GC_MAIN_H_c166b1e658c0e0fd0ef43ce5775396d2__ 
+#ifndef __PHOTON_GC_MAIN_H_78f8e08a9496a478135c3bfabfc60645__
+#define __PHOTON_GC_MAIN_H_78f8e08a9496a478135c3bfabfc60645__ 
 
 #include "photon/photon_prologue.h"
 
@@ -111,6 +111,7 @@ PhotonResult PhotonGcMain_WriteScriptingScriptsRunTimings(PhotonGcMain* self, Ph
 PhotonResult PhotonGcMain_WriteSegmentReceiverSegmentsReceived(PhotonGcMain* self, PhotonWriter* writer);
 
 PhotonResult PhotonGcMain_ReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
+PhotonResult PhotonGcMain_WriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId);
 
 
 #ifdef __cplusplus

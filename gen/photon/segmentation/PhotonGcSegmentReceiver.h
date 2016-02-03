@@ -1,6 +1,6 @@
 /* Component SegmentReceiver interface */
-#ifndef __PHOTON_GC_SEGMENT_RECEIVER_H_5119247886b430dc2bb32abd8c1f9781__
-#define __PHOTON_GC_SEGMENT_RECEIVER_H_5119247886b430dc2bb32abd8c1f9781__ 
+#ifndef __PHOTON_GC_SEGMENT_RECEIVER_H_b55d10585c49ecb99450e6f03c57889b__
+#define __PHOTON_GC_SEGMENT_RECEIVER_H_b55d10585c49ecb99450e6f03c57889b__ 
 
 #include "photon/photon_prologue.h"
 
@@ -40,6 +40,7 @@ PhotonResult PhotonGcSegmentReceiver_SegmentStopAckOnEverySegmentMode(PhotonGcSe
 PhotonResult PhotonGcSegmentReceiver_WriteSegmentsReceived(PhotonGcSegmentReceiver* self, PhotonWriter* writer);
 
 PhotonResult PhotonGcSegmentReceiver_ReadExecuteCommand(PhotonGcSegmentReceiver* self, PhotonReader* reader, PhotonWriter* writer);
+PhotonResult PhotonGcSegmentReceiver_WriteMessage(PhotonGcSegmentReceiver* self, PhotonWriter* writer, size_t messageId);
 
 
 #ifdef __cplusplus

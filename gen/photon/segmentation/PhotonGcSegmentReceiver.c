@@ -39,6 +39,9 @@ PhotonResult PhotonGcSegmentReceiver_SegmentStopAckOnEverySegmentMode(PhotonGcSe
 }
 
 PhotonResult PhotonGcSegmentReceiver_WriteSegmentsReceived(PhotonGcSegmentReceiver* self, PhotonWriter* writer) {
+  PhotonGtArrBer segmentsreceived = self->segmentsReceived(self);
+  PHOTON_TRY(PhotonGtArrBer_Serialize(&segmentsreceived, writer));
+  return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcSegmentReceiver_ExecuteCommand(PhotonGcSegmentReceiver* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
@@ -66,4 +69,13 @@ PhotonResult PhotonGcSegmentReceiver_ReadExecuteCommand(PhotonGcSegmentReceiver*
   size_t commandId;
   PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
   return PhotonGcSegmentReceiver_ExecuteCommand(self, reader, writer, commandId);
+}
+
+PhotonResult PhotonGcSegmentReceiver_WriteMessage(PhotonGcSegmentReceiver* self, PhotonWriter* writer, size_t messageId) {
+  switch (messageId) {
+    case 0:
+      return PhotonGcSegmentReceiver_WriteSegmentsReceived(self, writer);
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
 }

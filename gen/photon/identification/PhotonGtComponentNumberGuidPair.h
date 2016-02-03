@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_COMPONENT_NUMBER_GUID_PAIR_H_c2b3a3ce558a6f1b5dc2249ed401e595__
-#define __PHOTON_GT_COMPONENT_NUMBER_GUID_PAIR_H_c2b3a3ce558a6f1b5dc2249ed401e595__ 
+#ifndef __PHOTON_GT_COMPONENT_NUMBER_GUID_PAIR_H_cc4093a6cfc44814a9817d3fe958c8cd__
+#define __PHOTON_GT_COMPONENT_NUMBER_GUID_PAIR_H_cc4093a6cfc44814a9817d3fe958c8cd__ 
 
 #include "photon/photon_prologue.h"
 

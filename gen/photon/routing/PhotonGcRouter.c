@@ -49,3 +49,10 @@ PhotonResult PhotonGcRouter_ReadExecuteCommand(PhotonGcRouter* self, PhotonReade
   PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
   return PhotonGcRouter_ExecuteCommand(self, reader, writer, commandId);
 }
+
+PhotonResult PhotonGcRouter_WriteMessage(PhotonGcRouter* self, PhotonWriter* writer, size_t messageId) {
+  switch (messageId) {
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}

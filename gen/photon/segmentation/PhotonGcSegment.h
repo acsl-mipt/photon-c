@@ -1,6 +1,6 @@
 /* Component Segment interface */
-#ifndef __PHOTON_GC_SEGMENT_H_cdbbbd7a3777d2984e41122f7a43acaa__
-#define __PHOTON_GC_SEGMENT_H_cdbbbd7a3777d2984e41122f7a43acaa__ 
+#ifndef __PHOTON_GC_SEGMENT_H_638bb5b6d3d33fdfb6b6b68cf04d4366__
+#define __PHOTON_GC_SEGMENT_H_638bb5b6d3d33fdfb6b6b68cf04d4366__ 
 
 #include "photon/photon_prologue.h"
 
@@ -37,6 +37,7 @@ PhotonResult PhotonGcSegment_StartAckOnEverySegmentMode(PhotonGcSegment* self, P
 PhotonResult PhotonGcSegment_StopAckOnEverySegmentMode(PhotonGcSegment* self, PhotonReader* reader, PhotonWriter* writer);
 
 PhotonResult PhotonGcSegment_ReadExecuteCommand(PhotonGcSegment* self, PhotonReader* reader, PhotonWriter* writer);
+PhotonResult PhotonGcSegment_WriteMessage(PhotonGcSegment* self, PhotonWriter* writer, size_t messageId);
 
 
 #ifdef __cplusplus

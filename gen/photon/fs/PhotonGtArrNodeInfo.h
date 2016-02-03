@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_ARR_NODE_INFO_H_fa80569f93bfa7646832042e266e4c04__
-#define __PHOTON_GT_ARR_NODE_INFO_H_fa80569f93bfa7646832042e266e4c04__ 
+#ifndef __PHOTON_GT_ARR_NODE_INFO_H_8989610b93ec77aecb3daf1c60748d26__
+#define __PHOTON_GT_ARR_NODE_INFO_H_8989610b93ec77aecb3daf1c60748d26__ 
 
 #include "photon/photon_prologue.h"
 
