@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_DATE_TIME_H_f1d10e62b1f7604c6d7ca92b7015a5d9__
-#define __PHOTON_GT_DATE_TIME_H_f1d10e62b1f7604c6d7ca92b7015a5d9__ 
+#ifndef __PHOTON_GT_DATE_TIME_H_e98594eadf062c6010a78b5876c4c4ba__
+#define __PHOTON_GT_DATE_TIME_H_e98594eadf062c6010a78b5876c4c4ba__ 
 
 #include "photon/photon_prologue.h"
 

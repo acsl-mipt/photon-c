@@ -1,4 +1,4 @@
 /* Types of ru.mipt.acsl.segmentation namespace */
-#ifndef __TYPES_H_5e384a90d6da228667558aaa328bcfdd__
-#define __TYPES_H_5e384a90d6da228667558aaa328bcfdd__ 
+#ifndef __TYPES_H_fceffe698b6e62a8fb0ba6b8e267d2ee__
+#define __TYPES_H_fceffe698b6e62a8fb0ba6b8e267d2ee__ 
 #endif

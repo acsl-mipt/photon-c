@@ -1,6 +1,6 @@
 /* Component SegmentSender interface */
-#ifndef __PHOTON_GC_SEGMENT_SENDER_H_819c456196b5f6db0837abf3d1dde563__
-#define __PHOTON_GC_SEGMENT_SENDER_H_819c456196b5f6db0837abf3d1dde563__ 
+#ifndef __PHOTON_GC_SEGMENT_SENDER_H_91e25663496d19bc928283633b916181__
+#define __PHOTON_GC_SEGMENT_SENDER_H_91e25663496d19bc928283633b916181__ 
 
 #include "photon/photon_prologue.h"
 
@@ -37,9 +37,10 @@ PhotonResult PhotonGcSegmentSender_SegmentRequestAckModeStatus(PhotonGcSegmentSe
 PhotonResult PhotonGcSegmentSender_SegmentProcessAckModeStatus(PhotonGcSegmentSender* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcSegmentSender_SegmentStartAckOnEverySegmentMode(PhotonGcSegmentSender* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcSegmentSender_SegmentStopAckOnEverySegmentMode(PhotonGcSegmentSender* self, PhotonReader* reader, PhotonWriter* writer);
-
+PhotonResult PhotonGcSegmentSender_ExecuteCommand(PhotonGcSegmentSender* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId);
 PhotonResult PhotonGcSegmentSender_ReadExecuteCommand(PhotonGcSegmentSender* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcSegmentSender_WriteMessage(PhotonGcSegmentSender* self, PhotonWriter* writer, size_t messageId);
+PhotonGtB8 PhotonGcSegmentSender_IsStatusMessage(size_t messageId);
 
 
 #ifdef __cplusplus

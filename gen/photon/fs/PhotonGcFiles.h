@@ -1,6 +1,6 @@
 /* Component Files interface */
-#ifndef __PHOTON_GC_FILES_H_9df20b4825cef8804127f33de0daee9c__
-#define __PHOTON_GC_FILES_H_9df20b4825cef8804127f33de0daee9c__ 
+#ifndef __PHOTON_GC_FILES_H_c5c6add2cd6a2b9014a755cbcae433b9__
+#define __PHOTON_GC_FILES_H_c5c6add2cd6a2b9014a755cbcae433b9__ 
 
 #include "photon/photon_prologue.h"
 
@@ -33,9 +33,10 @@ PhotonResult PhotonGcFiles_DownloadFile(PhotonGcFiles* self, PhotonReader* reade
 PhotonResult PhotonGcFiles_DeleteNode(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcFiles_RequestFileList(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcFiles_CreateDir(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer);
-
+PhotonResult PhotonGcFiles_ExecuteCommand(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId);
 PhotonResult PhotonGcFiles_ReadExecuteCommand(PhotonGcFiles* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcFiles_WriteMessage(PhotonGcFiles* self, PhotonWriter* writer, size_t messageId);
+PhotonGtB8 PhotonGcFiles_IsStatusMessage(size_t messageId);
 
 
 #ifdef __cplusplus

@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_NODE_INFO_H_13e7d3b7550230332ac5a76c10c6aa8a__
-#define __PHOTON_GT_NODE_INFO_H_13e7d3b7550230332ac5a76c10c6aa8a__ 
+#ifndef __PHOTON_GT_NODE_INFO_H_4a54caa65f11f5bcc9cf42d9f568e7d1__
+#define __PHOTON_GT_NODE_INFO_H_4a54caa65f11f5bcc9cf42d9f568e7d1__ 
 
 #include "photon/photon_prologue.h"
 

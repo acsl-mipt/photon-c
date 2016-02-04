@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_OPTIONAL_FILE_DELETE_ERROR_H_0f7a0cde502edef97417b283e9224e18__
-#define __PHOTON_GT_OPTIONAL_FILE_DELETE_ERROR_H_0f7a0cde502edef97417b283e9224e18__ 
+#ifndef __PHOTON_GT_OPTIONAL_FILE_DELETE_ERROR_H_7d4f6a74a50c553f6d3c4cdcdb72b4a9__
+#define __PHOTON_GT_OPTIONAL_FILE_DELETE_ERROR_H_7d4f6a74a50c553f6d3c4cdcdb72b4a9__ 
 
 #include "photon/photon_prologue.h"
 

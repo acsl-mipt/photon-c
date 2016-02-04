@@ -85,6 +85,7 @@ PhotonResult PhotonGcScripting_ReadExecuteCommand(PhotonGcScripting* self, Photo
 }
 
 PhotonResult PhotonGcScripting_WriteMessage(PhotonGcScripting* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
   switch (messageId) {
     case 0:
       return PhotonGcScripting_WriteAvailableScriptsIds(self, writer);
@@ -94,3 +95,15 @@ PhotonResult PhotonGcScripting_WriteMessage(PhotonGcScripting* self, PhotonWrite
       return PhotonResult_InvalidMessageId;
   }
 }
+
+PhotonGtB8 PhotonGcScripting_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    case 0:
+      return true;
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+

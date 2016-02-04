@@ -1,6 +1,6 @@
 /* Component Scripting interface */
-#ifndef __PHOTON_GC_SCRIPTING_H_df7759483a976dac9f58748b9fd4c075__
-#define __PHOTON_GC_SCRIPTING_H_df7759483a976dac9f58748b9fd4c075__ 
+#ifndef __PHOTON_GC_SCRIPTING_H_6ee3636fda5fbee21a27aef89d792485__
+#define __PHOTON_GC_SCRIPTING_H_6ee3636fda5fbee21a27aef89d792485__ 
 
 #include "photon/photon_prologue.h"
 
@@ -41,9 +41,10 @@ PhotonResult PhotonGcScripting_EnableScriptRunTiming(PhotonGcScripting* self, Ph
 PhotonResult PhotonGcScripting_DisableScriptRunTiming(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcScripting_WriteAvailableScriptsIds(PhotonGcScripting* self, PhotonWriter* writer);
 PhotonResult PhotonGcScripting_WriteScriptsRunTimings(PhotonGcScripting* self, PhotonWriter* writer);
-
+PhotonResult PhotonGcScripting_ExecuteCommand(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId);
 PhotonResult PhotonGcScripting_ReadExecuteCommand(PhotonGcScripting* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcScripting_WriteMessage(PhotonGcScripting* self, PhotonWriter* writer, size_t messageId);
+PhotonGtB8 PhotonGcScripting_IsStatusMessage(size_t messageId);
 
 
 #ifdef __cplusplus

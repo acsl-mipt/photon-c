@@ -91,8 +91,17 @@ PhotonResult PhotonGcTm_ReadExecuteCommand(PhotonGcTm* self, PhotonReader* reade
 }
 
 PhotonResult PhotonGcTm_WriteMessage(PhotonGcTm* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
   switch (messageId) {
     default:
       return PhotonResult_InvalidMessageId;
   }
 }
+
+PhotonGtB8 PhotonGcTm_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    default:
+      return false;
+  }
+}
+

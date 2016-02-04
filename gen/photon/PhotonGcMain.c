@@ -231,6 +231,12 @@ PhotonResult PhotonGcMain_TmAllowEvent(PhotonGcMain* self, PhotonReader* reader,
   return PhotonGtOptionalTmCmdError_Serialize(&cmdResult, writer);
 }
 
+PhotonResult PhotonGcMain_WriteIdentificationFullId(PhotonGcMain* self, PhotonWriter* writer) {
+  PhotonGtFullId fullid = self->identificationFullId(self);
+  PHOTON_TRY(PhotonGtFullId_Serialize(&fullid, writer));
+  return PhotonResult_Ok;
+}
+
 PhotonResult PhotonGcMain_WriteScriptingAvailableScriptsIds(PhotonGcMain* self, PhotonWriter* writer) {
   PhotonGtArrGuid scriptsids = self->scriptingScriptsIds(self);
   PHOTON_TRY(PhotonGtArrGuid_Serialize(&scriptsids, writer));
@@ -331,14 +337,33 @@ PhotonResult PhotonGcMain_ReadExecuteCommand(PhotonGcMain* self, PhotonReader* r
 }
 
 PhotonResult PhotonGcMain_WriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
   switch (messageId) {
     case 0:
-      return PhotonGcMain_WriteScriptingAvailableScriptsIds(self, writer);
+      return PhotonGcMain_WriteIdentificationFullId(self, writer);
     case 1:
-      return PhotonGcMain_WriteScriptingScriptsRunTimings(self, writer);
+      return PhotonGcMain_WriteScriptingAvailableScriptsIds(self, writer);
     case 2:
+      return PhotonGcMain_WriteScriptingScriptsRunTimings(self, writer);
+    case 3:
       return PhotonGcMain_WriteSegmentReceiverSegmentsReceived(self, writer);
     default:
       return PhotonResult_InvalidMessageId;
   }
 }
+
+PhotonGtB8 PhotonGcMain_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    case 0:
+      return true;
+    case 1:
+      return true;
+    case 2:
+      return true;
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+

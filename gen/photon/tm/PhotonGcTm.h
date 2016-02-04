@@ -1,6 +1,6 @@
 /* Component Tm interface */
-#ifndef __PHOTON_GC_TM_H_ae8a97783834bc99c2f3c4826b36314a__
-#define __PHOTON_GC_TM_H_ae8a97783834bc99c2f3c4826b36314a__ 
+#ifndef __PHOTON_GC_TM_H_b25c17d4ac54c4446cd8076c55f6a8d3__
+#define __PHOTON_GC_TM_H_b25c17d4ac54c4446cd8076c55f6a8d3__ 
 
 #include "photon/photon_prologue.h"
 
@@ -44,9 +44,10 @@ PhotonResult PhotonGcTm_DenyMessage(PhotonGcTm* self, PhotonReader* reader, Phot
 PhotonResult PhotonGcTm_AllowMessage(PhotonGcTm* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcTm_DenyEvent(PhotonGcTm* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcTm_AllowEvent(PhotonGcTm* self, PhotonReader* reader, PhotonWriter* writer);
-
+PhotonResult PhotonGcTm_ExecuteCommand(PhotonGcTm* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId);
 PhotonResult PhotonGcTm_ReadExecuteCommand(PhotonGcTm* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcTm_WriteMessage(PhotonGcTm* self, PhotonWriter* writer, size_t messageId);
+PhotonGtB8 PhotonGcTm_IsStatusMessage(size_t messageId);
 
 
 #ifdef __cplusplus

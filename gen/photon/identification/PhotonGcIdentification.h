@@ -1,6 +1,6 @@
 /* Component Identification interface */
-#ifndef __PHOTON_GC_IDENTIFICATION_H_1aa7428d5031017d07eb758a9f743e8a__
-#define __PHOTON_GC_IDENTIFICATION_H_1aa7428d5031017d07eb758a9f743e8a__ 
+#ifndef __PHOTON_GC_IDENTIFICATION_H_8ab4c119f6bf894ee78cd0a3ad7563f2__
+#define __PHOTON_GC_IDENTIFICATION_H_8ab4c119f6bf894ee78cd0a3ad7563f2__ 
 
 #include "photon/photon_prologue.h"
 
@@ -26,9 +26,11 @@ struct PhotonGcIdentification_s {
 PhotonResult PhotonGcIdentification_RequestShortId(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcIdentification_RequestFullId(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcIdentification_RequestComponentGuid(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer);
-
+PhotonResult PhotonGcIdentification_WriteFullId(PhotonGcIdentification* self, PhotonWriter* writer);
+PhotonResult PhotonGcIdentification_ExecuteCommand(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId);
 PhotonResult PhotonGcIdentification_ReadExecuteCommand(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcIdentification_WriteMessage(PhotonGcIdentification* self, PhotonWriter* writer, size_t messageId);
+PhotonGtB8 PhotonGcIdentification_IsStatusMessage(size_t messageId);
 
 
 #ifdef __cplusplus

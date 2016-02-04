@@ -1,6 +1,6 @@
 /* Component Main interface */
-#ifndef __PHOTON_GC_MAIN_H_78f8e08a9496a478135c3bfabfc60645__
-#define __PHOTON_GC_MAIN_H_78f8e08a9496a478135c3bfabfc60645__ 
+#ifndef __PHOTON_GC_MAIN_H_ad2461e1fdec31388b9f8e9f433a1362__
+#define __PHOTON_GC_MAIN_H_ad2461e1fdec31388b9f8e9f433a1362__ 
 
 #include "photon/photon_prologue.h"
 
@@ -106,12 +106,14 @@ PhotonResult PhotonGcMain_TmDenyMessage(PhotonGcMain* self, PhotonReader* reader
 PhotonResult PhotonGcMain_TmAllowMessage(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_TmDenyEvent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_TmAllowEvent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
+PhotonResult PhotonGcMain_WriteIdentificationFullId(PhotonGcMain* self, PhotonWriter* writer);
 PhotonResult PhotonGcMain_WriteScriptingAvailableScriptsIds(PhotonGcMain* self, PhotonWriter* writer);
 PhotonResult PhotonGcMain_WriteScriptingScriptsRunTimings(PhotonGcMain* self, PhotonWriter* writer);
 PhotonResult PhotonGcMain_WriteSegmentReceiverSegmentsReceived(PhotonGcMain* self, PhotonWriter* writer);
-
+PhotonResult PhotonGcMain_ExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId);
 PhotonResult PhotonGcMain_ReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_WriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId);
+PhotonGtB8 PhotonGcMain_IsStatusMessage(size_t messageId);
 
 
 #ifdef __cplusplus

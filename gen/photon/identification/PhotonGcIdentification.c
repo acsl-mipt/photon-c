@@ -18,6 +18,12 @@ PhotonResult PhotonGcIdentification_RequestComponentGuid(PhotonGcIdentification*
   return PhotonGtGuid_Serialize(&cmdResult, writer);
 }
 
+PhotonResult PhotonGcIdentification_WriteFullId(PhotonGcIdentification* self, PhotonWriter* writer) {
+  PhotonGtFullId fullid = self->fullId(self);
+  PHOTON_TRY(PhotonGtFullId_Serialize(&fullid, writer));
+  return PhotonResult_Ok;
+}
+
 PhotonResult PhotonGcIdentification_ExecuteCommand(PhotonGcIdentification* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
@@ -38,8 +44,21 @@ PhotonResult PhotonGcIdentification_ReadExecuteCommand(PhotonGcIdentification* s
 }
 
 PhotonResult PhotonGcIdentification_WriteMessage(PhotonGcIdentification* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
   switch (messageId) {
+    case 0:
+      return PhotonGcIdentification_WriteFullId(self, writer);
     default:
       return PhotonResult_InvalidMessageId;
   }
 }
+
+PhotonGtB8 PhotonGcIdentification_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    case 0:
+      return true;
+    default:
+      return false;
+  }
+}
+

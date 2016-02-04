@@ -60,8 +60,17 @@ PhotonResult PhotonGcFiles_ReadExecuteCommand(PhotonGcFiles* self, PhotonReader*
 }
 
 PhotonResult PhotonGcFiles_WriteMessage(PhotonGcFiles* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
   switch (messageId) {
     default:
       return PhotonResult_InvalidMessageId;
   }
 }
+
+PhotonGtB8 PhotonGcFiles_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    default:
+      return false;
+  }
+}
+

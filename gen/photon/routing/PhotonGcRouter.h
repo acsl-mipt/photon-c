@@ -1,6 +1,6 @@
 /* Component Router interface */
-#ifndef __PHOTON_GC_ROUTER_H_9a30630450e0f9809ee9e5d2261b2eab__
-#define __PHOTON_GC_ROUTER_H_9a30630450e0f9809ee9e5d2261b2eab__ 
+#ifndef __PHOTON_GC_ROUTER_H_738ac4045f7afbe6dd9c21156d768a59__
+#define __PHOTON_GC_ROUTER_H_738ac4045f7afbe6dd9c21156d768a59__ 
 
 #include "photon/photon_prologue.h"
 
@@ -28,9 +28,10 @@ PhotonResult PhotonGcRouter_SetRoute(PhotonGcRouter* self, PhotonReader* reader,
 PhotonResult PhotonGcRouter_DelRoute(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcRouter_SetGroupRoute(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcRouter_DelGroupRoute(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer);
-
+PhotonResult PhotonGcRouter_ExecuteCommand(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId);
 PhotonResult PhotonGcRouter_ReadExecuteCommand(PhotonGcRouter* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcRouter_WriteMessage(PhotonGcRouter* self, PhotonWriter* writer, size_t messageId);
+PhotonGtB8 PhotonGcRouter_IsStatusMessage(size_t messageId);
 
 
 #ifdef __cplusplus

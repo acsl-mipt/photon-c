@@ -51,8 +51,17 @@ PhotonResult PhotonGcRouter_ReadExecuteCommand(PhotonGcRouter* self, PhotonReade
 }
 
 PhotonResult PhotonGcRouter_WriteMessage(PhotonGcRouter* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
   switch (messageId) {
     default:
       return PhotonResult_InvalidMessageId;
   }
 }
+
+PhotonGtB8 PhotonGcRouter_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    default:
+      return false;
+  }
+}
+

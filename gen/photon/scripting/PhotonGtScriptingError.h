@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_SCRIPTING_ERROR_H_cadad1197c0e5f9064be9d19ad60043f__
-#define __PHOTON_GT_SCRIPTING_ERROR_H_cadad1197c0e5f9064be9d19ad60043f__ 
+#ifndef __PHOTON_GT_SCRIPTING_ERROR_H_4d1051a0ab050cc6fe544ebc5b69731f__
+#define __PHOTON_GT_SCRIPTING_ERROR_H_4d1051a0ab050cc6fe544ebc5b69731f__ 
 
 #include "photon/photon_prologue.h"
 

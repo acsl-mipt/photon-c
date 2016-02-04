@@ -72,6 +72,7 @@ PhotonResult PhotonGcSegmentReceiver_ReadExecuteCommand(PhotonGcSegmentReceiver*
 }
 
 PhotonResult PhotonGcSegmentReceiver_WriteMessage(PhotonGcSegmentReceiver* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
   switch (messageId) {
     case 0:
       return PhotonGcSegmentReceiver_WriteSegmentsReceived(self, writer);
@@ -79,3 +80,13 @@ PhotonResult PhotonGcSegmentReceiver_WriteMessage(PhotonGcSegmentReceiver* self,
       return PhotonResult_InvalidMessageId;
   }
 }
+
+PhotonGtB8 PhotonGcSegmentReceiver_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    case 0:
+      return true;
+    default:
+      return false;
+  }
+}
+
