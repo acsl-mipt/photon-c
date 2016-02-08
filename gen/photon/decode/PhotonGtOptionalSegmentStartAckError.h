@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_OPTIONAL_SEGMENT_START_ACK_ERROR_H_a18fc78bed873a08c95b146cb9280fd2__
-#define __PHOTON_GT_OPTIONAL_SEGMENT_START_ACK_ERROR_H_a18fc78bed873a08c95b146cb9280fd2__ 
+#ifndef __PHOTON_DECODE_PHOTON_GT_OPTIONAL_SEGMENT_START_ACK_ERROR_H__
+#define __PHOTON_DECODE_PHOTON_GT_OPTIONAL_SEGMENT_START_ACK_ERROR_H__ 
 #include "photon/photon_prologue.h"
 
 #include "photon/segmentation/PhotonGtSegmentStartAckError.h"

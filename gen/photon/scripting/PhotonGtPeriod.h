@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_PERIOD_H_336519afa9700735aad0d6d047dd05c0__
-#define __PHOTON_GT_PERIOD_H_336519afa9700735aad0d6d047dd05c0__ 
+#ifndef __PHOTON_SCRIPTING_PHOTON_GT_PERIOD_H__
+#define __PHOTON_SCRIPTING_PHOTON_GT_PERIOD_H__ 
 #include "photon/photon_prologue.h"
 
 #ifdef __cplusplus

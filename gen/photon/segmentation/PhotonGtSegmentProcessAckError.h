@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_SEGMENT_PROCESS_ACK_ERROR_H_fc71103c53ff6846ae9b81bd15df6d0c__
-#define __PHOTON_GT_SEGMENT_PROCESS_ACK_ERROR_H_fc71103c53ff6846ae9b81bd15df6d0c__ 
+#ifndef __PHOTON_SEGMENTATION_PHOTON_GT_SEGMENT_PROCESS_ACK_ERROR_H__
+#define __PHOTON_SEGMENTATION_PHOTON_GT_SEGMENT_PROCESS_ACK_ERROR_H__ 
 #include "photon/photon_prologue.h"
 
 #ifdef __cplusplus

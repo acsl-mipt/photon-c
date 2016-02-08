@@ -3,7 +3,7 @@
 
 
 PhotonResult PhotonGtComponentNumberGuidPair_Serialize(PhotonGtComponentNumberGuidPair* self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer) + sizeof(PhotonBer))
+  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->number, writer));
   PHOTON_TRY(PhotonBer_Serialize(self->guid, writer));

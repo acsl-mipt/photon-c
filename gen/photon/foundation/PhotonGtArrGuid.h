@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_ARR_GUID_H_2db9c490dadb87610d635982c53bc59f__
-#define __PHOTON_GT_ARR_GUID_H_2db9c490dadb87610d635982c53bc59f__ 
+#ifndef __PHOTON_FOUNDATION_PHOTON_GT_ARR_GUID_H__
+#define __PHOTON_FOUNDATION_PHOTON_GT_ARR_GUID_H__ 
 #include "photon/photon_prologue.h"
 
 #include "photon/foundation/PhotonGtGuid.h"

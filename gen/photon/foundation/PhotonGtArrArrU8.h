@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_ARR_ARR_U8_H_fdc2d69a76c8f7f90e644f2cf533ed75__
-#define __PHOTON_GT_ARR_ARR_U8_H_fdc2d69a76c8f7f90e644f2cf533ed75__ 
+#ifndef __PHOTON_FOUNDATION_PHOTON_GT_ARR_ARR_U8_H__
+#define __PHOTON_FOUNDATION_PHOTON_GT_ARR_ARR_U8_H__ 
 #include "photon/photon_prologue.h"
 
 #include "photon/foundation/PhotonGtArrU8.h"

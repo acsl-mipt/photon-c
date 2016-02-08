@@ -3,7 +3,7 @@
 
 
 PhotonResult PhotonGtScriptInfo_Serialize(PhotonGtScriptInfo* self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer) + (*self).scriptData.size * sizeof(unsigned char) + (*self).scriptCode.size * sizeof(unsigned char))
+  if (PhotonWriter_WritableSize(writer) < (*self).scriptData.size * sizeof(unsigned char) + (*self).scriptCode.size * sizeof(unsigned char))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->scriptId, writer));
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->scriptData, writer));

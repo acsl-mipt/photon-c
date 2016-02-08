@@ -366,19 +366,10 @@ PhotonGtB8 PhotonGcMain_IsStatusMessage(size_t messageId) {
   }
 }
 
-PhotonResult PhotonGcMain_SegmentExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
+PhotonResult PhotonGcMain_TmExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
   switch (componentId) {
     case 0:
-      return PhotonGcMain_SegmentReadExecuteCommand(self, reader, writer);
-    default:
-      return PhotonResult_InvalidComponentId;
-  }
-}
-
-PhotonResult PhotonGcMain_FilesExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
-  switch (componentId) {
-    case 0:
-      return PhotonGcMain_FilesReadExecuteCommand(self, reader, writer);
+      return PhotonGcMain_TmReadExecuteCommand(self, reader, writer);
     default:
       return PhotonResult_InvalidComponentId;
   }
@@ -395,6 +386,15 @@ PhotonResult PhotonGcMain_SegmentSenderExecuteCommandForComponent(PhotonGcMain* 
   }
 }
 
+PhotonResult PhotonGcMain_IdentificationExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
+  switch (componentId) {
+    case 0:
+      return PhotonGcMain_IdentificationReadExecuteCommand(self, reader, writer);
+    default:
+      return PhotonResult_InvalidComponentId;
+  }
+}
+
 PhotonResult PhotonGcMain_RouterExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
   switch (componentId) {
     case 0:
@@ -404,11 +404,18 @@ PhotonResult PhotonGcMain_RouterExecuteCommandForComponent(PhotonGcMain* self, P
   }
 }
 
-PhotonResult PhotonGcMain_SegmentReceiverExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
+PhotonResult PhotonGcMain_FilesExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
   switch (componentId) {
     case 0:
-      return PhotonGcMain_SegmentReceiverReadExecuteCommand(self, reader, writer);
-    case 1:
+      return PhotonGcMain_FilesReadExecuteCommand(self, reader, writer);
+    default:
+      return PhotonResult_InvalidComponentId;
+  }
+}
+
+PhotonResult PhotonGcMain_SegmentExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
+  switch (componentId) {
+    case 0:
       return PhotonGcMain_SegmentReadExecuteCommand(self, reader, writer);
     default:
       return PhotonResult_InvalidComponentId;
@@ -424,19 +431,12 @@ PhotonResult PhotonGcMain_ScriptingExecuteCommandForComponent(PhotonGcMain* self
   }
 }
 
-PhotonResult PhotonGcMain_TmExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
+PhotonResult PhotonGcMain_SegmentReceiverExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
   switch (componentId) {
     case 0:
-      return PhotonGcMain_TmReadExecuteCommand(self, reader, writer);
-    default:
-      return PhotonResult_InvalidComponentId;
-  }
-}
-
-PhotonResult PhotonGcMain_IdentificationExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
-  switch (componentId) {
-    case 0:
-      return PhotonGcMain_IdentificationReadExecuteCommand(self, reader, writer);
+      return PhotonGcMain_SegmentReceiverReadExecuteCommand(self, reader, writer);
+    case 1:
+      return PhotonGcMain_SegmentReadExecuteCommand(self, reader, writer);
     default:
       return PhotonResult_InvalidComponentId;
   }

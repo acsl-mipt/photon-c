@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_SCRIPT_INFO_H_4dbd366ba20dcafdda7d24f3946e1241__
-#define __PHOTON_GT_SCRIPT_INFO_H_4dbd366ba20dcafdda7d24f3946e1241__ 
+#ifndef __PHOTON_SCRIPTING_PHOTON_GT_SCRIPT_INFO_H__
+#define __PHOTON_SCRIPTING_PHOTON_GT_SCRIPT_INFO_H__ 
 #include "photon/photon_prologue.h"
 
 #include "photon/scripting/PhotonGtScriptId.h"

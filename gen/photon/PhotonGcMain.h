@@ -1,5 +1,5 @@
-#ifndef __PHOTON_GC_MAIN_H_f33838e84c52820a09daddad546a0dff__
-#define __PHOTON_GC_MAIN_H_f33838e84c52820a09daddad546a0dff__ 
+#ifndef __PHOTON_PHOTON_GC_MAIN_H__
+#define __PHOTON_PHOTON_GC_MAIN_H__ 
 #include "photon/photon_prologue.h"
 
 #ifdef __cplusplus
@@ -169,14 +169,14 @@ PhotonResult PhotonGcMain_ExecuteCommand(PhotonGcMain* self, PhotonReader* reade
 PhotonResult PhotonGcMain_ReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_WriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId);
 PhotonGtB8 PhotonGcMain_IsStatusMessage(size_t messageId);
-PhotonResult PhotonGcMain_SegmentExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
-PhotonResult PhotonGcMain_FilesExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
-PhotonResult PhotonGcMain_SegmentSenderExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
-PhotonResult PhotonGcMain_RouterExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
-PhotonResult PhotonGcMain_SegmentReceiverExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
-PhotonResult PhotonGcMain_ScriptingExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
 PhotonResult PhotonGcMain_TmExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
+PhotonResult PhotonGcMain_SegmentSenderExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
 PhotonResult PhotonGcMain_IdentificationExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
+PhotonResult PhotonGcMain_RouterExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
+PhotonResult PhotonGcMain_FilesExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
+PhotonResult PhotonGcMain_SegmentExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
+PhotonResult PhotonGcMain_ScriptingExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
+PhotonResult PhotonGcMain_SegmentReceiverExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId);
 PhotonResult PhotonGcMain_FilesExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId);
 PhotonResult PhotonGcMain_FilesReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_FilesWriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId);

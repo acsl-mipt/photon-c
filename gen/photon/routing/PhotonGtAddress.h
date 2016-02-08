@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_ADDRESS_H_018ac2a6d842647c893d7689624dae85__
-#define __PHOTON_GT_ADDRESS_H_018ac2a6d842647c893d7689624dae85__ 
+#ifndef __PHOTON_ROUTING_PHOTON_GT_ADDRESS_H__
+#define __PHOTON_ROUTING_PHOTON_GT_ADDRESS_H__ 
 #include "photon/photon_prologue.h"
 
 #ifdef __cplusplus

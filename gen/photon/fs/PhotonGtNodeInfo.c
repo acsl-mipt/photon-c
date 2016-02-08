@@ -3,7 +3,7 @@
 
 
 PhotonResult PhotonGtNodeInfo_Serialize(PhotonGtNodeInfo* self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < (*self).name.size * sizeof(unsigned char) + sizeof(unsigned char) + sizeof(PhotonBer))
+  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->name, writer));
   PhotonWriter_WriteUint8(writer, self->isDir);

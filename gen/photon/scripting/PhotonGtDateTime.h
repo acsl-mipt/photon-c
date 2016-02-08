@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_DATE_TIME_H_6a0c491cf8cc1fbb183b501348348748__
-#define __PHOTON_GT_DATE_TIME_H_6a0c491cf8cc1fbb183b501348348748__ 
+#ifndef __PHOTON_SCRIPTING_PHOTON_GT_DATE_TIME_H__
+#define __PHOTON_SCRIPTING_PHOTON_GT_DATE_TIME_H__ 
 #include "photon/photon_prologue.h"
 
 #ifdef __cplusplus

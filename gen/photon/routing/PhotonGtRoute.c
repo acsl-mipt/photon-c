@@ -3,8 +3,6 @@
 
 
 PhotonResult PhotonGtRoute_Serialize(PhotonGtRoute* self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer) + sizeof(PhotonBer))
-    return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->destination_address, writer));
   PHOTON_TRY(PhotonBer_Serialize(self->next_hop, writer));
   return PhotonResult_Ok;

@@ -1,6 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_ROUTE_H_452ad0444c11301838547ae157a78041__
-#define __PHOTON_GT_ROUTE_H_452ad0444c11301838547ae157a78041__ 
+#ifndef __PHOTON_ROUTING_PHOTON_GT_ROUTE_H__
+#define __PHOTON_ROUTING_PHOTON_GT_ROUTE_H__ 
 #include "photon/photon_prologue.h"
 
 #include "photon/routing/PhotonGtAddress.h"

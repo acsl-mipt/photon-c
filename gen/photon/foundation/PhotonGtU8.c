@@ -3,8 +3,6 @@
 
 
 PhotonResult PhotonGtU8_Serialize(PhotonGtU8* self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < sizeof(unsigned char))
-    return PhotonResult_NotEnoughSpace;
   PhotonWriter_WriteUint8(writer, self);
   return PhotonResult_Ok;
 }
