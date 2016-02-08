@@ -60,7 +60,7 @@ extern "C" {
 #include "photon/segmentation/PhotonGtSegmentStopAckError.h"
 #include "photon/decode/PhotonGtArrBer.h"
 
-/* USER functions, MUST BE defined */
+/* USER command implementation functions, MUST BE defined */
 
 PhotonGtOptionalFileUploadError PhotonGcMain_FilesUploadFile(PhotonGcMain* self, PhotonGtFullFileInfo* fileInfo);
 PhotonGtOrFullFileInfoFileDownloadError PhotonGcMain_FilesDownloadFile(PhotonGcMain* self, PhotonGtString* path);
@@ -96,6 +96,9 @@ PhotonGtOptionalTmCmdError PhotonGcMain_TmDenyEvent(PhotonGcMain* self, PhotonGt
 PhotonGtOptionalTmCmdError PhotonGcMain_TmAllowEvent(PhotonGcMain* self, PhotonGtEventInfo* eventInfo);
 PhotonGtArrBer PhotonGcMain_SegmentReceiverRequestSegmentsAck(PhotonGcMain* self);
 PhotonGtOptionalSegmentProcessAckError PhotonGcMain_SegmentSenderProcessSegmentsAck(PhotonGcMain* self, PhotonGtArrBerMin1* segmentsReceived);
+
+/* USER parameter implementation functions, MUST BE defined */
+
 PhotonGtArrRoute PhotonGcMain_RouterRoutes(PhotonGcMain* self);
 PhotonGtArrRoute PhotonGcMain_RouterGroupRoutes(PhotonGcMain* self);
 PhotonGtFullId PhotonGcMain_IdentificationFullId(PhotonGcMain* self);
