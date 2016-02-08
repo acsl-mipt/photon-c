@@ -1,7 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_NODE_INFO_H_4a54caa65f11f5bcc9cf42d9f568e7d1__
-#define __PHOTON_GT_NODE_INFO_H_4a54caa65f11f5bcc9cf42d9f568e7d1__ 
-
+#ifndef __PHOTON_GT_NODE_INFO_H_1ec49e3d93316c579f9420c37880b0e5__
+#define __PHOTON_GT_NODE_INFO_H_1ec49e3d93316c579f9420c37880b0e5__ 
 #include "photon/photon_prologue.h"
 
 #include "photon/foundation/PhotonGtString.h"

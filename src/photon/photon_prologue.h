@@ -10,7 +10,6 @@
 
 typedef struct {
     void* _stub;
-} PhotonGcIdentificationData, PhotonGcRouterData, PhotonGcScriptingData, PhotonGcSegmentData, PhotonGcSegmentSenderData,
-        PhotonGcSegmentReceiverData, PhotonGcTmData, PhotonGcFilesData, PhotonGcMainData;
+} PhotonGcMain;
 
 #endif

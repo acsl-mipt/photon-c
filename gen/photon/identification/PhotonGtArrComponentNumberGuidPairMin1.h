@@ -1,7 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_ARR_COMPONENT_NUMBER_GUID_PAIR_MIN1_H_3ebd946ac8a30139e04151f557a6c6bc__
-#define __PHOTON_GT_ARR_COMPONENT_NUMBER_GUID_PAIR_MIN1_H_3ebd946ac8a30139e04151f557a6c6bc__ 
-
+#ifndef __PHOTON_GT_ARR_COMPONENT_NUMBER_GUID_PAIR_MIN1_H_663b125262dd102c3c215629f6b2f4d9__
+#define __PHOTON_GT_ARR_COMPONENT_NUMBER_GUID_PAIR_MIN1_H_663b125262dd102c3c215629f6b2f4d9__ 
 #include "photon/photon_prologue.h"
 
 #include "photon/identification/PhotonGtComponentNumberGuidPair.h"

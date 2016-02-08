@@ -3,6 +3,8 @@
 
 
 PhotonResult PhotonGtCompMsg_Serialize(PhotonGtCompMsg* self, PhotonWriter* writer) {
+  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer) + sizeof(PhotonBer))
+    return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->componentNum, writer));
   PHOTON_TRY(PhotonBer_Serialize(self->messageNum, writer));
   return PhotonResult_Ok;

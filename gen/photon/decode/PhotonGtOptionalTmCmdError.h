@@ -1,7 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_OPTIONAL_TM_CMD_ERROR_H_a114feaa7e98ad98950cf652bdab10ec__
-#define __PHOTON_GT_OPTIONAL_TM_CMD_ERROR_H_a114feaa7e98ad98950cf652bdab10ec__ 
-
+#ifndef __PHOTON_GT_OPTIONAL_TM_CMD_ERROR_H_63cfed555129692fbdd952c9a7364f3f__
+#define __PHOTON_GT_OPTIONAL_TM_CMD_ERROR_H_63cfed555129692fbdd952c9a7364f3f__ 
 #include "photon/photon_prologue.h"
 
 #include "photon/tm/PhotonGtTmCmdError.h"

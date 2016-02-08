@@ -1,7 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_RING_BUF_H_ec40e6fbaa6712790b2d5141a809a4e4__
-#define __PHOTON_GT_RING_BUF_H_ec40e6fbaa6712790b2d5141a809a4e4__ 
-
+#ifndef __PHOTON_GT_RING_BUF_H_bbd8aa90f19951491ae38b26a6e6af23__
+#define __PHOTON_GT_RING_BUF_H_bbd8aa90f19951491ae38b26a6e6af23__ 
 #include "photon/photon_prologue.h"
 
 #include "photon/foundation/PhotonGtArrU8.h"

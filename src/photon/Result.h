@@ -21,6 +21,7 @@ typedef enum {
     PhotonResult_InvalidBerLength,
     PhotonResult_UnexpectedEndOfBerStream,
     PhotonResult_NotEnoughSpace,
+    PhotonResult_NotEnoughData,
     PhotonResult_InvalidSize,
     PhotonResult_InvalidDataHeader,
     PhotonResult_InvalidPacketHeader,
@@ -33,7 +34,7 @@ typedef enum {
     PhotonResult_InvalidSequenceCounter,
 
     PhotonResult_InvalidCommandId,
-
+    PhotonResult_InvalidComponentId,
     PhotonResult_InvalidMessageId
 } PhotonResult;
 

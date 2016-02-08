@@ -1,4 +1,4 @@
-#include "photon/PhotonGcMainSingleton.h"
+#include "photon/PhotonGcMain.h"
 
 
 PhotonGtArrBer PhotonGcMainSingleton_SegmentReceiverRequestSegmentsAck(PhotonGcMain* self) {}

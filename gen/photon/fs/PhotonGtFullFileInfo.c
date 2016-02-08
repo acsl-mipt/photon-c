@@ -3,6 +3,8 @@
 
 
 PhotonResult PhotonGtFullFileInfo_Serialize(PhotonGtFullFileInfo* self, PhotonWriter* writer) {
+  if (PhotonWriter_WritableSize(writer) < (*self).filePath.size * sizeof(unsigned char) + sizeof(PhotonBer) + (*self).fileContents.size * sizeof(unsigned char))
+    return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->filePath, writer));
   PHOTON_TRY(PhotonBer_Serialize(self->fileAttrs, writer));
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->fileContents, writer));

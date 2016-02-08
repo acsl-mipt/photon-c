@@ -1,7 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_OPTIONAL_SEGMENT_PROCESS_ACK_ERROR_H_f294ef0871dd6e50fa9f47b1b97a5435__
-#define __PHOTON_GT_OPTIONAL_SEGMENT_PROCESS_ACK_ERROR_H_f294ef0871dd6e50fa9f47b1b97a5435__ 
-
+#ifndef __PHOTON_GT_OPTIONAL_SEGMENT_PROCESS_ACK_ERROR_H_d31b9fd0dd461d7e39cea579a1c3050a__
+#define __PHOTON_GT_OPTIONAL_SEGMENT_PROCESS_ACK_ERROR_H_d31b9fd0dd461d7e39cea579a1c3050a__ 
 #include "photon/photon_prologue.h"
 
 #include "photon/segmentation/PhotonGtSegmentProcessAckError.h"

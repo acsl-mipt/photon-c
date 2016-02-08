@@ -1,7 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_OR_ARR_NODE_INFO_FILE_LIST_ERROR_H_e93ddeb7271cdd5590f8699ba4f2b221__
-#define __PHOTON_GT_OR_ARR_NODE_INFO_FILE_LIST_ERROR_H_e93ddeb7271cdd5590f8699ba4f2b221__ 
-
+#ifndef __PHOTON_GT_OR_ARR_NODE_INFO_FILE_LIST_ERROR_H_eb5df78a89978eca434fb28d03080fbb__
+#define __PHOTON_GT_OR_ARR_NODE_INFO_FILE_LIST_ERROR_H_eb5df78a89978eca434fb28d03080fbb__ 
 #include "photon/photon_prologue.h"
 
 #include "photon/fs/PhotonGtArrNodeInfo.h"

@@ -3,6 +3,8 @@
 
 
 PhotonResult PhotonGtScriptRunTiming_Serialize(PhotonGtScriptRunTiming* self, PhotonWriter* writer) {
+  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer) + sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer))
+    return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->id, writer));
   PhotonWriter_WriteUint8(writer, self->isActive);
   PHOTON_TRY(PhotonBer_Serialize(self->scriptId, writer));
@@ -16,12 +18,12 @@ PhotonResult PhotonGtScriptRunTiming_Serialize(PhotonGtScriptRunTiming* self, Ph
 
 PhotonResult PhotonGtScriptRunTiming_Deserialize(PhotonGtScriptRunTiming* self, PhotonReader* reader) {
   PHOTON_TRY(PhotonBer_Deserialize(&self->id, reader));
-  PhotonReader_ReadUint8(reader);
+  self->isActive = PhotonReader_ReadUint8(reader);
   PHOTON_TRY(PhotonBer_Deserialize(&self->scriptId, reader));
   PHOTON_TRY(PhotonBer_Deserialize(&self->runOn, reader));
-  PhotonReader_ReadUint8(reader);
+  self->isRepeated = PhotonReader_ReadUint8(reader);
   PHOTON_TRY(PhotonBer_Deserialize(&self->repeatPeriod, reader));
-  PhotonReader_ReadUint8(reader);
+  self->isRepeatingLimitedByDate = PhotonReader_ReadUint8(reader);
   PHOTON_TRY(PhotonBer_Deserialize(&self->repeatUntil, reader));
   return PhotonResult_Ok;
 }

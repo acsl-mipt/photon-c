@@ -1,7 +1,6 @@
 /* Type header */
-#ifndef __PHOTON_GT_FILE_DELETE_ERROR_H_320b8b584a8b296c2d6ac80657cbf5e4__
-#define __PHOTON_GT_FILE_DELETE_ERROR_H_320b8b584a8b296c2d6ac80657cbf5e4__ 
-
+#ifndef __PHOTON_GT_FILE_DELETE_ERROR_H_c30267c51dacac13c66cb4057aedf694__
+#define __PHOTON_GT_FILE_DELETE_ERROR_H_c30267c51dacac13c66cb4057aedf694__ 
 #include "photon/photon_prologue.h"
 
 #ifdef __cplusplus
@@ -9,8 +8,8 @@ extern "C" {
 #endif
 
 typedef enum  {
-    PHOTON_GT_FILE_DELETE_ERROR_CANT_DELETE = 2
-  , PHOTON_GT_FILE_DELETE_ERROR_NOT_FOUND = 1
+    PHOTON_GT_FILE_DELETE_ERROR_NOT_FOUND = 1
+  , PHOTON_GT_FILE_DELETE_ERROR_CANT_DELETE = 2
 } PhotonGtFileDeleteError;
 
 PhotonResult PhotonGtFileDeleteError_Serialize(PhotonGtFileDeleteError* self, PhotonWriter* writer);
