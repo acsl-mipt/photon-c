@@ -1,4 +1,7 @@
 /* Type header */
+
+/* DO NOT EDIT! FILE IS AUTO GENERATED */
+
 #ifndef __PHOTON_DECODE_PHOTON_GT_OR_ARR_NODE_INFO_FILE_LIST_ERROR_H__
 #define __PHOTON_DECODE_PHOTON_GT_OR_ARR_NODE_INFO_FILE_LIST_ERROR_H__ 
 #include "photon/photon_prologue.h"

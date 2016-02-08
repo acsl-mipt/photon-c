@@ -1,4 +1,7 @@
 /* Type header */
+
+/* DO NOT EDIT! FILE IS AUTO GENERATED */
+
 #ifndef __PHOTON_IDENTIFICATION_PHOTON_GT_SHORT_ID_H__
 #define __PHOTON_IDENTIFICATION_PHOTON_GT_SHORT_ID_H__ 
 #include "photon/photon_prologue.h"

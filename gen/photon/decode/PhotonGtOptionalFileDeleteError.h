@@ -1,4 +1,7 @@
 /* Type header */
+
+/* DO NOT EDIT! FILE IS AUTO GENERATED */
+
 #ifndef __PHOTON_DECODE_PHOTON_GT_OPTIONAL_FILE_DELETE_ERROR_H__
 #define __PHOTON_DECODE_PHOTON_GT_OPTIONAL_FILE_DELETE_ERROR_H__ 
 #include "photon/photon_prologue.h"

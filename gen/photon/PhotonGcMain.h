@@ -1,3 +1,6 @@
+
+/* DO NOT EDIT! FILE IS AUTO GENERATED */
+
 #ifndef __PHOTON_PHOTON_GC_MAIN_H__
 #define __PHOTON_PHOTON_GC_MAIN_H__ 
 #include "photon/photon_prologue.h"
@@ -57,26 +60,7 @@ extern "C" {
 #include "photon/segmentation/PhotonGtSegmentStopAckError.h"
 #include "photon/decode/PhotonGtArrBer.h"
 
-#define PHOTON_GC_MAIN_MESSAGE_IDS {0, 1, 2, 3}
-#define PHOTON_GC_MAIN_FILES_MESSAGE_IDS {}
-#define PHOTON_GC_MAIN_ROUTER_MESSAGE_IDS {}
-#define PHOTON_GC_MAIN_IDENTIFICATION_MESSAGE_IDS {0}
-#define PHOTON_GC_MAIN_SCRIPTING_MESSAGE_IDS {0, 1}
-#define PHOTON_GC_MAIN_SEGMENT_MESSAGE_IDS {}
-#define PHOTON_GC_MAIN_TM_MESSAGE_IDS {}
-#define PHOTON_GC_MAIN_SEGMENT_RECEIVER_MESSAGE_IDS {0}
-#define PHOTON_GC_MAIN_SEGMENT_SENDER_MESSAGE_IDS {}
-
-#define PHOTON_GC_MAIN_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33}
-#define PHOTON_GC_MAIN_FILES_COMMAND_IDS {0, 1, 2, 3, 4}
-#define PHOTON_GC_MAIN_ROUTER_COMMAND_IDS {0, 1, 2, 3}
-#define PHOTON_GC_MAIN_IDENTIFICATION_COMMAND_IDS {0, 1, 2}
-#define PHOTON_GC_MAIN_SCRIPTING_COMMAND_IDS {0, 1, 2, 3, 4, 5}
-#define PHOTON_GC_MAIN_SEGMENT_COMMAND_IDS {0, 1, 2, 3, 4, 5}
-#define PHOTON_GC_MAIN_TM_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6, 7}
-#define PHOTON_GC_MAIN_SEGMENT_RECEIVER_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6}
-#define PHOTON_GC_MAIN_SEGMENT_SENDER_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6}
-
+/* USER functions, MUST BE defined */
 
 PhotonGtOptionalFileUploadError PhotonGcMain_FilesUploadFile(PhotonGcMain* self, PhotonGtFullFileInfo* fileInfo);
 PhotonGtOrFullFileInfoFileDownloadError PhotonGcMain_FilesDownloadFile(PhotonGcMain* self, PhotonGtString* path);
@@ -127,6 +111,33 @@ PhotonGtArrArrU8 PhotonGcMain_TmPriorityOrderedRequests(PhotonGcMain* self);
 PhotonGtRingBuf PhotonGcMain_TmOutOfOrderMesages(PhotonGcMain* self);
 PhotonGtArrEventInfo PhotonGcMain_TmLostEvents(PhotonGcMain* self);
 PhotonGtArrBer PhotonGcMain_SegmentReceiverSegmentsReceived(PhotonGcMain* self);
+
+/* Message ID for component defines */
+
+#define PHOTON_GC_MAIN_MESSAGE_IDS {0, 1, 2, 3}
+#define PHOTON_GC_MAIN_FILES_MESSAGE_IDS {}
+#define PHOTON_GC_MAIN_ROUTER_MESSAGE_IDS {}
+#define PHOTON_GC_MAIN_IDENTIFICATION_MESSAGE_IDS {0}
+#define PHOTON_GC_MAIN_SCRIPTING_MESSAGE_IDS {0, 1}
+#define PHOTON_GC_MAIN_SEGMENT_MESSAGE_IDS {}
+#define PHOTON_GC_MAIN_TM_MESSAGE_IDS {}
+#define PHOTON_GC_MAIN_SEGMENT_RECEIVER_MESSAGE_IDS {0}
+#define PHOTON_GC_MAIN_SEGMENT_SENDER_MESSAGE_IDS {}
+
+/* Command ID for component defines */
+
+#define PHOTON_GC_MAIN_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33}
+#define PHOTON_GC_MAIN_FILES_COMMAND_IDS {0, 1, 2, 3, 4}
+#define PHOTON_GC_MAIN_ROUTER_COMMAND_IDS {0, 1, 2, 3}
+#define PHOTON_GC_MAIN_IDENTIFICATION_COMMAND_IDS {0, 1, 2}
+#define PHOTON_GC_MAIN_SCRIPTING_COMMAND_IDS {0, 1, 2, 3, 4, 5}
+#define PHOTON_GC_MAIN_SEGMENT_COMMAND_IDS {0, 1, 2, 3, 4, 5}
+#define PHOTON_GC_MAIN_TM_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6, 7}
+#define PHOTON_GC_MAIN_SEGMENT_RECEIVER_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6}
+#define PHOTON_GC_MAIN_SEGMENT_SENDER_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6}
+
+/* Implemented functions */
+
 PhotonResult PhotonGcMain_ExecuteFilesUploadFile(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_ExecuteFilesDownloadFile(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_ExecuteFilesDeleteNode(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);

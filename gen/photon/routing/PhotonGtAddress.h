@@ -1,4 +1,7 @@
 /* Type header */
+
+/* DO NOT EDIT! FILE IS AUTO GENERATED */
+
 #ifndef __PHOTON_ROUTING_PHOTON_GT_ADDRESS_H__
 #define __PHOTON_ROUTING_PHOTON_GT_ADDRESS_H__ 
 #include "photon/photon_prologue.h"

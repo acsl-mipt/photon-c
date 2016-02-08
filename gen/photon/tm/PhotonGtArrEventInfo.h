@@ -1,4 +1,7 @@
 /* Type header */
+
+/* DO NOT EDIT! FILE IS AUTO GENERATED */
+
 #ifndef __PHOTON_TM_PHOTON_GT_ARR_EVENT_INFO_H__
 #define __PHOTON_TM_PHOTON_GT_ARR_EVENT_INFO_H__ 
 #include "photon/photon_prologue.h"

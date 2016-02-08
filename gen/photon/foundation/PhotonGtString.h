@@ -1,4 +1,7 @@
 /* Type header */
+
+/* DO NOT EDIT! FILE IS AUTO GENERATED */
+
 #ifndef __PHOTON_FOUNDATION_PHOTON_GT_STRING_H__
 #define __PHOTON_FOUNDATION_PHOTON_GT_STRING_H__ 
 #include "photon/photon_prologue.h"
