@@ -2,7 +2,7 @@
 #include "photon/fs/PhotonGtFileDeleteError.h"
 
 
-PhotonResult PhotonGtFileDeleteError_Serialize(const PhotonGtFileDeleteError* self, PhotonWriter* writer) {
+PhotonResult PhotonGtFileDeleteError_Serialize(PhotonGtFileDeleteError self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self, writer));

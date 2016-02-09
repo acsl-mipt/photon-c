@@ -16,7 +16,7 @@ typedef enum  {
   , PHOTON_GT_FILE_LIST_ERROR_NOT_DIR = 3
 } PhotonGtFileListError;
 
-PhotonResult PhotonGtFileListError_Serialize(const PhotonGtFileListError* self, PhotonWriter* writer);
+PhotonResult PhotonGtFileListError_Serialize(PhotonGtFileListError self, PhotonWriter* writer);
 
 PhotonResult PhotonGtFileListError_Deserialize(PhotonGtFileListError* self, PhotonReader* reader);
 

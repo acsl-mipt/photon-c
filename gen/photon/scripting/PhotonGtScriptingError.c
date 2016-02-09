@@ -2,7 +2,7 @@
 #include "photon/scripting/PhotonGtScriptingError.h"
 
 
-PhotonResult PhotonGtScriptingError_Serialize(const PhotonGtScriptingError* self, PhotonWriter* writer) {
+PhotonResult PhotonGtScriptingError_Serialize(PhotonGtScriptingError self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self, writer));

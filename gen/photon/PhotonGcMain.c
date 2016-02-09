@@ -1,8 +1,15 @@
 #include "photon/PhotonGcMain.h"
 
+PhotonResult PhotonGcMain_ExecuteFilesStartFileUpload(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
+  PhotonGtFileInfo fileInfo;
+  PHOTON_TRY(PhotonGtFileInfo_Deserialize(&fileInfo, reader));
+  PhotonGtOptionalFileUploadError cmdResult = PhotonGcMain_FilesStartFileUpload(self, &fileInfo);
+  return PhotonGtOptionalFileUploadError_Serialize(&cmdResult, writer);
+}
+
 PhotonResult PhotonGcMain_ExecuteFilesUploadFile(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
-  PhotonGtFullFileInfo fileInfo;
-  PHOTON_TRY(PhotonGtFullFileInfo_Deserialize(&fileInfo, reader));
+  PhotonGtFileInfo fileInfo;
+  PHOTON_TRY(PhotonGtFileInfo_Deserialize(&fileInfo, reader));
   PhotonGtOptionalFileUploadError cmdResult = PhotonGcMain_FilesUploadFile(self, &fileInfo);
   return PhotonGtOptionalFileUploadError_Serialize(&cmdResult, writer);
 }
@@ -10,8 +17,8 @@ PhotonResult PhotonGcMain_ExecuteFilesUploadFile(PhotonGcMain* self, PhotonReade
 PhotonResult PhotonGcMain_ExecuteFilesDownloadFile(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtString path;
   PHOTON_TRY(PhotonGtString_Deserialize(&path, reader));
-  PhotonGtOrFullFileInfoFileDownloadError cmdResult = PhotonGcMain_FilesDownloadFile(self, &path);
-  return PhotonGtOrFullFileInfoFileDownloadError_Serialize(&cmdResult, writer);
+  PhotonGtOrFileInfoFileDownloadError cmdResult = PhotonGcMain_FilesDownloadFile(self, &path);
+  return PhotonGtOrFileInfoFileDownloadError_Serialize(&cmdResult, writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesDeleteNode(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
@@ -58,12 +65,14 @@ PhotonResult PhotonGcMain_ExecuteRouterSetRoute(PhotonGcMain* self, PhotonReader
   PhotonGtAddress next_hop;
   PHOTON_TRY(PhotonGtAddress_Deserialize(&next_hop, reader));
   PhotonGcMain_RouterSetRoute(self, address, next_hop);
+  return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_ExecuteRouterDelRoute(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtAddress address;
   PHOTON_TRY(PhotonGtAddress_Deserialize(&address, reader));
   PhotonGcMain_RouterDelRoute(self, address);
+  return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_ExecuteRouterSetGroupRoute(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
@@ -72,12 +81,14 @@ PhotonResult PhotonGcMain_ExecuteRouterSetGroupRoute(PhotonGcMain* self, PhotonR
   PhotonGtAddress next_hop;
   PHOTON_TRY(PhotonGtAddress_Deserialize(&next_hop, reader));
   PhotonGcMain_RouterSetGroupRoute(self, groupAddress, next_hop);
+  return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_ExecuteRouterDelGroupRoute(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtAddress groupAddress;
   PHOTON_TRY(PhotonGtAddress_Deserialize(&groupAddress, reader));
   PhotonGcMain_RouterDelGroupRoute(self, groupAddress);
+  return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_ExecuteScriptingUploadScript(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
@@ -257,72 +268,74 @@ PhotonResult PhotonGcMain_WriteSegmentReceiverSegmentsReceived(PhotonGcMain* sel
 PhotonResult PhotonGcMain_ExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
-      return PhotonGcMain_ExecuteFilesUploadFile(self, reader, writer);
+      return PhotonGcMain_ExecuteFilesStartFileUpload(self, reader, writer);
     case 1:
-      return PhotonGcMain_ExecuteFilesDownloadFile(self, reader, writer);
+      return PhotonGcMain_ExecuteFilesUploadFile(self, reader, writer);
     case 2:
-      return PhotonGcMain_ExecuteFilesDeleteNode(self, reader, writer);
+      return PhotonGcMain_ExecuteFilesDownloadFile(self, reader, writer);
     case 3:
-      return PhotonGcMain_ExecuteFilesRequestFileList(self, reader, writer);
+      return PhotonGcMain_ExecuteFilesDeleteNode(self, reader, writer);
     case 4:
-      return PhotonGcMain_ExecuteFilesCreateDir(self, reader, writer);
+      return PhotonGcMain_ExecuteFilesRequestFileList(self, reader, writer);
     case 5:
-      return PhotonGcMain_ExecuteIdentificationRequestShortId(self, reader, writer);
+      return PhotonGcMain_ExecuteFilesCreateDir(self, reader, writer);
     case 6:
-      return PhotonGcMain_ExecuteIdentificationRequestFullId(self, reader, writer);
+      return PhotonGcMain_ExecuteIdentificationRequestShortId(self, reader, writer);
     case 7:
-      return PhotonGcMain_ExecuteIdentificationRequestComponentGuid(self, reader, writer);
+      return PhotonGcMain_ExecuteIdentificationRequestFullId(self, reader, writer);
     case 8:
-      return PhotonGcMain_ExecuteRouterSetRoute(self, reader, writer);
+      return PhotonGcMain_ExecuteIdentificationRequestComponentGuid(self, reader, writer);
     case 9:
-      return PhotonGcMain_ExecuteRouterDelRoute(self, reader, writer);
+      return PhotonGcMain_ExecuteRouterSetRoute(self, reader, writer);
     case 10:
-      return PhotonGcMain_ExecuteRouterSetGroupRoute(self, reader, writer);
+      return PhotonGcMain_ExecuteRouterDelRoute(self, reader, writer);
     case 11:
-      return PhotonGcMain_ExecuteRouterDelGroupRoute(self, reader, writer);
+      return PhotonGcMain_ExecuteRouterSetGroupRoute(self, reader, writer);
     case 12:
-      return PhotonGcMain_ExecuteScriptingUploadScript(self, reader, writer);
+      return PhotonGcMain_ExecuteRouterDelGroupRoute(self, reader, writer);
     case 13:
-      return PhotonGcMain_ExecuteScriptingDeleteScript(self, reader, writer);
+      return PhotonGcMain_ExecuteScriptingUploadScript(self, reader, writer);
     case 14:
-      return PhotonGcMain_ExecuteScriptingRunScriptNow(self, reader, writer);
+      return PhotonGcMain_ExecuteScriptingDeleteScript(self, reader, writer);
     case 15:
-      return PhotonGcMain_ExecuteScriptingScheduleScriptRun(self, reader, writer);
+      return PhotonGcMain_ExecuteScriptingRunScriptNow(self, reader, writer);
     case 16:
-      return PhotonGcMain_ExecuteScriptingEnableScriptRunTiming(self, reader, writer);
+      return PhotonGcMain_ExecuteScriptingScheduleScriptRun(self, reader, writer);
     case 17:
-      return PhotonGcMain_ExecuteScriptingDisableScriptRunTiming(self, reader, writer);
+      return PhotonGcMain_ExecuteScriptingEnableScriptRunTiming(self, reader, writer);
     case 18:
-      return PhotonGcMain_ExecuteSegmentStartSegmentAckMode(self, reader, writer);
+      return PhotonGcMain_ExecuteScriptingDisableScriptRunTiming(self, reader, writer);
     case 19:
-      return PhotonGcMain_ExecuteSegmentStopSegmentAckMode(self, reader, writer);
+      return PhotonGcMain_ExecuteSegmentStartSegmentAckMode(self, reader, writer);
     case 20:
-      return PhotonGcMain_ExecuteSegmentRequestAckModeStatus(self, reader, writer);
+      return PhotonGcMain_ExecuteSegmentStopSegmentAckMode(self, reader, writer);
     case 21:
-      return PhotonGcMain_ExecuteSegmentProcessAckModeStatus(self, reader, writer);
+      return PhotonGcMain_ExecuteSegmentRequestAckModeStatus(self, reader, writer);
     case 22:
-      return PhotonGcMain_ExecuteSegmentStartAckOnEverySegmentMode(self, reader, writer);
+      return PhotonGcMain_ExecuteSegmentProcessAckModeStatus(self, reader, writer);
     case 23:
-      return PhotonGcMain_ExecuteSegmentStopAckOnEverySegmentMode(self, reader, writer);
+      return PhotonGcMain_ExecuteSegmentStartAckOnEverySegmentMode(self, reader, writer);
     case 24:
-      return PhotonGcMain_ExecuteSegmentReceiverRequestSegmentsAck(self, reader, writer);
+      return PhotonGcMain_ExecuteSegmentStopAckOnEverySegmentMode(self, reader, writer);
     case 25:
-      return PhotonGcMain_ExecuteSegmentSenderProcessSegmentsAck(self, reader, writer);
+      return PhotonGcMain_ExecuteSegmentReceiverRequestSegmentsAck(self, reader, writer);
     case 26:
-      return PhotonGcMain_ExecuteTmSendEventMessage(self, reader, writer);
+      return PhotonGcMain_ExecuteSegmentSenderProcessSegmentsAck(self, reader, writer);
     case 27:
-      return PhotonGcMain_ExecuteTmSendStatusMessage(self, reader, writer);
+      return PhotonGcMain_ExecuteTmSendEventMessage(self, reader, writer);
     case 28:
-      return PhotonGcMain_ExecuteTmSetMessageRequest(self, reader, writer);
+      return PhotonGcMain_ExecuteTmSendStatusMessage(self, reader, writer);
     case 29:
-      return PhotonGcMain_ExecuteTmClearMessageRequest(self, reader, writer);
+      return PhotonGcMain_ExecuteTmSetMessageRequest(self, reader, writer);
     case 30:
-      return PhotonGcMain_ExecuteTmDenyMessage(self, reader, writer);
+      return PhotonGcMain_ExecuteTmClearMessageRequest(self, reader, writer);
     case 31:
-      return PhotonGcMain_ExecuteTmAllowMessage(self, reader, writer);
+      return PhotonGcMain_ExecuteTmDenyMessage(self, reader, writer);
     case 32:
-      return PhotonGcMain_ExecuteTmDenyEvent(self, reader, writer);
+      return PhotonGcMain_ExecuteTmAllowMessage(self, reader, writer);
     case 33:
+      return PhotonGcMain_ExecuteTmDenyEvent(self, reader, writer);
+    case 34:
       return PhotonGcMain_ExecuteTmAllowEvent(self, reader, writer);
     default:
       return PhotonResult_InvalidCommandId;
@@ -445,14 +458,16 @@ PhotonResult PhotonGcMain_SegmentReceiverExecuteCommandForComponent(PhotonGcMain
 PhotonResult PhotonGcMain_FilesExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
-      return PhotonGcMain_ExecuteFilesUploadFile(self, reader, writer);
+      return PhotonGcMain_ExecuteFilesStartFileUpload(self, reader, writer);
     case 1:
-      return PhotonGcMain_ExecuteFilesDownloadFile(self, reader, writer);
+      return PhotonGcMain_ExecuteFilesUploadFile(self, reader, writer);
     case 2:
-      return PhotonGcMain_ExecuteFilesDeleteNode(self, reader, writer);
+      return PhotonGcMain_ExecuteFilesDownloadFile(self, reader, writer);
     case 3:
-      return PhotonGcMain_ExecuteFilesRequestFileList(self, reader, writer);
+      return PhotonGcMain_ExecuteFilesDeleteNode(self, reader, writer);
     case 4:
+      return PhotonGcMain_ExecuteFilesRequestFileList(self, reader, writer);
+    case 5:
       return PhotonGcMain_ExecuteFilesCreateDir(self, reader, writer);
     default:
       return PhotonResult_InvalidCommandId;

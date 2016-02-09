@@ -14,7 +14,7 @@ extern "C" {
 #include "photon/decode/PhotonGtArrBerMin1.h"
 #include "photon/tm/PhotonGtTmCmdError.h"
 #include "photon/foundation/PhotonGtB8.h"
-#include "photon/decode/PhotonGtOrFullFileInfoFileDownloadError.h"
+#include "photon/decode/PhotonGtOrFileInfoFileDownloadError.h"
 #include "photon/foundation/PhotonGtArrArrU8.h"
 #include "photon/foundation/PhotonGtArrGuid.h"
 #include "photon/scripting/PhotonGtScriptingError.h"
@@ -51,7 +51,7 @@ extern "C" {
 #include "photon/identification/PhotonGtArrComponentNumberGuidPairMin1.h"
 #include "photon/segmentation/PhotonGtSegmentStartAckError.h"
 #include "photon/scripting/PhotonGtDateTime.h"
-#include "photon/fs/PhotonGtFullFileInfo.h"
+#include "photon/fs/PhotonGtFileInfo.h"
 #include "photon/fs/PhotonGtFileUploadError.h"
 #include "photon/fs/PhotonGtNodeInfo.h"
 #include "photon/fs/PhotonGtArrNodeInfo.h"
@@ -62,8 +62,9 @@ extern "C" {
 
 /* USER command implementation functions, MUST BE defined */
 
-PhotonGtOptionalFileUploadError PhotonGcMain_FilesUploadFile(PhotonGcMain* self, PhotonGtFullFileInfo* fileInfo);
-PhotonGtOrFullFileInfoFileDownloadError PhotonGcMain_FilesDownloadFile(PhotonGcMain* self, PhotonGtString* path);
+PhotonGtOptionalFileUploadError PhotonGcMain_FilesStartFileUpload(PhotonGcMain* self, PhotonGtFileInfo* fileInfo);
+PhotonGtOptionalFileUploadError PhotonGcMain_FilesUploadFile(PhotonGcMain* self, PhotonGtFileInfo* fileInfo);
+PhotonGtOrFileInfoFileDownloadError PhotonGcMain_FilesDownloadFile(PhotonGcMain* self, PhotonGtString* path);
 PhotonGtOptionalFileDeleteError PhotonGcMain_FilesDeleteNode(PhotonGcMain* self, PhotonGtString* path);
 PhotonGtOrArrNodeInfoFileListError PhotonGcMain_FilesRequestFileList(PhotonGcMain* self, PhotonGtString* path);
 PhotonGtOptionalFileCreateDirError PhotonGcMain_FilesCreateDir(PhotonGcMain* self, PhotonGtString* path);
@@ -119,38 +120,38 @@ const PhotonGtArrBer* PhotonGcMain_SegmentReceiverSegmentsReceived(PhotonGcMain*
 
 #define PHOTON_GC_MAIN_MESSAGE_IDS_LEN 4
 #define PHOTON_GC_MAIN_MESSAGE_IDS {0, 1, 2, 3}
-#define PHOTON_GC_MAIN_MESSAGE_PRIORITY {10, 0, 0, 0}
+#define PHOTON_GC_MAIN_MESSAGE_PRIORITIES {10, 0, 0, 0}
 #define PHOTON_GC_MAIN_FILES_MESSAGE_IDS_LEN 0
 #define PHOTON_GC_MAIN_FILES_MESSAGE_IDS {}
-#define PHOTON_GC_MAIN_FILES_MESSAGE_PRIORITY {}
+#define PHOTON_GC_MAIN_FILES_MESSAGE_PRIORITIES {}
 #define PHOTON_GC_MAIN_ROUTER_MESSAGE_IDS_LEN 0
 #define PHOTON_GC_MAIN_ROUTER_MESSAGE_IDS {}
-#define PHOTON_GC_MAIN_ROUTER_MESSAGE_PRIORITY {}
+#define PHOTON_GC_MAIN_ROUTER_MESSAGE_PRIORITIES {}
 #define PHOTON_GC_MAIN_IDENTIFICATION_MESSAGE_IDS_LEN 1
 #define PHOTON_GC_MAIN_IDENTIFICATION_MESSAGE_IDS {0}
-#define PHOTON_GC_MAIN_IDENTIFICATION_MESSAGE_PRIORITY {10}
+#define PHOTON_GC_MAIN_IDENTIFICATION_MESSAGE_PRIORITIES {10}
 #define PHOTON_GC_MAIN_SCRIPTING_MESSAGE_IDS_LEN 2
 #define PHOTON_GC_MAIN_SCRIPTING_MESSAGE_IDS {0, 1}
-#define PHOTON_GC_MAIN_SCRIPTING_MESSAGE_PRIORITY {0, 0}
+#define PHOTON_GC_MAIN_SCRIPTING_MESSAGE_PRIORITIES {0, 0}
 #define PHOTON_GC_MAIN_SEGMENT_MESSAGE_IDS_LEN 0
 #define PHOTON_GC_MAIN_SEGMENT_MESSAGE_IDS {}
-#define PHOTON_GC_MAIN_SEGMENT_MESSAGE_PRIORITY {}
+#define PHOTON_GC_MAIN_SEGMENT_MESSAGE_PRIORITIES {}
 #define PHOTON_GC_MAIN_TM_MESSAGE_IDS_LEN 0
 #define PHOTON_GC_MAIN_TM_MESSAGE_IDS {}
-#define PHOTON_GC_MAIN_TM_MESSAGE_PRIORITY {}
+#define PHOTON_GC_MAIN_TM_MESSAGE_PRIORITIES {}
 #define PHOTON_GC_MAIN_SEGMENT_RECEIVER_MESSAGE_IDS_LEN 1
 #define PHOTON_GC_MAIN_SEGMENT_RECEIVER_MESSAGE_IDS {0}
-#define PHOTON_GC_MAIN_SEGMENT_RECEIVER_MESSAGE_PRIORITY {0}
+#define PHOTON_GC_MAIN_SEGMENT_RECEIVER_MESSAGE_PRIORITIES {0}
 #define PHOTON_GC_MAIN_SEGMENT_SENDER_MESSAGE_IDS_LEN 0
 #define PHOTON_GC_MAIN_SEGMENT_SENDER_MESSAGE_IDS {}
-#define PHOTON_GC_MAIN_SEGMENT_SENDER_MESSAGE_PRIORITY {}
+#define PHOTON_GC_MAIN_SEGMENT_SENDER_MESSAGE_PRIORITIES {}
 
 /* Command ID for component defines */
 
-#define PHOTON_GC_MAIN_COMMAND_IDS_LEN 34
-#define PHOTON_GC_MAIN_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33}
-#define PHOTON_GC_MAIN_FILES_COMMAND_IDS_LEN 5
-#define PHOTON_GC_MAIN_FILES_COMMAND_IDS {0, 1, 2, 3, 4}
+#define PHOTON_GC_MAIN_COMMAND_IDS_LEN 35
+#define PHOTON_GC_MAIN_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34}
+#define PHOTON_GC_MAIN_FILES_COMMAND_IDS_LEN 6
+#define PHOTON_GC_MAIN_FILES_COMMAND_IDS {0, 1, 2, 3, 4, 5}
 #define PHOTON_GC_MAIN_ROUTER_COMMAND_IDS_LEN 4
 #define PHOTON_GC_MAIN_ROUTER_COMMAND_IDS {0, 1, 2, 3}
 #define PHOTON_GC_MAIN_IDENTIFICATION_COMMAND_IDS_LEN 3
@@ -168,6 +169,7 @@ const PhotonGtArrBer* PhotonGcMain_SegmentReceiverSegmentsReceived(PhotonGcMain*
 
 /* Implemented functions */
 
+PhotonResult PhotonGcMain_ExecuteFilesStartFileUpload(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_ExecuteFilesUploadFile(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_ExecuteFilesDownloadFile(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);
 PhotonResult PhotonGcMain_ExecuteFilesDeleteNode(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer);

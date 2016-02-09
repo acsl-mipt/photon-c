@@ -2,12 +2,13 @@
 #include "photon/foundation/PhotonGtB8.h"
 
 
-PhotonResult PhotonGtB8_Serialize(const PhotonGtB8* self, PhotonWriter* writer) {
+PhotonResult PhotonGtB8_Serialize(PhotonGtB8 self, PhotonWriter* writer) {
   PhotonWriter_WriteUint8(writer, self);
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGtB8_Deserialize(PhotonGtB8* self, PhotonReader* reader) {
   *self = PhotonReader_ReadUint8(reader);
+  return PhotonResult_Ok;
   return PhotonResult_Ok;
 }

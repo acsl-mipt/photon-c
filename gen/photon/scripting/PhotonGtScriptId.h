@@ -14,7 +14,7 @@ extern "C" {
 
 typedef PhotonGtGuid PhotonGtScriptId;
 
-PhotonResult PhotonGtScriptId_Serialize(const PhotonGtScriptId* self, PhotonWriter* writer);
+PhotonResult PhotonGtScriptId_Serialize(PhotonGtScriptId self, PhotonWriter* writer);
 
 PhotonResult PhotonGtScriptId_Deserialize(PhotonGtScriptId* self, PhotonReader* reader);
 

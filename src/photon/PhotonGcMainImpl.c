@@ -15,8 +15,8 @@ PhotonGtB8 PhotonGcMainSingleton_SegmentRequestAckModeStatus(PhotonGcMain* self)
 PhotonGtOptionalSegmentProcessAckError PhotonGcMainSingleton_SegmentProcessAckModeStatus(PhotonGcMain* self, PhotonGtB8 isSegmentationAckModeActive) {}
 PhotonGtOptionalSegmentStartAckError PhotonGcMainSingleton_SegmentStartAckOnEverySegmentMode(PhotonGcMain* self) {}
 PhotonGtOptionalSegmentStopAckError PhotonGcMainSingleton_SegmentStopAckOnEverySegmentMode(PhotonGcMain* self) {}
-PhotonGtOptionalFileUploadError PhotonGcMainSingleton_FilesUploadFile(PhotonGcMain* self, PhotonGtFullFileInfo* fileInfo) {}
-PhotonGtOrFullFileInfoFileDownloadError PhotonGcMainSingleton_FilesDownloadFile(PhotonGcMain* self, PhotonGtString* path) {}
+PhotonGtOptionalFileUploadError PhotonGcMainSingleton_FilesUploadFile(PhotonGcMain* self, PhotonGtFileInfo* fileInfo) {}
+PhotonGtOrFileInfoFileDownloadError PhotonGcMainSingleton_FilesDownloadFile(PhotonGcMain* self, PhotonGtString* path) {}
 PhotonGtOptionalFileDeleteError PhotonGcMainSingleton_FilesDeleteNode(PhotonGcMain* self, PhotonGtString* path) {}
 PhotonGtOrArrNodeInfoFileListError PhotonGcMainSingleton_FilesRequestFileList(PhotonGcMain* self, PhotonGtString* path) {}
 PhotonGtOptionalFileCreateDirError PhotonGcMainSingleton_FilesCreateDir(PhotonGcMain* self, PhotonGtString* path) {}

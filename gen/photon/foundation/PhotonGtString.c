@@ -8,6 +8,6 @@ PhotonResult PhotonGtString_Serialize(const PhotonGtString* self, PhotonWriter* 
 }
 
 PhotonResult PhotonGtString_Deserialize(PhotonGtString* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonGtArrU8_Deserialize(self, reader));
+  PHOTON_TRY(PhotonGtArrU8_Deserialize((PhotonGtArrU8*) self, reader));
   return PhotonResult_Ok;
 }

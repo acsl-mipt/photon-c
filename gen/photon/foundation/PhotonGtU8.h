@@ -12,7 +12,7 @@ extern "C" {
 
 typedef unsigned char PhotonGtU8;
 
-PhotonResult PhotonGtU8_Serialize(const PhotonGtU8* self, PhotonWriter* writer);
+PhotonResult PhotonGtU8_Serialize(PhotonGtU8 self, PhotonWriter* writer);
 
 PhotonResult PhotonGtU8_Deserialize(PhotonGtU8* self, PhotonReader* reader);
 

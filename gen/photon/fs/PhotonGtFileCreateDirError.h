@@ -15,7 +15,7 @@ typedef enum  {
   , PHOTON_GT_FILE_CREATE_DIR_ERROR_CANT_WRITE = 2
 } PhotonGtFileCreateDirError;
 
-PhotonResult PhotonGtFileCreateDirError_Serialize(const PhotonGtFileCreateDirError* self, PhotonWriter* writer);
+PhotonResult PhotonGtFileCreateDirError_Serialize(PhotonGtFileCreateDirError self, PhotonWriter* writer);
 
 PhotonResult PhotonGtFileCreateDirError_Deserialize(PhotonGtFileCreateDirError* self, PhotonReader* reader);
 
