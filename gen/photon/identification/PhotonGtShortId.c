@@ -9,7 +9,7 @@ PhotonResult PhotonGtShortId_Serialize(const PhotonGtShortId* self, PhotonWriter
 }
 
 PhotonResult PhotonGtShortId_Deserialize(PhotonGtShortId* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonBer_Deserialize(&self->deviceGuid, reader));
-  PHOTON_TRY(PhotonBer_Deserialize(&self->rootComponentGuid, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->deviceGuid, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->rootComponentGuid, reader));
   return PhotonResult_Ok;
 }

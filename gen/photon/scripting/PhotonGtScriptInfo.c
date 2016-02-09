@@ -12,7 +12,7 @@ PhotonResult PhotonGtScriptInfo_Serialize(const PhotonGtScriptInfo* self, Photon
 }
 
 PhotonResult PhotonGtScriptInfo_Deserialize(PhotonGtScriptInfo* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonBer_Deserialize(&self->scriptId, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) (PhotonGtGuid*) &self->scriptId, reader));
   PHOTON_TRY(PhotonGtArrU8_Deserialize(&self->scriptData, reader));
   PHOTON_TRY(PhotonGtArrU8_Deserialize(&self->scriptCode, reader));
   return PhotonResult_Ok;

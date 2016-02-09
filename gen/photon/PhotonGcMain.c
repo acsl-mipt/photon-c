@@ -56,7 +56,7 @@ PhotonResult PhotonGcMain_ExecuteIdentificationRequestComponentGuid(PhotonGcMain
   PhotonBer componentNumber;
   PHOTON_TRY(PhotonBer_Deserialize(&componentNumber, reader));
   PhotonGtGuid cmdResult = PhotonGcMain_IdentificationRequestComponentGuid(self, componentNumber);
-  return PhotonGtGuid_Serialize(&cmdResult, writer);
+  return PhotonGtGuid_Serialize(cmdResult, writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteRouterSetRoute(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
@@ -149,7 +149,7 @@ PhotonResult PhotonGcMain_ExecuteSegmentStopSegmentAckMode(PhotonGcMain* self, P
 
 PhotonResult PhotonGcMain_ExecuteSegmentRequestAckModeStatus(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtB8 cmdResult = PhotonGcMain_SegmentRequestAckModeStatus(self);
-  return PhotonGtB8_Serialize(&cmdResult, writer);
+  return PhotonGtB8_Serialize(cmdResult, writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentProcessAckModeStatus(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
@@ -379,10 +379,30 @@ PhotonGtB8 PhotonGcMain_IsStatusMessage(size_t messageId) {
   }
 }
 
-PhotonResult PhotonGcMain_TmExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
+PhotonResult PhotonGcMain_SegmentReceiverExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
   switch (componentId) {
     case 0:
-      return PhotonGcMain_TmReadExecuteCommand(self, reader, writer);
+      return PhotonGcMain_SegmentReceiverReadExecuteCommand(self, reader, writer);
+    case 1:
+      return PhotonGcMain_SegmentReadExecuteCommand(self, reader, writer);
+    default:
+      return PhotonResult_InvalidComponentId;
+  }
+}
+
+PhotonResult PhotonGcMain_RouterExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
+  switch (componentId) {
+    case 0:
+      return PhotonGcMain_RouterReadExecuteCommand(self, reader, writer);
+    default:
+      return PhotonResult_InvalidComponentId;
+  }
+}
+
+PhotonResult PhotonGcMain_FilesExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
+  switch (componentId) {
+    case 0:
+      return PhotonGcMain_FilesReadExecuteCommand(self, reader, writer);
     default:
       return PhotonResult_InvalidComponentId;
   }
@@ -408,19 +428,19 @@ PhotonResult PhotonGcMain_IdentificationExecuteCommandForComponent(PhotonGcMain*
   }
 }
 
-PhotonResult PhotonGcMain_RouterExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
+PhotonResult PhotonGcMain_ScriptingExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
   switch (componentId) {
     case 0:
-      return PhotonGcMain_RouterReadExecuteCommand(self, reader, writer);
+      return PhotonGcMain_ScriptingReadExecuteCommand(self, reader, writer);
     default:
       return PhotonResult_InvalidComponentId;
   }
 }
 
-PhotonResult PhotonGcMain_FilesExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
+PhotonResult PhotonGcMain_TmExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
   switch (componentId) {
     case 0:
-      return PhotonGcMain_FilesReadExecuteCommand(self, reader, writer);
+      return PhotonGcMain_TmReadExecuteCommand(self, reader, writer);
     default:
       return PhotonResult_InvalidComponentId;
   }
@@ -435,23 +455,215 @@ PhotonResult PhotonGcMain_SegmentExecuteCommandForComponent(PhotonGcMain* self, 
   }
 }
 
-PhotonResult PhotonGcMain_ScriptingExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
-  switch (componentId) {
+PhotonResult PhotonGcMain_SegmentSenderExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
+  switch (commandId) {
     case 0:
-      return PhotonGcMain_ScriptingReadExecuteCommand(self, reader, writer);
+      return PhotonGcMain_ExecuteSegmentSenderProcessSegmentsAck(self, reader, writer);
+    case 1:
+      return PhotonGcMain_ExecuteSegmentStartSegmentAckMode(self, reader, writer);
+    case 2:
+      return PhotonGcMain_ExecuteSegmentStopSegmentAckMode(self, reader, writer);
+    case 3:
+      return PhotonGcMain_ExecuteSegmentRequestAckModeStatus(self, reader, writer);
+    case 4:
+      return PhotonGcMain_ExecuteSegmentProcessAckModeStatus(self, reader, writer);
+    case 5:
+      return PhotonGcMain_ExecuteSegmentStartAckOnEverySegmentMode(self, reader, writer);
+    case 6:
+      return PhotonGcMain_ExecuteSegmentStopAckOnEverySegmentMode(self, reader, writer);
     default:
-      return PhotonResult_InvalidComponentId;
+      return PhotonResult_InvalidCommandId;
   }
 }
 
-PhotonResult PhotonGcMain_SegmentReceiverExecuteCommandForComponent(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t componentId, size_t commandId) {
-  switch (componentId) {
-    case 0:
-      return PhotonGcMain_SegmentReceiverReadExecuteCommand(self, reader, writer);
-    case 1:
-      return PhotonGcMain_SegmentReadExecuteCommand(self, reader, writer);
+PhotonResult PhotonGcMain_SegmentSenderReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
+  size_t commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcMain_SegmentSenderExecuteCommand(self, reader, writer, commandId);
+}
+
+PhotonResult PhotonGcMain_SegmentSenderWriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
+  switch (messageId) {
     default:
-      return PhotonResult_InvalidComponentId;
+      return PhotonResult_InvalidMessageId;
+  }
+}
+
+PhotonGtB8 PhotonGcSegmentSender_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    default:
+      return false;
+  }
+}
+
+PhotonResult PhotonGcMain_ScriptingExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_ExecuteScriptingUploadScript(self, reader, writer);
+    case 1:
+      return PhotonGcMain_ExecuteScriptingDeleteScript(self, reader, writer);
+    case 2:
+      return PhotonGcMain_ExecuteScriptingRunScriptNow(self, reader, writer);
+    case 3:
+      return PhotonGcMain_ExecuteScriptingScheduleScriptRun(self, reader, writer);
+    case 4:
+      return PhotonGcMain_ExecuteScriptingEnableScriptRunTiming(self, reader, writer);
+    case 5:
+      return PhotonGcMain_ExecuteScriptingDisableScriptRunTiming(self, reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_ScriptingReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
+  size_t commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcMain_ScriptingExecuteCommand(self, reader, writer, commandId);
+}
+
+PhotonResult PhotonGcMain_ScriptingWriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
+  switch (messageId) {
+    case 0:
+      return PhotonGcMain_WriteScriptingAvailableScriptsIds(self, writer);
+    case 1:
+      return PhotonGcMain_WriteScriptingScriptsRunTimings(self, writer);
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}
+
+PhotonGtB8 PhotonGcScripting_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    case 0:
+      return true;
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+PhotonResult PhotonGcMain_TmExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_ExecuteTmSendEventMessage(self, reader, writer);
+    case 1:
+      return PhotonGcMain_ExecuteTmSendStatusMessage(self, reader, writer);
+    case 2:
+      return PhotonGcMain_ExecuteTmSetMessageRequest(self, reader, writer);
+    case 3:
+      return PhotonGcMain_ExecuteTmClearMessageRequest(self, reader, writer);
+    case 4:
+      return PhotonGcMain_ExecuteTmDenyMessage(self, reader, writer);
+    case 5:
+      return PhotonGcMain_ExecuteTmAllowMessage(self, reader, writer);
+    case 6:
+      return PhotonGcMain_ExecuteTmDenyEvent(self, reader, writer);
+    case 7:
+      return PhotonGcMain_ExecuteTmAllowEvent(self, reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_TmReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
+  size_t commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcMain_TmExecuteCommand(self, reader, writer, commandId);
+}
+
+PhotonResult PhotonGcMain_TmWriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
+  switch (messageId) {
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}
+
+PhotonGtB8 PhotonGcTm_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    default:
+      return false;
+  }
+}
+
+PhotonResult PhotonGcMain_SegmentExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_ExecuteSegmentStartSegmentAckMode(self, reader, writer);
+    case 1:
+      return PhotonGcMain_ExecuteSegmentStopSegmentAckMode(self, reader, writer);
+    case 2:
+      return PhotonGcMain_ExecuteSegmentRequestAckModeStatus(self, reader, writer);
+    case 3:
+      return PhotonGcMain_ExecuteSegmentProcessAckModeStatus(self, reader, writer);
+    case 4:
+      return PhotonGcMain_ExecuteSegmentStartAckOnEverySegmentMode(self, reader, writer);
+    case 5:
+      return PhotonGcMain_ExecuteSegmentStopAckOnEverySegmentMode(self, reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_SegmentReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
+  size_t commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcMain_SegmentExecuteCommand(self, reader, writer, commandId);
+}
+
+PhotonResult PhotonGcMain_SegmentWriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
+  switch (messageId) {
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}
+
+PhotonGtB8 PhotonGcSegment_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    default:
+      return false;
+  }
+}
+
+PhotonResult PhotonGcMain_IdentificationExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_ExecuteIdentificationRequestShortId(self, reader, writer);
+    case 1:
+      return PhotonGcMain_ExecuteIdentificationRequestFullId(self, reader, writer);
+    case 2:
+      return PhotonGcMain_ExecuteIdentificationRequestComponentGuid(self, reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_IdentificationReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
+  size_t commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcMain_IdentificationExecuteCommand(self, reader, writer, commandId);
+}
+
+PhotonResult PhotonGcMain_IdentificationWriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
+  switch (messageId) {
+    case 0:
+      return PhotonGcMain_WriteIdentificationFullId(self, writer);
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}
+
+PhotonGtB8 PhotonGcIdentification_IsStatusMessage(size_t messageId) {
+  switch (messageId) {
+    case 0:
+      return true;
+    default:
+      return false;
   }
 }
 
@@ -531,176 +743,6 @@ PhotonGtB8 PhotonGcRouter_IsStatusMessage(size_t messageId) {
   }
 }
 
-PhotonResult PhotonGcMain_IdentificationExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_ExecuteIdentificationRequestShortId(self, reader, writer);
-    case 1:
-      return PhotonGcMain_ExecuteIdentificationRequestFullId(self, reader, writer);
-    case 2:
-      return PhotonGcMain_ExecuteIdentificationRequestComponentGuid(self, reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_IdentificationReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
-  size_t commandId;
-  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
-  return PhotonGcMain_IdentificationExecuteCommand(self, reader, writer, commandId);
-}
-
-PhotonResult PhotonGcMain_IdentificationWriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId) {
-  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
-  switch (messageId) {
-    case 0:
-      return PhotonGcMain_WriteIdentificationFullId(self, writer);
-    default:
-      return PhotonResult_InvalidMessageId;
-  }
-}
-
-PhotonGtB8 PhotonGcIdentification_IsStatusMessage(size_t messageId) {
-  switch (messageId) {
-    case 0:
-      return true;
-    default:
-      return false;
-  }
-}
-
-PhotonResult PhotonGcMain_ScriptingExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_ExecuteScriptingUploadScript(self, reader, writer);
-    case 1:
-      return PhotonGcMain_ExecuteScriptingDeleteScript(self, reader, writer);
-    case 2:
-      return PhotonGcMain_ExecuteScriptingRunScriptNow(self, reader, writer);
-    case 3:
-      return PhotonGcMain_ExecuteScriptingScheduleScriptRun(self, reader, writer);
-    case 4:
-      return PhotonGcMain_ExecuteScriptingEnableScriptRunTiming(self, reader, writer);
-    case 5:
-      return PhotonGcMain_ExecuteScriptingDisableScriptRunTiming(self, reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_ScriptingReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
-  size_t commandId;
-  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
-  return PhotonGcMain_ScriptingExecuteCommand(self, reader, writer, commandId);
-}
-
-PhotonResult PhotonGcMain_ScriptingWriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId) {
-  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
-  switch (messageId) {
-    case 0:
-      return PhotonGcMain_WriteScriptingAvailableScriptsIds(self, writer);
-    case 1:
-      return PhotonGcMain_WriteScriptingScriptsRunTimings(self, writer);
-    default:
-      return PhotonResult_InvalidMessageId;
-  }
-}
-
-PhotonGtB8 PhotonGcScripting_IsStatusMessage(size_t messageId) {
-  switch (messageId) {
-    case 0:
-      return true;
-    case 1:
-      return true;
-    default:
-      return false;
-  }
-}
-
-PhotonResult PhotonGcMain_SegmentExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_ExecuteSegmentStartSegmentAckMode(self, reader, writer);
-    case 1:
-      return PhotonGcMain_ExecuteSegmentStopSegmentAckMode(self, reader, writer);
-    case 2:
-      return PhotonGcMain_ExecuteSegmentRequestAckModeStatus(self, reader, writer);
-    case 3:
-      return PhotonGcMain_ExecuteSegmentProcessAckModeStatus(self, reader, writer);
-    case 4:
-      return PhotonGcMain_ExecuteSegmentStartAckOnEverySegmentMode(self, reader, writer);
-    case 5:
-      return PhotonGcMain_ExecuteSegmentStopAckOnEverySegmentMode(self, reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_SegmentReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
-  size_t commandId;
-  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
-  return PhotonGcMain_SegmentExecuteCommand(self, reader, writer, commandId);
-}
-
-PhotonResult PhotonGcMain_SegmentWriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId) {
-  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
-  switch (messageId) {
-    default:
-      return PhotonResult_InvalidMessageId;
-  }
-}
-
-PhotonGtB8 PhotonGcSegment_IsStatusMessage(size_t messageId) {
-  switch (messageId) {
-    default:
-      return false;
-  }
-}
-
-PhotonResult PhotonGcMain_TmExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_ExecuteTmSendEventMessage(self, reader, writer);
-    case 1:
-      return PhotonGcMain_ExecuteTmSendStatusMessage(self, reader, writer);
-    case 2:
-      return PhotonGcMain_ExecuteTmSetMessageRequest(self, reader, writer);
-    case 3:
-      return PhotonGcMain_ExecuteTmClearMessageRequest(self, reader, writer);
-    case 4:
-      return PhotonGcMain_ExecuteTmDenyMessage(self, reader, writer);
-    case 5:
-      return PhotonGcMain_ExecuteTmAllowMessage(self, reader, writer);
-    case 6:
-      return PhotonGcMain_ExecuteTmDenyEvent(self, reader, writer);
-    case 7:
-      return PhotonGcMain_ExecuteTmAllowEvent(self, reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_TmReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
-  size_t commandId;
-  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
-  return PhotonGcMain_TmExecuteCommand(self, reader, writer, commandId);
-}
-
-PhotonResult PhotonGcMain_TmWriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId) {
-  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
-  switch (messageId) {
-    default:
-      return PhotonResult_InvalidMessageId;
-  }
-}
-
-PhotonGtB8 PhotonGcTm_IsStatusMessage(size_t messageId) {
-  switch (messageId) {
-    default:
-      return false;
-  }
-}
-
 PhotonResult PhotonGcMain_SegmentReceiverExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
   switch (commandId) {
     case 0:
@@ -742,48 +784,6 @@ PhotonGtB8 PhotonGcSegmentReceiver_IsStatusMessage(size_t messageId) {
   switch (messageId) {
     case 0:
       return true;
-    default:
-      return false;
-  }
-}
-
-PhotonResult PhotonGcMain_SegmentSenderExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer, size_t commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_ExecuteSegmentSenderProcessSegmentsAck(self, reader, writer);
-    case 1:
-      return PhotonGcMain_ExecuteSegmentStartSegmentAckMode(self, reader, writer);
-    case 2:
-      return PhotonGcMain_ExecuteSegmentStopSegmentAckMode(self, reader, writer);
-    case 3:
-      return PhotonGcMain_ExecuteSegmentRequestAckModeStatus(self, reader, writer);
-    case 4:
-      return PhotonGcMain_ExecuteSegmentProcessAckModeStatus(self, reader, writer);
-    case 5:
-      return PhotonGcMain_ExecuteSegmentStartAckOnEverySegmentMode(self, reader, writer);
-    case 6:
-      return PhotonGcMain_ExecuteSegmentStopAckOnEverySegmentMode(self, reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_SegmentSenderReadExecuteCommand(PhotonGcMain* self, PhotonReader* reader, PhotonWriter* writer) {
-  size_t commandId;
-  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
-  return PhotonGcMain_SegmentSenderExecuteCommand(self, reader, writer, commandId);
-}
-
-PhotonResult PhotonGcMain_SegmentSenderWriteMessage(PhotonGcMain* self, PhotonWriter* writer, size_t messageId) {
-  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
-  switch (messageId) {
-    default:
-      return PhotonResult_InvalidMessageId;
-  }
-}
-
-PhotonGtB8 PhotonGcSegmentSender_IsStatusMessage(size_t messageId) {
-  switch (messageId) {
     default:
       return false;
   }

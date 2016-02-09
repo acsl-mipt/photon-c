@@ -23,6 +23,5 @@ add_library(photon
     Ber.h
     photon_prologue.h
     photon_epilogue.h
-        PhotonGcMainImpl.c
     ${PHOTON_GENERATED_FILES}
 )

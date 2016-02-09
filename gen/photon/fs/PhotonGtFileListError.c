@@ -3,13 +3,11 @@
 
 
 PhotonResult PhotonGtFileListError_Serialize(PhotonGtFileListError self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer))
-    return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self, writer));
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGtFileListError_Deserialize(PhotonGtFileListError* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonBer_Deserialize(self, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) self, reader));
   return PhotonResult_Ok;
 }

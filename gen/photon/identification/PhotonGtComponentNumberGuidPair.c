@@ -12,6 +12,6 @@ PhotonResult PhotonGtComponentNumberGuidPair_Serialize(const PhotonGtComponentNu
 
 PhotonResult PhotonGtComponentNumberGuidPair_Deserialize(PhotonGtComponentNumberGuidPair* self, PhotonReader* reader) {
   PHOTON_TRY(PhotonBer_Deserialize(&self->number, reader));
-  PHOTON_TRY(PhotonBer_Deserialize(&self->guid, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->guid, reader));
   return PhotonResult_Ok;
 }

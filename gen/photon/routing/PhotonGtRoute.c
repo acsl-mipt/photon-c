@@ -9,7 +9,7 @@ PhotonResult PhotonGtRoute_Serialize(const PhotonGtRoute* self, PhotonWriter* wr
 }
 
 PhotonResult PhotonGtRoute_Deserialize(PhotonGtRoute* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonBer_Deserialize(&self->destination_address, reader));
-  PHOTON_TRY(PhotonBer_Deserialize(&self->next_hop, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->destination_address, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->next_hop, reader));
   return PhotonResult_Ok;
 }

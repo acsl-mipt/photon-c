@@ -11,7 +11,7 @@ PhotonResult PhotonGtFileInfo_Serialize(const PhotonGtFileInfo* self, PhotonWrit
 }
 
 PhotonResult PhotonGtFileInfo_Deserialize(PhotonGtFileInfo* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonGtArrU8_Deserialize(&self->filePath, reader));
+  PHOTON_TRY(PhotonGtArrU8_Deserialize((PhotonGtArrU8*) &self->filePath, reader));
   PHOTON_TRY(PhotonBer_Deserialize(&self->fileAttrs, reader));
   return PhotonResult_Ok;
 }

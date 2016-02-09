@@ -12,8 +12,8 @@ PhotonResult PhotonGtNodeInfo_Serialize(const PhotonGtNodeInfo* self, PhotonWrit
 }
 
 PhotonResult PhotonGtNodeInfo_Deserialize(PhotonGtNodeInfo* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonGtArrU8_Deserialize(&self->name, reader));
-  self->isDir = PhotonReader_ReadUint8(reader);
+  PHOTON_TRY(PhotonGtArrU8_Deserialize((PhotonGtArrU8*) &self->name, reader));
+  *(unsigned char*) &self->isDir = PhotonReader_ReadUint8(reader);
   PHOTON_TRY(PhotonBer_Deserialize(&self->attrs, reader));
   return PhotonResult_Ok;
 }

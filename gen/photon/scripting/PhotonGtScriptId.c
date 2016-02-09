@@ -8,6 +8,6 @@ PhotonResult PhotonGtScriptId_Serialize(PhotonGtScriptId self, PhotonWriter* wri
 }
 
 PhotonResult PhotonGtScriptId_Deserialize(PhotonGtScriptId* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonBer_Deserialize((PhotonGtGuid*) self, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) (PhotonGtGuid*) self, reader));
   return PhotonResult_Ok;
 }

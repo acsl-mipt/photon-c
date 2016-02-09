@@ -15,13 +15,13 @@ PhotonResult PhotonGtScriptRunTiming_Serialize(const PhotonGtScriptRunTiming* se
 }
 
 PhotonResult PhotonGtScriptRunTiming_Deserialize(PhotonGtScriptRunTiming* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonBer_Deserialize(&self->id, reader));
-  self->isActive = PhotonReader_ReadUint8(reader);
-  PHOTON_TRY(PhotonBer_Deserialize(&self->scriptId, reader));
-  PHOTON_TRY(PhotonBer_Deserialize(&self->runOn, reader));
-  self->isRepeated = PhotonReader_ReadUint8(reader);
-  PHOTON_TRY(PhotonBer_Deserialize(&self->repeatPeriod, reader));
-  self->isRepeatingLimitedByDate = PhotonReader_ReadUint8(reader);
-  PHOTON_TRY(PhotonBer_Deserialize(&self->repeatUntil, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->id, reader));
+  *(unsigned char*) &self->isActive = PhotonReader_ReadUint8(reader);
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) (PhotonGtGuid*) &self->scriptId, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->runOn, reader));
+  *(unsigned char*) &self->isRepeated = PhotonReader_ReadUint8(reader);
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->repeatPeriod, reader));
+  *(unsigned char*) &self->isRepeatingLimitedByDate = PhotonReader_ReadUint8(reader);
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->repeatUntil, reader));
   return PhotonResult_Ok;
 }

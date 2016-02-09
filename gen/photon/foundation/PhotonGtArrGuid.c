@@ -17,7 +17,7 @@ PhotonResult PhotonGtArrGuid_Deserialize(PhotonGtArrGuid* self, PhotonReader* re
   if (PhotonReader_ReadableSize(reader) < (*self).size * sizeof(PhotonBer))
     return PhotonResult_NotEnoughData;
   for(size_t i = 0, size = self->size; i < size; ++i) {
-    PHOTON_TRY(PhotonBer_Deserialize(&self->data[i], reader));
+    PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->data[i], reader));
   }
   return PhotonResult_Ok;
 }

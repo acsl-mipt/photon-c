@@ -17,7 +17,7 @@ PhotonResult PhotonGtArrU8_Deserialize(PhotonGtArrU8* self, PhotonReader* reader
   if (PhotonReader_ReadableSize(reader) < (*self).size * sizeof(unsigned char))
     return PhotonResult_NotEnoughData;
   for(size_t i = 0, size = self->size; i < size; ++i) {
-    self->data[i] = PhotonReader_ReadUint8(reader);
+    *(unsigned char*) &self->data[i] = PhotonReader_ReadUint8(reader);
   }
   return PhotonResult_Ok;
 }

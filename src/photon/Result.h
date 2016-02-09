@@ -35,7 +35,8 @@ typedef enum {
 
     PhotonResult_InvalidCommandId,
     PhotonResult_InvalidComponentId,
-    PhotonResult_InvalidMessageId
+    PhotonResult_InvalidMessageId,
+    PhotonResult_InvalidValue
 } PhotonResult;
 
 #ifdef __cplusplus
