@@ -15,7 +15,7 @@ typedef enum  {
   , PHOTON_GT_SCRIPTING_ERROR_INVALID_STATE = 2
 } PhotonGtScriptingError;
 
-PhotonResult PhotonGtScriptingError_Serialize(PhotonGtScriptingError* self, PhotonWriter* writer);
+PhotonResult PhotonGtScriptingError_Serialize(const PhotonGtScriptingError* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtScriptingError_Deserialize(PhotonGtScriptingError* self, PhotonReader* reader);
 

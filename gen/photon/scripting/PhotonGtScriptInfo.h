@@ -20,7 +20,7 @@ typedef struct {
   PhotonGtArrU8 scriptCode;
 } PhotonGtScriptInfo;
 
-PhotonResult PhotonGtScriptInfo_Serialize(PhotonGtScriptInfo* self, PhotonWriter* writer);
+PhotonResult PhotonGtScriptInfo_Serialize(const PhotonGtScriptInfo* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtScriptInfo_Deserialize(PhotonGtScriptInfo* self, PhotonReader* reader);
 

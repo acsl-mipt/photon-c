@@ -18,7 +18,7 @@ typedef struct {
   PhotonGtGuid rootComponentGuid;
 } PhotonGtShortId;
 
-PhotonResult PhotonGtShortId_Serialize(PhotonGtShortId* self, PhotonWriter* writer);
+PhotonResult PhotonGtShortId_Serialize(const PhotonGtShortId* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtShortId_Deserialize(PhotonGtShortId* self, PhotonReader* reader);
 

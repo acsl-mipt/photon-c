@@ -19,7 +19,7 @@ typedef struct {
   PhotonGtFileDownloadError _2;
 } PhotonGtOrFullFileInfoFileDownloadError;
 
-PhotonResult PhotonGtOrFullFileInfoFileDownloadError_Serialize(PhotonGtOrFullFileInfoFileDownloadError* self, PhotonWriter* writer);
+PhotonResult PhotonGtOrFullFileInfoFileDownloadError_Serialize(const PhotonGtOrFullFileInfoFileDownloadError* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtOrFullFileInfoFileDownloadError_Deserialize(PhotonGtOrFullFileInfoFileDownloadError* self, PhotonReader* reader);
 

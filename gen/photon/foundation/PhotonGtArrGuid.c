@@ -2,7 +2,7 @@
 #include "photon/foundation/PhotonGtArrGuid.h"
 
 
-PhotonResult PhotonGtArrGuid_Serialize(PhotonGtArrGuid* self, PhotonWriter* writer) {
+PhotonResult PhotonGtArrGuid_Serialize(const PhotonGtArrGuid* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < (*self).size * sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->size, writer));

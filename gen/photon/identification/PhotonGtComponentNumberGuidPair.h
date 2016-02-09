@@ -17,7 +17,7 @@ typedef struct {
   PhotonGtGuid guid;
 } PhotonGtComponentNumberGuidPair;
 
-PhotonResult PhotonGtComponentNumberGuidPair_Serialize(PhotonGtComponentNumberGuidPair* self, PhotonWriter* writer);
+PhotonResult PhotonGtComponentNumberGuidPair_Serialize(const PhotonGtComponentNumberGuidPair* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtComponentNumberGuidPair_Deserialize(PhotonGtComponentNumberGuidPair* self, PhotonReader* reader);
 

@@ -2,7 +2,7 @@
 #include "photon/decode/PhotonGtOrFullFileInfoFileDownloadError.h"
 
 
-PhotonResult PhotonGtOrFullFileInfoFileDownloadError_Serialize(PhotonGtOrFullFileInfoFileDownloadError* self, PhotonWriter* writer) {
+PhotonResult PhotonGtOrFullFileInfoFileDownloadError_Serialize(const PhotonGtOrFullFileInfoFileDownloadError* self, PhotonWriter* writer) {
 /* todo */  return PhotonResult_Ok;
 }
 

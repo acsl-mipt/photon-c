@@ -17,7 +17,7 @@ typedef struct {
   PhotonGtNodeInfo data[256];
 } PhotonGtArrNodeInfo;
 
-PhotonResult PhotonGtArrNodeInfo_Serialize(PhotonGtArrNodeInfo* self, PhotonWriter* writer);
+PhotonResult PhotonGtArrNodeInfo_Serialize(const PhotonGtArrNodeInfo* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtArrNodeInfo_Deserialize(PhotonGtArrNodeInfo* self, PhotonReader* reader);
 

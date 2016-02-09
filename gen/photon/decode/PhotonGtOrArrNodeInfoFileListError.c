@@ -2,7 +2,7 @@
 #include "photon/decode/PhotonGtOrArrNodeInfoFileListError.h"
 
 
-PhotonResult PhotonGtOrArrNodeInfoFileListError_Serialize(PhotonGtOrArrNodeInfoFileListError* self, PhotonWriter* writer) {
+PhotonResult PhotonGtOrArrNodeInfoFileListError_Serialize(const PhotonGtOrArrNodeInfoFileListError* self, PhotonWriter* writer) {
 /* todo */  return PhotonResult_Ok;
 }
 

@@ -2,7 +2,7 @@
 #include "photon/scripting/PhotonGtScriptRunTiming.h"
 
 
-PhotonResult PhotonGtScriptRunTiming_Serialize(PhotonGtScriptRunTiming* self, PhotonWriter* writer) {
+PhotonResult PhotonGtScriptRunTiming_Serialize(const PhotonGtScriptRunTiming* self, PhotonWriter* writer) {
   PHOTON_TRY(PhotonBer_Serialize(self->id, writer));
   PhotonWriter_WriteUint8(writer, self->isActive);
   PHOTON_TRY(PhotonBer_Serialize(self->scriptId, writer));

@@ -2,7 +2,7 @@
 #include "photon/foundation/PhotonGtB8.h"
 
 
-PhotonResult PhotonGtB8_Serialize(PhotonGtB8* self, PhotonWriter* writer) {
+PhotonResult PhotonGtB8_Serialize(const PhotonGtB8* self, PhotonWriter* writer) {
   PhotonWriter_WriteUint8(writer, self);
   return PhotonResult_Ok;
 }

@@ -2,7 +2,7 @@
 #include "photon/routing/PhotonGtArrRoute.h"
 
 
-PhotonResult PhotonGtArrRoute_Serialize(PhotonGtArrRoute* self, PhotonWriter* writer) {
+PhotonResult PhotonGtArrRoute_Serialize(const PhotonGtArrRoute* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < (*self).size * sizeof(PhotonBer) + sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->size, writer));

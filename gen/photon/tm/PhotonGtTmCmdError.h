@@ -15,7 +15,7 @@ typedef enum  {
   , PHOTON_GT_TM_CMD_ERROR_INVALID_STATE = 2
 } PhotonGtTmCmdError;
 
-PhotonResult PhotonGtTmCmdError_Serialize(PhotonGtTmCmdError* self, PhotonWriter* writer);
+PhotonResult PhotonGtTmCmdError_Serialize(const PhotonGtTmCmdError* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtTmCmdError_Deserialize(PhotonGtTmCmdError* self, PhotonReader* reader);
 

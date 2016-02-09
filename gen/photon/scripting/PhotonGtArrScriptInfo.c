@@ -2,7 +2,7 @@
 #include "photon/scripting/PhotonGtArrScriptInfo.h"
 
 
-PhotonResult PhotonGtArrScriptInfo_Serialize(PhotonGtArrScriptInfo* self, PhotonWriter* writer) {
+PhotonResult PhotonGtArrScriptInfo_Serialize(const PhotonGtArrScriptInfo* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < (*self).size * sizeof(PhotonBer) + sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer) + sizeof(unsigned char))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->size, writer));

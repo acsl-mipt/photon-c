@@ -2,7 +2,7 @@
 #include "photon/decode/PhotonGtOptionalSegmentStopAckError.h"
 
 
-PhotonResult PhotonGtOptionalSegmentStopAckError_Serialize(PhotonGtOptionalSegmentStopAckError* self, PhotonWriter* writer) {
+PhotonResult PhotonGtOptionalSegmentStopAckError_Serialize(const PhotonGtOptionalSegmentStopAckError* self, PhotonWriter* writer) {
 /* todo */  return PhotonResult_Ok;
 }
 

@@ -2,7 +2,7 @@
 #include "photon/fs/PhotonGtNodeInfo.h"
 
 
-PhotonResult PhotonGtNodeInfo_Serialize(PhotonGtNodeInfo* self, PhotonWriter* writer) {
+PhotonResult PhotonGtNodeInfo_Serialize(const PhotonGtNodeInfo* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->name, writer));

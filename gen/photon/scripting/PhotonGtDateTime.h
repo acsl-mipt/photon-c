@@ -12,7 +12,7 @@ extern "C" {
 
 typedef PhotonBer PhotonGtDateTime;
 
-PhotonResult PhotonGtDateTime_Serialize(PhotonGtDateTime* self, PhotonWriter* writer);
+PhotonResult PhotonGtDateTime_Serialize(const PhotonGtDateTime* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtDateTime_Deserialize(PhotonGtDateTime* self, PhotonReader* reader);
 

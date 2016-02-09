@@ -2,7 +2,7 @@
 #include "photon/fs/PhotonGtFullFileInfo.h"
 
 
-PhotonResult PhotonGtFullFileInfo_Serialize(PhotonGtFullFileInfo* self, PhotonWriter* writer) {
+PhotonResult PhotonGtFullFileInfo_Serialize(const PhotonGtFullFileInfo* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer) + (*self).fileContents.size * sizeof(unsigned char))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonGtArrU8_Serialize(&self->filePath, writer));

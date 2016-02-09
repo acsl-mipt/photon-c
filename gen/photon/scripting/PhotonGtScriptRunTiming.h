@@ -30,7 +30,7 @@ typedef struct {
   PhotonGtDateTime repeatUntil;
 } PhotonGtScriptRunTiming;
 
-PhotonResult PhotonGtScriptRunTiming_Serialize(PhotonGtScriptRunTiming* self, PhotonWriter* writer);
+PhotonResult PhotonGtScriptRunTiming_Serialize(const PhotonGtScriptRunTiming* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtScriptRunTiming_Deserialize(PhotonGtScriptRunTiming* self, PhotonReader* reader);
 

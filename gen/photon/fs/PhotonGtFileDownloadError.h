@@ -16,7 +16,7 @@ typedef enum  {
   , PHOTON_GT_FILE_DOWNLOAD_ERROR_NOT_FILE = 3
 } PhotonGtFileDownloadError;
 
-PhotonResult PhotonGtFileDownloadError_Serialize(PhotonGtFileDownloadError* self, PhotonWriter* writer);
+PhotonResult PhotonGtFileDownloadError_Serialize(const PhotonGtFileDownloadError* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtFileDownloadError_Deserialize(PhotonGtFileDownloadError* self, PhotonReader* reader);
 

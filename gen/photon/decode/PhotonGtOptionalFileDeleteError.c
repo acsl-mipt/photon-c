@@ -2,7 +2,7 @@
 #include "photon/decode/PhotonGtOptionalFileDeleteError.h"
 
 
-PhotonResult PhotonGtOptionalFileDeleteError_Serialize(PhotonGtOptionalFileDeleteError* self, PhotonWriter* writer) {
+PhotonResult PhotonGtOptionalFileDeleteError_Serialize(const PhotonGtOptionalFileDeleteError* self, PhotonWriter* writer) {
 /* todo */  return PhotonResult_Ok;
 }
 

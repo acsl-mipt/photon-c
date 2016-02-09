@@ -14,7 +14,7 @@ extern "C" {
 
 typedef PhotonGtArrU8 PhotonGtString;
 
-PhotonResult PhotonGtString_Serialize(PhotonGtString* self, PhotonWriter* writer);
+PhotonResult PhotonGtString_Serialize(const PhotonGtString* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtString_Deserialize(PhotonGtString* self, PhotonReader* reader);
 

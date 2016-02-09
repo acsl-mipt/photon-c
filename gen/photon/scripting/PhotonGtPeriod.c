@@ -2,7 +2,7 @@
 #include "photon/scripting/PhotonGtPeriod.h"
 
 
-PhotonResult PhotonGtPeriod_Serialize(PhotonGtPeriod* self, PhotonWriter* writer) {
+PhotonResult PhotonGtPeriod_Serialize(const PhotonGtPeriod* self, PhotonWriter* writer) {
   PHOTON_TRY(PhotonBer_Serialize(self, writer));
   return PhotonResult_Ok;
 }

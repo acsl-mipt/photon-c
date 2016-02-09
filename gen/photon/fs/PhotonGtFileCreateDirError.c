@@ -2,7 +2,7 @@
 #include "photon/fs/PhotonGtFileCreateDirError.h"
 
 
-PhotonResult PhotonGtFileCreateDirError_Serialize(PhotonGtFileCreateDirError* self, PhotonWriter* writer) {
+PhotonResult PhotonGtFileCreateDirError_Serialize(const PhotonGtFileCreateDirError* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self, writer));

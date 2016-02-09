@@ -2,7 +2,7 @@
 #include "photon/decode/PhotonGtOptionalFileUploadError.h"
 
 
-PhotonResult PhotonGtOptionalFileUploadError_Serialize(PhotonGtOptionalFileUploadError* self, PhotonWriter* writer) {
+PhotonResult PhotonGtOptionalFileUploadError_Serialize(const PhotonGtOptionalFileUploadError* self, PhotonWriter* writer) {
 /* todo */  return PhotonResult_Ok;
 }
 

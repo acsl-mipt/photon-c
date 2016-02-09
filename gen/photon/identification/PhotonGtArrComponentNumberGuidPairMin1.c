@@ -2,7 +2,7 @@
 #include "photon/identification/PhotonGtArrComponentNumberGuidPairMin1.h"
 
 
-PhotonResult PhotonGtArrComponentNumberGuidPairMin1_Serialize(PhotonGtArrComponentNumberGuidPairMin1* self, PhotonWriter* writer) {
+PhotonResult PhotonGtArrComponentNumberGuidPairMin1_Serialize(const PhotonGtArrComponentNumberGuidPairMin1* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < (*self).size * sizeof(PhotonBer) + sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->size, writer));

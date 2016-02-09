@@ -14,7 +14,7 @@ typedef enum  {
     PHOTON_GT_SEGMENT_PROCESS_ACK_ERROR_INVALID_STATE = 1
 } PhotonGtSegmentProcessAckError;
 
-PhotonResult PhotonGtSegmentProcessAckError_Serialize(PhotonGtSegmentProcessAckError* self, PhotonWriter* writer);
+PhotonResult PhotonGtSegmentProcessAckError_Serialize(const PhotonGtSegmentProcessAckError* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtSegmentProcessAckError_Deserialize(PhotonGtSegmentProcessAckError* self, PhotonReader* reader);
 

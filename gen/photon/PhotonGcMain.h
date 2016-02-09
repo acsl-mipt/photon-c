@@ -99,44 +99,62 @@ PhotonGtOptionalSegmentProcessAckError PhotonGcMain_SegmentSenderProcessSegments
 
 /* USER parameter implementation functions, MUST BE defined */
 
-PhotonGtArrRoute PhotonGcMain_RouterRoutes(PhotonGcMain* self);
-PhotonGtArrRoute PhotonGcMain_RouterGroupRoutes(PhotonGcMain* self);
-PhotonGtFullId PhotonGcMain_IdentificationFullId(PhotonGcMain* self);
-PhotonGtArrGuid PhotonGcMain_ScriptingScriptsIds(PhotonGcMain* self);
-PhotonGtArrScriptInfo PhotonGcMain_ScriptingScripts(PhotonGcMain* self);
-PhotonGtArrScriptRunTiming PhotonGcMain_ScriptingScriptsRunTimings(PhotonGcMain* self);
-PhotonGtB8 PhotonGcMain_SegmentIsSegmentationAckModeActive(PhotonGcMain* self);
-PhotonBer PhotonGcMain_SegmentMaxSegmentNumber(PhotonGcMain* self);
-PhotonGtB8 PhotonGcMain_SegmentIsAckOnEverySegmentModeActive(PhotonGcMain* self);
-PhotonGtArrU8 PhotonGcMain_TmOnceRequests(PhotonGcMain* self);
-PhotonGtArrArrU8 PhotonGcMain_TmDeniedMessagesByComponent(PhotonGcMain* self);
-PhotonGtArrArrU8 PhotonGcMain_TmPriorityOrderedRequests(PhotonGcMain* self);
-PhotonGtRingBuf PhotonGcMain_TmOutOfOrderMesages(PhotonGcMain* self);
-PhotonGtArrEventInfo PhotonGcMain_TmLostEvents(PhotonGcMain* self);
-PhotonGtArrBer PhotonGcMain_SegmentReceiverSegmentsReceived(PhotonGcMain* self);
+const PhotonGtArrRoute* PhotonGcMain_RouterRoutes(PhotonGcMain* self);
+const PhotonGtArrRoute* PhotonGcMain_RouterGroupRoutes(PhotonGcMain* self);
+const PhotonGtFullId* PhotonGcMain_IdentificationFullId(PhotonGcMain* self);
+const PhotonGtArrGuid* PhotonGcMain_ScriptingScriptsIds(PhotonGcMain* self);
+const PhotonGtArrScriptInfo* PhotonGcMain_ScriptingScripts(PhotonGcMain* self);
+const PhotonGtArrScriptRunTiming* PhotonGcMain_ScriptingScriptsRunTimings(PhotonGcMain* self);
+const PhotonGtB8* PhotonGcMain_SegmentIsSegmentationAckModeActive(PhotonGcMain* self);
+const PhotonBer* PhotonGcMain_SegmentMaxSegmentNumber(PhotonGcMain* self);
+const PhotonGtB8* PhotonGcMain_SegmentIsAckOnEverySegmentModeActive(PhotonGcMain* self);
+const PhotonGtArrU8* PhotonGcMain_TmOnceRequests(PhotonGcMain* self);
+const PhotonGtArrArrU8* PhotonGcMain_TmDeniedMessagesByComponent(PhotonGcMain* self);
+const PhotonGtArrArrU8* PhotonGcMain_TmPriorityOrderedRequests(PhotonGcMain* self);
+const PhotonGtRingBuf* PhotonGcMain_TmOutOfOrderMesages(PhotonGcMain* self);
+const PhotonGtArrEventInfo* PhotonGcMain_TmLostEvents(PhotonGcMain* self);
+const PhotonGtArrBer* PhotonGcMain_SegmentReceiverSegmentsReceived(PhotonGcMain* self);
 
 /* Message ID for component defines */
 
+#define PHOTON_GC_MAIN_MESSAGE_IDS_LEN 4
 #define PHOTON_GC_MAIN_MESSAGE_IDS {0, 1, 2, 3}
+#define PHOTON_GC_MAIN_FILES_MESSAGE_IDS_LEN 0
 #define PHOTON_GC_MAIN_FILES_MESSAGE_IDS {}
+#define PHOTON_GC_MAIN_ROUTER_MESSAGE_IDS_LEN 0
 #define PHOTON_GC_MAIN_ROUTER_MESSAGE_IDS {}
+#define PHOTON_GC_MAIN_IDENTIFICATION_MESSAGE_IDS_LEN 1
 #define PHOTON_GC_MAIN_IDENTIFICATION_MESSAGE_IDS {0}
+#define PHOTON_GC_MAIN_SCRIPTING_MESSAGE_IDS_LEN 2
 #define PHOTON_GC_MAIN_SCRIPTING_MESSAGE_IDS {0, 1}
+#define PHOTON_GC_MAIN_SEGMENT_MESSAGE_IDS_LEN 0
 #define PHOTON_GC_MAIN_SEGMENT_MESSAGE_IDS {}
+#define PHOTON_GC_MAIN_TM_MESSAGE_IDS_LEN 0
 #define PHOTON_GC_MAIN_TM_MESSAGE_IDS {}
+#define PHOTON_GC_MAIN_SEGMENT_RECEIVER_MESSAGE_IDS_LEN 1
 #define PHOTON_GC_MAIN_SEGMENT_RECEIVER_MESSAGE_IDS {0}
+#define PHOTON_GC_MAIN_SEGMENT_SENDER_MESSAGE_IDS_LEN 0
 #define PHOTON_GC_MAIN_SEGMENT_SENDER_MESSAGE_IDS {}
 
 /* Command ID for component defines */
 
+#define PHOTON_GC_MAIN_COMMAND_IDS_LEN 34
 #define PHOTON_GC_MAIN_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33}
+#define PHOTON_GC_MAIN_FILES_COMMAND_IDS_LEN 5
 #define PHOTON_GC_MAIN_FILES_COMMAND_IDS {0, 1, 2, 3, 4}
+#define PHOTON_GC_MAIN_ROUTER_COMMAND_IDS_LEN 4
 #define PHOTON_GC_MAIN_ROUTER_COMMAND_IDS {0, 1, 2, 3}
+#define PHOTON_GC_MAIN_IDENTIFICATION_COMMAND_IDS_LEN 3
 #define PHOTON_GC_MAIN_IDENTIFICATION_COMMAND_IDS {0, 1, 2}
+#define PHOTON_GC_MAIN_SCRIPTING_COMMAND_IDS_LEN 6
 #define PHOTON_GC_MAIN_SCRIPTING_COMMAND_IDS {0, 1, 2, 3, 4, 5}
+#define PHOTON_GC_MAIN_SEGMENT_COMMAND_IDS_LEN 6
 #define PHOTON_GC_MAIN_SEGMENT_COMMAND_IDS {0, 1, 2, 3, 4, 5}
+#define PHOTON_GC_MAIN_TM_COMMAND_IDS_LEN 8
 #define PHOTON_GC_MAIN_TM_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6, 7}
+#define PHOTON_GC_MAIN_SEGMENT_RECEIVER_COMMAND_IDS_LEN 7
 #define PHOTON_GC_MAIN_SEGMENT_RECEIVER_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6}
+#define PHOTON_GC_MAIN_SEGMENT_SENDER_COMMAND_IDS_LEN 7
 #define PHOTON_GC_MAIN_SEGMENT_SENDER_COMMAND_IDS {0, 1, 2, 3, 4, 5, 6}
 
 /* Implemented functions */

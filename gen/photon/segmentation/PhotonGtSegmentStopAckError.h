@@ -15,7 +15,7 @@ typedef enum  {
   , PHOTON_GT_SEGMENT_STOP_ACK_ERROR_INVALID_STATE = 2
 } PhotonGtSegmentStopAckError;
 
-PhotonResult PhotonGtSegmentStopAckError_Serialize(PhotonGtSegmentStopAckError* self, PhotonWriter* writer);
+PhotonResult PhotonGtSegmentStopAckError_Serialize(const PhotonGtSegmentStopAckError* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtSegmentStopAckError_Deserialize(PhotonGtSegmentStopAckError* self, PhotonReader* reader);
 

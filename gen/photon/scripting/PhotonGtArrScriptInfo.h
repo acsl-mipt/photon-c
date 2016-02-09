@@ -17,7 +17,7 @@ typedef struct {
   PhotonGtScriptInfo data[256];
 } PhotonGtArrScriptInfo;
 
-PhotonResult PhotonGtArrScriptInfo_Serialize(PhotonGtArrScriptInfo* self, PhotonWriter* writer);
+PhotonResult PhotonGtArrScriptInfo_Serialize(const PhotonGtArrScriptInfo* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtArrScriptInfo_Deserialize(PhotonGtArrScriptInfo* self, PhotonReader* reader);
 

@@ -2,7 +2,7 @@
 #include "photon/foundation/PhotonGtString.h"
 
 
-PhotonResult PhotonGtString_Serialize(PhotonGtString* self, PhotonWriter* writer) {
+PhotonResult PhotonGtString_Serialize(const PhotonGtString* self, PhotonWriter* writer) {
   PHOTON_TRY(PhotonGtArrU8_Serialize(self, writer));
   return PhotonResult_Ok;
 }

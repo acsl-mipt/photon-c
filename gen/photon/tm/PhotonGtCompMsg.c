@@ -2,7 +2,7 @@
 #include "photon/tm/PhotonGtCompMsg.h"
 
 
-PhotonResult PhotonGtCompMsg_Serialize(PhotonGtCompMsg* self, PhotonWriter* writer) {
+PhotonResult PhotonGtCompMsg_Serialize(const PhotonGtCompMsg* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer) + sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->componentNum, writer));

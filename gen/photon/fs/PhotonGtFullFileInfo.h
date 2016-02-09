@@ -19,7 +19,7 @@ typedef struct {
   PhotonGtArrU8 fileContents;
 } PhotonGtFullFileInfo;
 
-PhotonResult PhotonGtFullFileInfo_Serialize(PhotonGtFullFileInfo* self, PhotonWriter* writer);
+PhotonResult PhotonGtFullFileInfo_Serialize(const PhotonGtFullFileInfo* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtFullFileInfo_Deserialize(PhotonGtFullFileInfo* self, PhotonReader* reader);
 

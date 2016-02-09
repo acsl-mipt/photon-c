@@ -17,7 +17,7 @@ typedef struct {
   PhotonGtFileCreateDirError value;
 } PhotonGtOptionalFileCreateDirError;
 
-PhotonResult PhotonGtOptionalFileCreateDirError_Serialize(PhotonGtOptionalFileCreateDirError* self, PhotonWriter* writer);
+PhotonResult PhotonGtOptionalFileCreateDirError_Serialize(const PhotonGtOptionalFileCreateDirError* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtOptionalFileCreateDirError_Deserialize(PhotonGtOptionalFileCreateDirError* self, PhotonReader* reader);
 

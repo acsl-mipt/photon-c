@@ -2,7 +2,7 @@
 #include "photon/tm/PhotonGtEventInfo.h"
 
 
-PhotonResult PhotonGtEventInfo_Serialize(PhotonGtEventInfo* self, PhotonWriter* writer) {
+PhotonResult PhotonGtEventInfo_Serialize(const PhotonGtEventInfo* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer) + sizeof(PhotonBer) + sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonGtCompMsg_Serialize(&self->componentMessage, writer));

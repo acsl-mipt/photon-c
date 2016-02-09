@@ -15,7 +15,7 @@ typedef enum  {
   , PHOTON_GT_FILE_DELETE_ERROR_CANT_DELETE = 2
 } PhotonGtFileDeleteError;
 
-PhotonResult PhotonGtFileDeleteError_Serialize(PhotonGtFileDeleteError* self, PhotonWriter* writer);
+PhotonResult PhotonGtFileDeleteError_Serialize(const PhotonGtFileDeleteError* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtFileDeleteError_Deserialize(PhotonGtFileDeleteError* self, PhotonReader* reader);
 

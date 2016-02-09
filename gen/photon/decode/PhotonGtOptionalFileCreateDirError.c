@@ -2,7 +2,7 @@
 #include "photon/decode/PhotonGtOptionalFileCreateDirError.h"
 
 
-PhotonResult PhotonGtOptionalFileCreateDirError_Serialize(PhotonGtOptionalFileCreateDirError* self, PhotonWriter* writer) {
+PhotonResult PhotonGtOptionalFileCreateDirError_Serialize(const PhotonGtOptionalFileCreateDirError* self, PhotonWriter* writer) {
 /* todo */  return PhotonResult_Ok;
 }
 

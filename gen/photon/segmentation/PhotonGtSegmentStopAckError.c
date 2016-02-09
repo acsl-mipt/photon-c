@@ -2,7 +2,7 @@
 #include "photon/segmentation/PhotonGtSegmentStopAckError.h"
 
 
-PhotonResult PhotonGtSegmentStopAckError_Serialize(PhotonGtSegmentStopAckError* self, PhotonWriter* writer) {
+PhotonResult PhotonGtSegmentStopAckError_Serialize(const PhotonGtSegmentStopAckError* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self, writer));

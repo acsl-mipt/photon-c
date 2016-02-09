@@ -18,7 +18,7 @@ typedef struct {
   PhotonBer endOffset;
 } PhotonGtRingBuf;
 
-PhotonResult PhotonGtRingBuf_Serialize(PhotonGtRingBuf* self, PhotonWriter* writer);
+PhotonResult PhotonGtRingBuf_Serialize(const PhotonGtRingBuf* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtRingBuf_Deserialize(PhotonGtRingBuf* self, PhotonReader* reader);
 

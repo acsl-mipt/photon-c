@@ -17,7 +17,7 @@ typedef struct {
   PhotonGtSegmentStopAckError value;
 } PhotonGtOptionalSegmentStopAckError;
 
-PhotonResult PhotonGtOptionalSegmentStopAckError_Serialize(PhotonGtOptionalSegmentStopAckError* self, PhotonWriter* writer);
+PhotonResult PhotonGtOptionalSegmentStopAckError_Serialize(const PhotonGtOptionalSegmentStopAckError* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtOptionalSegmentStopAckError_Deserialize(PhotonGtOptionalSegmentStopAckError* self, PhotonReader* reader);
 

@@ -2,7 +2,7 @@
 #include "photon/routing/PhotonGtRoute.h"
 
 
-PhotonResult PhotonGtRoute_Serialize(PhotonGtRoute* self, PhotonWriter* writer) {
+PhotonResult PhotonGtRoute_Serialize(const PhotonGtRoute* self, PhotonWriter* writer) {
   PHOTON_TRY(PhotonBer_Serialize(self->destination_address, writer));
   PHOTON_TRY(PhotonBer_Serialize(self->next_hop, writer));
   return PhotonResult_Ok;

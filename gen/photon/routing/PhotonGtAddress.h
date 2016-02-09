@@ -12,7 +12,7 @@ extern "C" {
 
 typedef PhotonBer PhotonGtAddress;
 
-PhotonResult PhotonGtAddress_Serialize(PhotonGtAddress* self, PhotonWriter* writer);
+PhotonResult PhotonGtAddress_Serialize(const PhotonGtAddress* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtAddress_Deserialize(PhotonGtAddress* self, PhotonReader* reader);
 

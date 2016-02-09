@@ -231,26 +231,26 @@ PhotonResult PhotonGcMain_ExecuteTmAllowEvent(PhotonGcMain* self, PhotonReader* 
 }
 
 PhotonResult PhotonGcMain_WriteIdentificationFullId(PhotonGcMain* self, PhotonWriter* writer) {
-  PhotonGtFullId fullid = PhotonGcMain_IdentificationFullId(self);
-  PHOTON_TRY(PhotonGtFullId_Serialize(&fullid, writer));
+  const PhotonGtFullId* fullid = PhotonGcMain_IdentificationFullId(self);
+  PHOTON_TRY(PhotonGtFullId_Serialize(fullid, writer));
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_WriteScriptingAvailableScriptsIds(PhotonGcMain* self, PhotonWriter* writer) {
-  PhotonGtArrGuid scriptsids = PhotonGcMain_ScriptingScriptsIds(self);
-  PHOTON_TRY(PhotonGtArrGuid_Serialize(&scriptsids, writer));
+  const PhotonGtArrGuid* scriptsids = PhotonGcMain_ScriptingScriptsIds(self);
+  PHOTON_TRY(PhotonGtArrGuid_Serialize(scriptsids, writer));
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_WriteScriptingScriptsRunTimings(PhotonGcMain* self, PhotonWriter* writer) {
-  PhotonGtArrScriptRunTiming scriptsruntimings = PhotonGcMain_ScriptingScriptsRunTimings(self);
-  PHOTON_TRY(PhotonGtArrScriptRunTiming_Serialize(&scriptsruntimings, writer));
+  const PhotonGtArrScriptRunTiming* scriptsruntimings = PhotonGcMain_ScriptingScriptsRunTimings(self);
+  PHOTON_TRY(PhotonGtArrScriptRunTiming_Serialize(scriptsruntimings, writer));
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_WriteSegmentReceiverSegmentsReceived(PhotonGcMain* self, PhotonWriter* writer) {
-  PhotonGtArrBer segmentsreceived = PhotonGcMain_SegmentReceiverSegmentsReceived(self);
-  PHOTON_TRY(PhotonGtArrBer_Serialize(&segmentsreceived, writer));
+  const PhotonGtArrBer* segmentsreceived = PhotonGcMain_SegmentReceiverSegmentsReceived(self);
+  PHOTON_TRY(PhotonGtArrBer_Serialize(segmentsreceived, writer));
   return PhotonResult_Ok;
 }
 

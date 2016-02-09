@@ -15,7 +15,7 @@ typedef enum  {
   , PHOTON_GT_FILE_UPLOAD_ERROR_CANT_WRITE = 2
 } PhotonGtFileUploadError;
 
-PhotonResult PhotonGtFileUploadError_Serialize(PhotonGtFileUploadError* self, PhotonWriter* writer);
+PhotonResult PhotonGtFileUploadError_Serialize(const PhotonGtFileUploadError* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtFileUploadError_Deserialize(PhotonGtFileUploadError* self, PhotonReader* reader);
 

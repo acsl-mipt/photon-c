@@ -2,7 +2,7 @@
 #include "photon/decode/PhotonGtOptionalScriptingError.h"
 
 
-PhotonResult PhotonGtOptionalScriptingError_Serialize(PhotonGtOptionalScriptingError* self, PhotonWriter* writer) {
+PhotonResult PhotonGtOptionalScriptingError_Serialize(const PhotonGtOptionalScriptingError* self, PhotonWriter* writer) {
 /* todo */  return PhotonResult_Ok;
 }
 

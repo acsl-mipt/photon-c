@@ -2,7 +2,7 @@
 #include "photon/identification/PhotonGtFullId.h"
 
 
-PhotonResult PhotonGtFullId_Serialize(PhotonGtFullId* self, PhotonWriter* writer) {
+PhotonResult PhotonGtFullId_Serialize(const PhotonGtFullId* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < (*self).deviceComponentGuidPairs.size * sizeof(PhotonBer) + sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonGtShortId_Serialize(&self->shortId, writer));

@@ -15,7 +15,7 @@ typedef struct {
   PhotonBer data[256];
 } PhotonGtArrBerMin1;
 
-PhotonResult PhotonGtArrBerMin1_Serialize(PhotonGtArrBerMin1* self, PhotonWriter* writer);
+PhotonResult PhotonGtArrBerMin1_Serialize(const PhotonGtArrBerMin1* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtArrBerMin1_Deserialize(PhotonGtArrBerMin1* self, PhotonReader* reader);
 

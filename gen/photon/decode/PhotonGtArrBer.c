@@ -2,7 +2,7 @@
 #include "photon/decode/PhotonGtArrBer.h"
 
 
-PhotonResult PhotonGtArrBer_Serialize(PhotonGtArrBer* self, PhotonWriter* writer) {
+PhotonResult PhotonGtArrBer_Serialize(const PhotonGtArrBer* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < (*self).size * sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->size, writer));

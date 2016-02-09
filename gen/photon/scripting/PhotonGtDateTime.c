@@ -2,7 +2,7 @@
 #include "photon/scripting/PhotonGtDateTime.h"
 
 
-PhotonResult PhotonGtDateTime_Serialize(PhotonGtDateTime* self, PhotonWriter* writer) {
+PhotonResult PhotonGtDateTime_Serialize(const PhotonGtDateTime* self, PhotonWriter* writer) {
   PHOTON_TRY(PhotonBer_Serialize(self, writer));
   return PhotonResult_Ok;
 }
