@@ -2,10 +2,10 @@
 #include "photon/decode/PhotonGtOptionalFileUploadError.h"
 
 
-PhotonResult PhotonGtOptionalFileUploadError_Serialize(const PhotonGtOptionalFileUploadError* self, PhotonWriter* writer) {
-  PHOTON_TRY(PhotonBer_Serialize(self->flag, writer));
-  if (self->flag)
-    PHOTON_TRY(PhotonBer_Serialize(self->value, writer));
+PhotonResult PhotonGtOptionalFileUploadError_Serialize(PhotonGtOptionalFileUploadError self, PhotonWriter* writer) {
+  PHOTON_TRY(PhotonBer_Serialize(self.flag, writer));
+  if (self.flag)
+    PHOTON_TRY(PhotonBer_Serialize(self.value, writer));
   return PhotonResult_Ok;
 }
 

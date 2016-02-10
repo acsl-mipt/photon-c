@@ -2,11 +2,11 @@
 #include "photon/identification/PhotonGtComponentNumberGuidPair.h"
 
 
-PhotonResult PhotonGtComponentNumberGuidPair_Serialize(const PhotonGtComponentNumberGuidPair* self, PhotonWriter* writer) {
+PhotonResult PhotonGtComponentNumberGuidPair_Serialize(PhotonGtComponentNumberGuidPair self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
-  PHOTON_TRY(PhotonBer_Serialize(self->number, writer));
-  PHOTON_TRY(PhotonBer_Serialize(self->guid, writer));
+  PHOTON_TRY(PhotonBer_Serialize(self.number, writer));
+  PHOTON_TRY(PhotonBer_Serialize(self.guid, writer));
   return PhotonResult_Ok;
 }
 

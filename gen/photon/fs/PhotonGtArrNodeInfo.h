@@ -12,9 +12,12 @@
 extern "C" {
 #endif
 
+#define PHOTON_GT_ARR_NODE_INFO_MIN_LEN 0
+#define PHOTON_GT_ARR_NODE_INFO_MAX_LEN 256
+
 typedef struct {
   size_t size;
-  PhotonGtNodeInfo data[256];
+  PhotonGtNodeInfo* data;
 } PhotonGtArrNodeInfo;
 
 PhotonResult PhotonGtArrNodeInfo_Serialize(const PhotonGtArrNodeInfo* self, PhotonWriter* writer);

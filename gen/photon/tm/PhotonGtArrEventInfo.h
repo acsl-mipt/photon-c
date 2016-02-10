@@ -12,9 +12,12 @@
 extern "C" {
 #endif
 
+#define PHOTON_GT_ARR_EVENT_INFO_MIN_LEN 0
+#define PHOTON_GT_ARR_EVENT_INFO_MAX_LEN 256
+
 typedef struct {
   size_t size;
-  PhotonGtEventInfo data[256];
+  PhotonGtEventInfo* data;
 } PhotonGtArrEventInfo;
 
 PhotonResult PhotonGtArrEventInfo_Serialize(const PhotonGtArrEventInfo* self, PhotonWriter* writer);

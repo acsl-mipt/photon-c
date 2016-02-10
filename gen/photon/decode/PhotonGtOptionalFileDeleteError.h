@@ -17,7 +17,7 @@ typedef struct {
   PhotonGtFileDeleteError value;
 } PhotonGtOptionalFileDeleteError;
 
-PhotonResult PhotonGtOptionalFileDeleteError_Serialize(const PhotonGtOptionalFileDeleteError* self, PhotonWriter* writer);
+PhotonResult PhotonGtOptionalFileDeleteError_Serialize(PhotonGtOptionalFileDeleteError self, PhotonWriter* writer);
 
 PhotonResult PhotonGtOptionalFileDeleteError_Deserialize(PhotonGtOptionalFileDeleteError* self, PhotonReader* reader);
 

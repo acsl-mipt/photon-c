@@ -7,7 +7,7 @@ PhotonResult PhotonGtArrComponentNumberGuidPairMin1_Serialize(const PhotonGtArrC
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self->size, writer));
   for(size_t i = 0, size = self->size; i < size; ++i) {
-    PHOTON_TRY(PhotonGtComponentNumberGuidPair_Serialize(&self->data[i], writer));
+    PHOTON_TRY(PhotonGtComponentNumberGuidPair_Serialize(self->data[i], writer));
   }
   return PhotonResult_Ok;
 }

@@ -17,7 +17,7 @@ typedef struct {
   PhotonGtScriptingError value;
 } PhotonGtOptionalScriptingError;
 
-PhotonResult PhotonGtOptionalScriptingError_Serialize(const PhotonGtOptionalScriptingError* self, PhotonWriter* writer);
+PhotonResult PhotonGtOptionalScriptingError_Serialize(PhotonGtOptionalScriptingError self, PhotonWriter* writer);
 
 PhotonResult PhotonGtOptionalScriptingError_Deserialize(PhotonGtOptionalScriptingError* self, PhotonReader* reader);
 

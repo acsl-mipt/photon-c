@@ -2,10 +2,10 @@
 #include "photon/decode/PhotonGtOptionalSegmentStopAckError.h"
 
 
-PhotonResult PhotonGtOptionalSegmentStopAckError_Serialize(const PhotonGtOptionalSegmentStopAckError* self, PhotonWriter* writer) {
-  PHOTON_TRY(PhotonBer_Serialize(self->flag, writer));
-  if (self->flag)
-    PHOTON_TRY(PhotonBer_Serialize(self->value, writer));
+PhotonResult PhotonGtOptionalSegmentStopAckError_Serialize(PhotonGtOptionalSegmentStopAckError self, PhotonWriter* writer) {
+  PHOTON_TRY(PhotonBer_Serialize(self.flag, writer));
+  if (self.flag)
+    PHOTON_TRY(PhotonBer_Serialize(self.value, writer));
   return PhotonResult_Ok;
 }
 

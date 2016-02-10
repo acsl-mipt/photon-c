@@ -18,7 +18,7 @@ typedef struct {
   PhotonGtAddress next_hop;
 } PhotonGtRoute;
 
-PhotonResult PhotonGtRoute_Serialize(const PhotonGtRoute* self, PhotonWriter* writer);
+PhotonResult PhotonGtRoute_Serialize(PhotonGtRoute self, PhotonWriter* writer);
 
 PhotonResult PhotonGtRoute_Deserialize(PhotonGtRoute* self, PhotonReader* reader);
 

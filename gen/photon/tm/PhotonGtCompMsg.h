@@ -15,7 +15,7 @@ typedef struct {
   PhotonBer messageNum;
 } PhotonGtCompMsg;
 
-PhotonResult PhotonGtCompMsg_Serialize(const PhotonGtCompMsg* self, PhotonWriter* writer);
+PhotonResult PhotonGtCompMsg_Serialize(PhotonGtCompMsg self, PhotonWriter* writer);
 
 PhotonResult PhotonGtCompMsg_Deserialize(PhotonGtCompMsg* self, PhotonReader* reader);
 

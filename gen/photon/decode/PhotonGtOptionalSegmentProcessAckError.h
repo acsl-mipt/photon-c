@@ -17,7 +17,7 @@ typedef struct {
   PhotonGtSegmentProcessAckError value;
 } PhotonGtOptionalSegmentProcessAckError;
 
-PhotonResult PhotonGtOptionalSegmentProcessAckError_Serialize(const PhotonGtOptionalSegmentProcessAckError* self, PhotonWriter* writer);
+PhotonResult PhotonGtOptionalSegmentProcessAckError_Serialize(PhotonGtOptionalSegmentProcessAckError self, PhotonWriter* writer);
 
 PhotonResult PhotonGtOptionalSegmentProcessAckError_Deserialize(PhotonGtOptionalSegmentProcessAckError* self, PhotonReader* reader);
 

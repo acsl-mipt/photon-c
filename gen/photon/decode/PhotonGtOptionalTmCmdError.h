@@ -17,7 +17,7 @@ typedef struct {
   PhotonGtTmCmdError value;
 } PhotonGtOptionalTmCmdError;
 
-PhotonResult PhotonGtOptionalTmCmdError_Serialize(const PhotonGtOptionalTmCmdError* self, PhotonWriter* writer);
+PhotonResult PhotonGtOptionalTmCmdError_Serialize(PhotonGtOptionalTmCmdError self, PhotonWriter* writer);
 
 PhotonResult PhotonGtOptionalTmCmdError_Deserialize(PhotonGtOptionalTmCmdError* self, PhotonReader* reader);
 

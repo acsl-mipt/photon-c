@@ -13,6 +13,8 @@ extern "C" {
 typedef enum  {
     PHOTON_GT_FILE_UPLOAD_ERROR_ALREADY_EXISTS = 1
   , PHOTON_GT_FILE_UPLOAD_ERROR_CANT_WRITE = 2
+  , PHOTON_GT_FILE_UPLOAD_ERROR_MODE_ERROR = 3
+  , PHOTON_GT_FILE_UPLOAD_ERROR_TOO_BIG = 4
 } PhotonGtFileUploadError;
 
 PhotonResult PhotonGtFileUploadError_Serialize(PhotonGtFileUploadError self, PhotonWriter* writer);

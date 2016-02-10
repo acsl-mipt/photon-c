@@ -2,10 +2,10 @@
 #include "photon/decode/PhotonGtOptionalFileCreateDirError.h"
 
 
-PhotonResult PhotonGtOptionalFileCreateDirError_Serialize(const PhotonGtOptionalFileCreateDirError* self, PhotonWriter* writer) {
-  PHOTON_TRY(PhotonBer_Serialize(self->flag, writer));
-  if (self->flag)
-    PHOTON_TRY(PhotonBer_Serialize(self->value, writer));
+PhotonResult PhotonGtOptionalFileCreateDirError_Serialize(PhotonGtOptionalFileCreateDirError self, PhotonWriter* writer) {
+  PHOTON_TRY(PhotonBer_Serialize(self.flag, writer));
+  if (self.flag)
+    PHOTON_TRY(PhotonBer_Serialize(self.value, writer));
   return PhotonResult_Ok;
 }
 

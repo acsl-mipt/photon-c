@@ -13,8 +13,9 @@ extern "C" {
 #endif
 
 typedef struct {
-  PhotonGtString filePath;
-  PhotonBer fileAttrs;
+  PhotonGtString path;
+  PhotonBer byteSize;
+  PhotonBer attrs;
 } PhotonGtFileInfo;
 
 PhotonResult PhotonGtFileInfo_Serialize(const PhotonGtFileInfo* self, PhotonWriter* writer);

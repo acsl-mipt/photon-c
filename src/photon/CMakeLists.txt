@@ -19,8 +19,8 @@ add_library(photon
     Parser.h
     Exchange.c
     Exchange.h
-    Ber.c
-    Ber.h
+        Ber.c
+        Ber.h
     photon_prologue.h
     photon_epilogue.h
     ${PHOTON_GENERATED_FILES}

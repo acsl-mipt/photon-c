@@ -5,7 +5,7 @@
 PhotonResult PhotonGtFullId_Serialize(const PhotonGtFullId* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < (*self).deviceComponentGuidPairs.size * sizeof(PhotonBer) + sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
-  PHOTON_TRY(PhotonGtShortId_Serialize(&self->shortId, writer));
+  PHOTON_TRY(PhotonGtShortId_Serialize(self->shortId, writer));
   PHOTON_TRY(PhotonGtArrComponentNumberGuidPairMin1_Serialize(&self->deviceComponentGuidPairs, writer));
   return PhotonResult_Ok;
 }

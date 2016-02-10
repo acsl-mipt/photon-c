@@ -1,15 +1,15 @@
 /* Type implementation */
-#include "photon/decode/PhotonGtOptionalScriptingError.h"
+#include "photon/decode/PhotonGtOptionalFileDownloadError.h"
 
 
-PhotonResult PhotonGtOptionalScriptingError_Serialize(PhotonGtOptionalScriptingError self, PhotonWriter* writer) {
+PhotonResult PhotonGtOptionalFileDownloadError_Serialize(PhotonGtOptionalFileDownloadError self, PhotonWriter* writer) {
   PHOTON_TRY(PhotonBer_Serialize(self.flag, writer));
   if (self.flag)
     PHOTON_TRY(PhotonBer_Serialize(self.value, writer));
   return PhotonResult_Ok;
 }
 
-PhotonResult PhotonGtOptionalScriptingError_Deserialize(PhotonGtOptionalScriptingError* self, PhotonReader* reader) {
+PhotonResult PhotonGtOptionalFileDownloadError_Deserialize(PhotonGtOptionalFileDownloadError* self, PhotonReader* reader) {
   PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->flag, reader));
   if (self->flag)
     PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->value, reader));

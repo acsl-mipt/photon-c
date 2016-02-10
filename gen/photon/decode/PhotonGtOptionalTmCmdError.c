@@ -2,10 +2,10 @@
 #include "photon/decode/PhotonGtOptionalTmCmdError.h"
 
 
-PhotonResult PhotonGtOptionalTmCmdError_Serialize(const PhotonGtOptionalTmCmdError* self, PhotonWriter* writer) {
-  PHOTON_TRY(PhotonBer_Serialize(self->flag, writer));
-  if (self->flag)
-    PHOTON_TRY(PhotonBer_Serialize(self->value, writer));
+PhotonResult PhotonGtOptionalTmCmdError_Serialize(PhotonGtOptionalTmCmdError self, PhotonWriter* writer) {
+  PHOTON_TRY(PhotonBer_Serialize(self.flag, writer));
+  if (self.flag)
+    PHOTON_TRY(PhotonBer_Serialize(self.value, writer));
   return PhotonResult_Ok;
 }
 

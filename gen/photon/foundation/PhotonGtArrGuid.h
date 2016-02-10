@@ -12,9 +12,12 @@
 extern "C" {
 #endif
 
+#define PHOTON_GT_ARR_GUID_MIN_LEN 0
+#define PHOTON_GT_ARR_GUID_MAX_LEN 256
+
 typedef struct {
   size_t size;
-  PhotonGtGuid data[256];
+  PhotonGtGuid* data;
 } PhotonGtArrGuid;
 
 PhotonResult PhotonGtArrGuid_Serialize(const PhotonGtArrGuid* self, PhotonWriter* writer);

@@ -12,9 +12,12 @@
 extern "C" {
 #endif
 
+#define PHOTON_GT_ARR_COMPONENT_NUMBER_GUID_PAIR_MIN1_MIN_LEN 1
+#define PHOTON_GT_ARR_COMPONENT_NUMBER_GUID_PAIR_MIN1_MAX_LEN 256
+
 typedef struct {
   size_t size;
-  PhotonGtComponentNumberGuidPair data[256];
+  PhotonGtComponentNumberGuidPair* data;
 } PhotonGtArrComponentNumberGuidPairMin1;
 
 PhotonResult PhotonGtArrComponentNumberGuidPairMin1_Serialize(const PhotonGtArrComponentNumberGuidPairMin1* self, PhotonWriter* writer);

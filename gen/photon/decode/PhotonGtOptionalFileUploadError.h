@@ -17,7 +17,7 @@ typedef struct {
   PhotonGtFileUploadError value;
 } PhotonGtOptionalFileUploadError;
 
-PhotonResult PhotonGtOptionalFileUploadError_Serialize(const PhotonGtOptionalFileUploadError* self, PhotonWriter* writer);
+PhotonResult PhotonGtOptionalFileUploadError_Serialize(PhotonGtOptionalFileUploadError self, PhotonWriter* writer);
 
 PhotonResult PhotonGtOptionalFileUploadError_Deserialize(PhotonGtOptionalFileUploadError* self, PhotonReader* reader);
 
