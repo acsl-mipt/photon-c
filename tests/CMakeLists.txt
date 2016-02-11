@@ -30,5 +30,5 @@ macro(add_unit_test test file)
 endmacro()
 
 add_unit_test(reader_tests Reader.cpp)
-add_unit_test(decoder_tests Decoder.cpp)
+#add_unit_test(decoder_tests Decoder.cpp)
 add_unit_test(router_tests Router.cpp)
