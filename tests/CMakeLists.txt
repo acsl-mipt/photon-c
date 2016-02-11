@@ -15,9 +15,10 @@ macro(add_unit_test test file)
     add_executable(${test} ${file})
     target_link_libraries(${test}
         ${ARGN}
-        photon
-        gtest
         gtest_main
+        gtest
+        photon-impl
+        photon
     )
 
     set_target_properties(${test}
@@ -29,3 +30,5 @@ macro(add_unit_test test file)
 endmacro()
 
 add_unit_test(reader_tests Reader.cpp)
+add_unit_test(decoder_tests Decoder.cpp)
+add_unit_test(router_tests Router.cpp)

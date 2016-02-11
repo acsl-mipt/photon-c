@@ -18,15 +18,21 @@ else()
     endif()
 endif()
 
-file(GLOB_RECURSE PHOTON_GENERATED_FILES gen/ *.c *.h)
+file(GLOB_RECURSE PHOTON_GENERATED_FILES gen/*.c gen/*.h)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/gen)
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/gen
+    ${CMAKE_CURRENT_SOURCE_DIR}/impl
+)
 add_subdirectory(src/photon)
+add_subdirectory(impl/photon)
 
 get_directory_property(HAS_PARENT_SCOPE PARENT_DIRECTORY)
 
 if(NOT HAS_PARENT_SCOPE)
     set(GTEST_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/gtest/include)
+    add_subdirectory(thirdparty/gtest)
     add_subdirectory(tests)
 endif()
 

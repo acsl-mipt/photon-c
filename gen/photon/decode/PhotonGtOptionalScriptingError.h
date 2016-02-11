@@ -13,8 +13,8 @@ extern "C" {
 #endif
 
 typedef struct {
-  PhotonGtB8 flag;
   PhotonGtScriptingError value;
+  PhotonGtB8 flag;
 } PhotonGtOptionalScriptingError;
 
 PhotonResult PhotonGtOptionalScriptingError_Serialize(PhotonGtOptionalScriptingError self, PhotonWriter* writer);

@@ -13,8 +13,8 @@ extern "C" {
 #endif
 
 typedef struct {
-  PhotonGtB8 flag;
   PhotonGtSegmentStartAckError value;
+  PhotonGtB8 flag;
 } PhotonGtOptionalSegmentStartAckError;
 
 PhotonResult PhotonGtOptionalSegmentStartAckError_Serialize(PhotonGtOptionalSegmentStartAckError self, PhotonWriter* writer);

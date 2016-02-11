@@ -13,8 +13,8 @@ extern "C" {
 #endif
 
 typedef struct {
-  PhotonGtB8 flag;
   PhotonGtFileDeleteError value;
+  PhotonGtB8 flag;
 } PhotonGtOptionalFileDeleteError;
 
 PhotonResult PhotonGtOptionalFileDeleteError_Serialize(PhotonGtOptionalFileDeleteError self, PhotonWriter* writer);

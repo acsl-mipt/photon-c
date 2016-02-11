@@ -14,9 +14,9 @@ extern "C" {
 #endif
 
 typedef struct {
-  PhotonBer tag;
   PhotonGtArrNodeInfo _1;
   PhotonGtFileListError _2;
+  PhotonBer tag;
 } PhotonGtOrArrNodeInfoFileListError;
 
 PhotonResult PhotonGtOrArrNodeInfoFileListError_Serialize(const PhotonGtOrArrNodeInfoFileListError* self, PhotonWriter* writer);
