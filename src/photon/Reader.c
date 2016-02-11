@@ -34,6 +34,12 @@ uint8_t PhotonReader_PeekUint8(const PhotonReader* self)
     return *self->current;
 }
 
+void PhotonReader_Read(PhotonReader* self, void* dest, size_t size)
+{
+    memcpy(dest, self->current, size);
+    self->current += size;
+}
+
 uint8_t PhotonReader_ReadUint8(PhotonReader* self)
 {
     uint8_t value = *self->current;
@@ -96,6 +102,11 @@ uint64_t PhotonReader_ReadUint64Le(PhotonReader* self)
     uint64_t value = Photon_Le64Dec(self->current);
     self->current += 8;
     return value;
+}
+
+uint16_t PhotonReader_PeakUint16Be(const PhotonReader* self)
+{
+    return Photon_Be16Dec(self->current);
 }
 
 void PhotonReader_Skip(PhotonReader* self, size_t size)

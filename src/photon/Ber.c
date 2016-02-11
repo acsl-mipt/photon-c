@@ -64,6 +64,7 @@ PhotonResult PhotonBer_Deserialize(PhotonBer* self, PhotonReader* src)
     }
 
     PhotonReader_Skip(src, 1);
-    *self = PhotonReader_ReadUint64Le(src);
+    *self = 0;
+    PhotonReader_Read(src, self, size);
     return PhotonResult_Ok;
 }

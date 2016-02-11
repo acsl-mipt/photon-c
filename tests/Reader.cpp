@@ -49,8 +49,8 @@ TEST_F(PhotonReaderTest, readLongForm)
                       0x88, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88};
     init(data);
     expectNextValue(0xff);
-    expectNextValue(0xbbaa);
-    expectNextValue(0xeeddcc);
-    expectNextValue(0x1122334455667788);
+    expectNextValue(0xaabb);
+    expectNextValue(0xccddee);
+    expectNextValue(0x8877665544332211);
     expectEndOfStream();
 }
