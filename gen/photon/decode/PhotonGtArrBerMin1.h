@@ -10,15 +10,15 @@
 extern "C" {
 #endif
 
-#define PHOTON_GT_ARR_BER_MIN1_MIN_LEN 1
-#define PHOTON_GT_ARR_BER_MIN1_MAX_LEN 256
+#define PHOTON_GT_ARR_BER_MIN1_MIN_SIZE 1
+#define PHOTON_GT_ARR_BER_MIN1_MAX_SIZE 0
 
 typedef struct {
   size_t size;
   PhotonBer* data;
 } PhotonGtArrBerMin1;
 
-PhotonResult PhotonGtArrBerMin1_Serialize(const PhotonGtArrBerMin1* self, PhotonWriter* writer);
+PhotonResult PhotonGtArrBerMin1_Serialize(PhotonGtArrBerMin1 self, PhotonWriter* writer);
 
 PhotonResult PhotonGtArrBerMin1_Deserialize(PhotonGtArrBerMin1* self, PhotonReader* reader);
 

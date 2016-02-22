@@ -12,15 +12,15 @@
 extern "C" {
 #endif
 
-#define PHOTON_GT_ARR_GUID_MIN_LEN 0
-#define PHOTON_GT_ARR_GUID_MAX_LEN 256
+#define PHOTON_GT_ARR_GUID_MIN_SIZE 0
+#define PHOTON_GT_ARR_GUID_MAX_SIZE 0
 
 typedef struct {
   size_t size;
   PhotonGtGuid* data;
 } PhotonGtArrGuid;
 
-PhotonResult PhotonGtArrGuid_Serialize(const PhotonGtArrGuid* self, PhotonWriter* writer);
+PhotonResult PhotonGtArrGuid_Serialize(PhotonGtArrGuid self, PhotonWriter* writer);
 
 PhotonResult PhotonGtArrGuid_Deserialize(PhotonGtArrGuid* self, PhotonReader* reader);
 

@@ -5,7 +5,7 @@
 PhotonResult PhotonGtRingBuf_Serialize(const PhotonGtRingBuf* self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < (*self).data.size * sizeof(unsigned char) + sizeof(PhotonBer) + sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
-  PHOTON_TRY(PhotonGtArrU8_Serialize(&self->data, writer));
+  PHOTON_TRY(PhotonGtArrU8_Serialize(self->data, writer));
   PHOTON_TRY(PhotonBer_Serialize(self->startOffset, writer));
   PHOTON_TRY(PhotonBer_Serialize(self->endOffset, writer));
   return PhotonResult_Ok;

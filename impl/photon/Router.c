@@ -111,40 +111,32 @@ PhotonGtRouterError PhotonRouter_DelGroupRoute(PhotonGtAddress groupAddress)
     return delRoute(&_routerGroupRoutes, groupAddress);
 }
 
-PhotonGtRouterError PhotonGcMain_RouterSetRoute(PhotonGcMain* self, PhotonGtAddress address,
-                                                PhotonGtAddress nextHop)
+PhotonGtRouterError PhotonGcMain_RouterSetRoute(PhotonGtAddress address, PhotonGtAddress nextHop)
 {
-    (void)self;
     return PhotonRouter_SetRoute(address, nextHop);
 }
 
-PhotonGtRouterError PhotonGcMain_RouterDelRoute(PhotonGcMain* self, PhotonGtAddress address)
+PhotonGtRouterError PhotonGcMain_RouterDelRoute(PhotonGtAddress address)
 {
-    (void)self;
     return PhotonRouter_DelRoute(address);
 }
 
-PhotonGtRouterError PhotonGcMain_RouterSetGroupRoute(PhotonGcMain* self, PhotonGtAddress groupAddress,
-                                                     PhotonGtAddress nextHop)
+PhotonGtRouterError PhotonGcMain_RouterSetGroupRoute(PhotonGtAddress groupAddress, PhotonGtAddress nextHop)
 {
-    (void)self;
     return PhotonRouter_SetGroupRoute(groupAddress, nextHop);
 }
 
-PhotonGtRouterError PhotonGcMain_RouterDelGroupRoute(PhotonGcMain* self, PhotonGtAddress groupAddress)
+PhotonGtRouterError PhotonGcMain_RouterDelGroupRoute(PhotonGtAddress groupAddress)
 {
-    (void)self;
     return PhotonRouter_DelGroupRoute(groupAddress);
 }
 
-const PhotonGtArrRoute* PhotonGcMain_RouterRoutes(PhotonGcMain* self)
+PhotonGtArrRoute PhotonGcMain_RouterRoutes()
 {
-    (void)self;
-    return &_routerRoutes;
+    return _routerRoutes;
 }
 
-const PhotonGtArrRoute* PhotonGcMain_RouterGroupRoutes(PhotonGcMain* self)
+PhotonGtArrRoute PhotonGcMain_RouterGroupRoutes()
 {
-    (void)self;
-    return &_routerGroupRoutes;
+    return _routerGroupRoutes;
 }

@@ -2,12 +2,12 @@
 #include "photon/fs/PhotonGtNodeInfo.h"
 
 
-PhotonResult PhotonGtNodeInfo_Serialize(const PhotonGtNodeInfo* self, PhotonWriter* writer) {
+PhotonResult PhotonGtNodeInfo_Serialize(PhotonGtNodeInfo self, PhotonWriter* writer) {
   if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer))
     return PhotonResult_NotEnoughSpace;
-  PHOTON_TRY(PhotonGtArrU8_Serialize(&self->name, writer));
-  PhotonWriter_WriteUint8(writer, self->isDir);
-  PHOTON_TRY(PhotonBer_Serialize(self->attrs, writer));
+  PHOTON_TRY(PhotonGtArrU8_Serialize(self.name, writer));
+  PhotonWriter_WriteUint8(writer, self.isDir);
+  PHOTON_TRY(PhotonBer_Serialize(self.attrs, writer));
   return PhotonResult_Ok;
 }
 

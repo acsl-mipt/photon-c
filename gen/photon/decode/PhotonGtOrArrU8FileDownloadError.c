@@ -2,14 +2,14 @@
 #include "photon/decode/PhotonGtOrArrU8FileDownloadError.h"
 
 
-PhotonResult PhotonGtOrArrU8FileDownloadError_Serialize(const PhotonGtOrArrU8FileDownloadError* self, PhotonWriter* writer) {
-  PHOTON_TRY(PhotonBer_Serialize(self->tag, writer));
-  switch (self->tag) {
+PhotonResult PhotonGtOrArrU8FileDownloadError_Serialize(PhotonGtOrArrU8FileDownloadError self, PhotonWriter* writer) {
+  PHOTON_TRY(PhotonBer_Serialize(self.tag, writer));
+  switch (self.tag) {
     case 0:
-      PHOTON_TRY(PhotonGtArrU8_Serialize(&self->_1, writer));
+      PHOTON_TRY(PhotonGtArrU8_Serialize(self._1, writer));
       break;
     case 1:
-      PHOTON_TRY(PhotonBer_Serialize(self->_2, writer));
+      PHOTON_TRY(PhotonBer_Serialize(self._2, writer));
       break;
     default:
       return PhotonResult_InvalidValue;

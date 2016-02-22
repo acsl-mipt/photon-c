@@ -19,7 +19,7 @@ typedef struct {
   PhotonBer attrs;
 } PhotonGtNodeInfo;
 
-PhotonResult PhotonGtNodeInfo_Serialize(const PhotonGtNodeInfo* self, PhotonWriter* writer);
+PhotonResult PhotonGtNodeInfo_Serialize(PhotonGtNodeInfo self, PhotonWriter* writer);
 
 PhotonResult PhotonGtNodeInfo_Deserialize(PhotonGtNodeInfo* self, PhotonReader* reader);
 

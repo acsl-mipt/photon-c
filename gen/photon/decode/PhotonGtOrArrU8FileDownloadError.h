@@ -19,7 +19,7 @@ typedef struct {
   PhotonBer tag;
 } PhotonGtOrArrU8FileDownloadError;
 
-PhotonResult PhotonGtOrArrU8FileDownloadError_Serialize(const PhotonGtOrArrU8FileDownloadError* self, PhotonWriter* writer);
+PhotonResult PhotonGtOrArrU8FileDownloadError_Serialize(PhotonGtOrArrU8FileDownloadError self, PhotonWriter* writer);
 
 PhotonResult PhotonGtOrArrU8FileDownloadError_Deserialize(PhotonGtOrArrU8FileDownloadError* self, PhotonReader* reader);
 

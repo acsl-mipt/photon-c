@@ -12,15 +12,15 @@
 extern "C" {
 #endif
 
-#define PHOTON_GT_ARR_ROUTE_MIN_LEN 0
-#define PHOTON_GT_ARR_ROUTE_MAX_LEN 256
+#define PHOTON_GT_ARR_ROUTE_MIN_SIZE 0
+#define PHOTON_GT_ARR_ROUTE_MAX_SIZE 0
 
 typedef struct {
   size_t size;
   PhotonGtRoute* data;
 } PhotonGtArrRoute;
 
-PhotonResult PhotonGtArrRoute_Serialize(const PhotonGtArrRoute* self, PhotonWriter* writer);
+PhotonResult PhotonGtArrRoute_Serialize(PhotonGtArrRoute self, PhotonWriter* writer);
 
 PhotonResult PhotonGtArrRoute_Deserialize(PhotonGtArrRoute* self, PhotonReader* reader);
 

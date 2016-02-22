@@ -12,15 +12,15 @@
 extern "C" {
 #endif
 
-#define PHOTON_GT_ARR_SCRIPT_INFO_MIN_LEN 0
-#define PHOTON_GT_ARR_SCRIPT_INFO_MAX_LEN 256
+#define PHOTON_GT_ARR_SCRIPT_INFO_MIN_SIZE 0
+#define PHOTON_GT_ARR_SCRIPT_INFO_MAX_SIZE 0
 
 typedef struct {
   size_t size;
   PhotonGtScriptInfo* data;
 } PhotonGtArrScriptInfo;
 
-PhotonResult PhotonGtArrScriptInfo_Serialize(const PhotonGtArrScriptInfo* self, PhotonWriter* writer);
+PhotonResult PhotonGtArrScriptInfo_Serialize(PhotonGtArrScriptInfo self, PhotonWriter* writer);
 
 PhotonResult PhotonGtArrScriptInfo_Deserialize(PhotonGtArrScriptInfo* self, PhotonReader* reader);
 
