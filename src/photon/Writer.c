@@ -44,15 +44,16 @@ size_t PhotonWriter_WritableSize(const PhotonWriter* self)
 
 void PhotonWriter_SliceFromBack(PhotonWriter* self, size_t length, PhotonWriter* dest)
 {
-    dest->start = self->end - length;
+    dest->start = self->current;
     dest->current = dest->start;
-    dest->end = self->end;
-    self->end -= length; // ??
+    dest->end = self->end - length;
+    self->current += length; // ??
 }
 
 void PhotonWriter_WriteUint8(PhotonWriter* self, uint8_t value)
 {
-
+    *self->current = value;
+    self->current++;
 }
 
 void PhotonWriter_WriteUint16Be(PhotonWriter* self, uint16_t value)

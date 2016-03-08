@@ -6,6 +6,7 @@
 #include "photon/Reader.h"
 #include "photon/Enums.h"
 #include "photon/Ber.h"
+#include "photon/Packets.h"
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -69,22 +70,19 @@ typedef struct {
     PhotonBer timestampType;
     PhotonBer timestamp;
     PhotonReader data;
-} PhotonAddressPacket;
+} PhotonAddressPacketDec;
 
 typedef struct {
     uint16_t code;
     PhotonBer length;
     PhotonBer reserved;
-    PhotonStreamType streamType;
-    PhotonErrorControlType errorControlType;
 } PhotonPacketHeader;
 
 typedef struct {
     PhotonPacketHeader header;
-    PhotonBer windowSize;
-    PhotonBer sequenceCounter;
+    PhotonExchangePacket packet;
     PhotonReader data;
-} PhotonExchangePacket;
+} PhotonExchangePacketDec;
 
 typedef struct {
     PhotonPacketHeader header;
@@ -96,10 +94,10 @@ typedef struct {
     PhotonBer lastSequenceCounter;
 } PhotonReceiptPacket;
 
-PhotonResult PhotonDecoder_DecodeExchangePacket(PhotonReader* src, PhotonExchangePacket* dest);
+PhotonResult PhotonDecoder_DecodeExchangePacket(PhotonReader* src, PhotonExchangePacketDec* dest);
 PhotonResult PhotonDecoder_DecodeCounterAdjustmentPacket(PhotonReader* src, PhotonCounterAdjustmentPacket* dest);
 PhotonResult PhotonDecoder_DecodeReceiptPacket(PhotonReader* src, PhotonReceiptPacket* dest);
-PhotonResult PhotonDecoder_DecodeAddressPacket(PhotonReader* src, PhotonAddressPacket* dest);
+PhotonResult PhotonDecoder_DecodeAddressPacket(PhotonReader* src, PhotonAddressPacketDec* dest);
 PhotonResult PhotonDecoder_DecodeTmEventMessage(PhotonReader* src, PhotonTmEventMessage* dest);
 PhotonResult PhotonDecoder_DecodeTmStatusMessage(PhotonReader* src, PhotonTmStatusMessage* dest);
 PhotonResult PhotonDecoder_DecodeCommandMessage(PhotonReader* src, PhotonCommandMessage* dest);

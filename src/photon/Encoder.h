@@ -6,6 +6,7 @@
 #include "photon/Enums.h"
 #include "photon/Writer.h"
 #include "photon/Ber.h"
+#include "photon/Packets.h"
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -39,6 +40,11 @@ typedef struct {
 
 typedef struct {
     PhotonBer srcAddress;
+    PhotonBer destAddress;
+} PhotonSimpleAddress;
+
+typedef struct {
+    PhotonBer srcAddress;
     PhotonBer srcComponentNumber;
     PhotonBer destComponentNumber;
     PhotonBer destAddress;
@@ -60,13 +66,17 @@ typedef struct {
 } PhotonMulticastAddress;
 
 typedef struct {
-    PhotonAddressType addressType;
-    PhotonBer srcAddress;
-    PhotonBer srcComponentNumber;
-    PhotonBer destComponentNumber;
-    PhotonBer destAddress;
-    PhotonBer srcGroup;
-    PhotonBer destGroup;
+    union {
+        PhotonSimpleAddress simple;
+        PhotonGroupAddress group;
+        PhotonNetworkAddress network;
+        PhotonMulticastAddress multicast;
+    } address;
+    PhotonAddressType type;
+} PhotonAddress;
+
+typedef struct {
+    PhotonAddress address;
     PhotonBer timestampType;
     PhotonBer timestamp;
     void* data;
@@ -89,10 +99,7 @@ typedef struct {
 } PhotonCounterAdjustmentPacketEnc;
 
 typedef struct {
-    PhotonStreamType streamType;
-    PhotonErrorControlType errorControlType;
-    PhotonBer windowSize;
-    PhotonBer sequenceCounter;
+    PhotonExchangePacket packet;
     void* data;
     PhotonGenerator gen;
 } PhotonExchangePacketEnc;

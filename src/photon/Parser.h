@@ -20,7 +20,7 @@ typedef struct {
     PhotonResult (*handleExchangePacket)(void* data, const PhotonExchangePacket*);
     PhotonResult (*handleCounterAdjustmentPacket)(void* data, const PhotonCounterAdjustmentPacket*);
     PhotonResult (*handleReceiptPacket)(void* data, const PhotonReceiptPacket*);
-    PhotonResult (*handleAddressPacket)(void* data, const PhotonAddressPacket*);
+    PhotonResult (*handleAddressPacket)(void* data, const PhotonAddressPacketDec*);
     PhotonResult (*handleTmEventMessage)(void* data, const PhotonTmEventMessage*);
     PhotonResult (*handleTmStatusMessage)(void* data, const PhotonTmStatusMessage*);
     PhotonResult (*handleCommandMessage)(void* data, const PhotonCommandMessage*);

@@ -22,7 +22,7 @@ PhotonResult PhotonParser_ParseMultiplexStream(PhotonParser* self, PhotonReader*
 
     switch (header) {
     case PHOTON_EXCHANGE_PACKET_HEADER: {
-        PhotonExchangePacket packet;
+        PhotonExchangePacketDec packet;
         PHOTON_TRY(PhotonDecoder_DecodeExchangePacket(src, &packet));
         PHOTON_TRY(self->handleExchangePacket(self->data, &packet));
         return PhotonParser_ParseExchangeStream(self, &packet.data);
@@ -44,7 +44,7 @@ PhotonResult PhotonParser_ParseMultiplexStream(PhotonParser* self, PhotonReader*
 
 PhotonResult PhotonParser_ParseExchangeStream(PhotonParser* self, PhotonReader* src)
 {
-    PhotonAddressPacket packet;
+    PhotonAddressPacketDec packet;
     while (!PhotonReader_IsAtEnd(src)) {
         PHOTON_TRY(PhotonDecoder_DecodeAddressPacket(src, &packet));
         PHOTON_TRY(self->handleAddressPacket(self->data, &packet));

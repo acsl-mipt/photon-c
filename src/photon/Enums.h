@@ -8,6 +8,7 @@ extern "C" {
 #endif
 
 typedef enum {
+    PhotonAddressType_SimpleAddress = 2,
     PhotonAddressType_Broadcast = 3,
     PhotonAddressType_NetworkAddress = 4,
     PhotonAddressType_GroupAddress = 6,

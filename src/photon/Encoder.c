@@ -46,10 +46,10 @@ PhotonResult PhotonEncoder_EncodeCommandMessage(void* data, PhotonGenerator msgG
 static PhotonResult tmStatusMessageGen(void* data, PhotonWriter* dest)
 {
     PhotonTmStatusMessageGen* gen = (PhotonTmStatusMessageGen*)data;
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->segmentNumber));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->maxSegmentNumber));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->componentNumber));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->messageNumber));
+    PHOTON_TRY(PhotonBer_Serialize(gen->segmentNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->maxSegmentNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->componentNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->messageNumber, dest));
     return gen->gen(gen->data, dest);
 }
 
@@ -61,10 +61,10 @@ PhotonResult PhotonEncoder_EncodeTmStatusMessage(PhotonTmStatusMessageGen* gen, 
 static PhotonResult tmEventMessageGen(void* data, PhotonWriter* dest)
 {
     PhotonTmEventMessageGen* gen = (PhotonTmEventMessageGen*)data;
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->componentNumber));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->messageNumber));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->eventNumber));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->timestamp));
+    PHOTON_TRY(PhotonBer_Serialize(gen->componentNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->messageNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->eventNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->timestamp, dest));
     return gen->gen(gen->data, dest);
 }
 
@@ -76,28 +76,46 @@ PhotonResult PhotonEncoder_EncodeTmEventMessage(PhotonTmEventMessageGen* gen, Ph
 static PhotonResult addressPacketGen(void* data, PhotonWriter* dest)
 {
     PhotonAddressPacketEnc* gen = (PhotonAddressPacketEnc*)data;
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->addressType));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->srcAddress));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->srcComponentNumber));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->destComponentNumber));
+    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)gen->address.type, dest));
 
-    switch (gen->addressType) {
-    case PhotonAddressType_Broadcast:
+    switch (gen->address.type) {
+    case PhotonAddressType_Broadcast: {
+        const PhotonMulticastAddress* addr = &gen->address.address.multicast;
+        PHOTON_TRY(PhotonBer_Serialize(addr->srcAddress, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->srcComponentNumber, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->destComponentNumber, dest));
         break;
-    case PhotonAddressType_NetworkAddress:
-        PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->destAddress));
+    }
+    case PhotonAddressType_NetworkAddress: {
+        const PhotonNetworkAddress* addr = &gen->address.address.network;
+        PHOTON_TRY(PhotonBer_Serialize(addr->srcAddress, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->srcComponentNumber, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->destComponentNumber, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->destAddress, dest));
         break;
-    case PhotonAddressType_GroupAddress:
-        PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->destAddress));
-        PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->srcGroup));
-        PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->destGroup));
+    }
+    case PhotonAddressType_SimpleAddress: {
+        const PhotonSimpleAddress* addr = &gen->address.address.simple;
+        PHOTON_TRY(PhotonBer_Serialize(addr->srcAddress, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->destAddress, dest));
         break;
+    }
+    case PhotonAddressType_GroupAddress: {
+        const PhotonGroupAddress* addr = &gen->address.address.group;
+        PHOTON_TRY(PhotonBer_Serialize(addr->srcAddress, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->srcComponentNumber, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->destComponentNumber, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->destAddress, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->srcGroup, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->destGroup, dest));
+        break;
+    }
     default:
         return PhotonResult_InvalidAddressType;
     }
 
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, 2)); // TODO: енум метки времени
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->timestamp));
+    PHOTON_TRY(PhotonBer_Serialize(2, dest)); // TODO: енум метки врем, destени
+    PHOTON_TRY(PhotonBer_Serialize(gen->timestamp, dest));
 
     return gen->gen(gen->data, dest);
 }
@@ -159,10 +177,10 @@ static PhotonResult encodePacket(uint16_t header, PhotonErrorControlType csType,
 static PhotonResult receiptPacketGen(void* data, PhotonWriter* dest)
 {
     PhotonReceiptPacketEnc* gen = (PhotonReceiptPacketEnc*)data;
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, 1));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)PhotonStreamType_Commands));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->errorControlType));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->lastSequenceCounter));
+    PHOTON_TRY(PhotonBer_Serialize(1, dest));
+    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)PhotonStreamType_Commands, dest));
+    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)gen->errorControlType, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->lastSequenceCounter, dest));
 
     return gen->gen(gen->data, dest);
 }
@@ -175,10 +193,10 @@ PhotonResult PhotonEncoder_EncodeReceiptPacket(PhotonReceiptPacketEnc* encoder, 
 static PhotonResult counterAdjustmentPacketGen(void* data, PhotonWriter* dest)
 {
     PhotonCounterAdjustmentPacketEnc* gen = (PhotonCounterAdjustmentPacketEnc*)data;
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, 1));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->streamType));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->errorControlType));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->sequenceCounter));
+    PHOTON_TRY(PhotonBer_Serialize(1, dest));
+    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)gen->streamType, dest));
+    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)gen->errorControlType, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->sequenceCounter, dest));
 
     return gen->gen(gen->data, dest);
 }
@@ -195,11 +213,11 @@ static PhotonResult exchangePacketGen(void* data, PhotonWriter* dest)
     uint8_t* sizeDest = PhotonWriter_CurrentPtr(dest);
     PhotonWriter_Skip(dest, 3);
 
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, 1));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->streamType));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, (PhotonBer)gen->errorControlType));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->windowSize));
-    PHOTON_TRY(PhotonWriter_WriteBer(dest, gen->sequenceCounter));
+    PHOTON_TRY(PhotonBer_Serialize(1, dest));
+    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)gen->packet.streamType, dest));
+    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)gen->packet.errorControlType, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->packet.windowSize, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->packet.sequenceCounter, dest));
 
     PHOTON_TRY(gen->gen(gen->data, dest));
 
@@ -211,5 +229,5 @@ static PhotonResult exchangePacketGen(void* data, PhotonWriter* dest)
 
 PhotonResult PhotonEncoder_EncodeExchangePacket(PhotonExchangePacketEnc* encoder, PhotonWriter* dest)
 {
-    return encodePacket(0x6c5a, encoder->errorControlType, encoder, exchangePacketGen, dest);
+    return encodePacket(0x6c5a, encoder->packet.errorControlType, encoder, exchangePacketGen, dest);
 }

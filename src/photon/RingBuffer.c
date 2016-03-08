@@ -7,6 +7,8 @@
 #include <string.h>
 #include <assert.h>
 
+#define min(a,b) (((a)<(b))?(a):(b))
+
 void PhotonRingBuf_Init(PhotonRingBuf* self, void* data, size_t size)
 {
     assert(size > 0);

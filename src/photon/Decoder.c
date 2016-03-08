@@ -80,20 +80,23 @@ PhotonResult PhotonDecoder_DecodeTmEventMessage(PhotonReader* src, PhotonTmEvent
     return PhotonResult_Ok;
 }
 
-PhotonResult PhotonDecoder_DecodeAddressPacket(PhotonReader* src, PhotonAddressPacket* dest)
+PhotonResult PhotonDecoder_DecodeAddressPacket(PhotonReader* src, PhotonAddressPacketDec* dest)
 {
     PHOTON_TRY(decodeDataHeader(src, &dest->header, PHOTON_ADDRESS_PACKET_HEADER));
 
     PhotonBer addressType;
     PHOTON_TRY(PhotonBer_Deserialize(&addressType, src));
     PHOTON_TRY(PhotonBer_Deserialize(&dest->srcAddress, src));
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->srcComponentNumber, src));
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->destComponentNumber, src));
+    if (addressType != PhotonAddressType_SimpleAddress) {
+        PHOTON_TRY(PhotonBer_Deserialize(&dest->srcComponentNumber, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&dest->destComponentNumber, src));
+    }
 
     switch (addressType) {
     case 3:
         dest->addressType = PhotonAddressType_Broadcast;
         break;
+    case 2:
     case 4:
         dest->addressType = PhotonAddressType_NetworkAddress;
         PHOTON_TRY(PhotonBer_Deserialize(&dest->destAddress, src));
@@ -116,7 +119,9 @@ PhotonResult PhotonDecoder_DecodeAddressPacket(PhotonReader* src, PhotonAddressP
     return PhotonResult_Ok;
 }
 
-static PhotonResult decodeExchangePacketHeader(PhotonReader* src, PhotonPacketHeader* dest, const uint8_t** end, uint16_t expectedCode)
+static PhotonResult decodeExchangePacketHeader(PhotonReader* src, PhotonPacketHeader* dest,
+                                               PhotonStreamType* streamType, PhotonErrorControlType* controlType,
+                                               const uint8_t** end, uint16_t expectedCode)
 {
     const uint8_t* packetStart = PhotonReader_CurrentPtr(src);
 
@@ -136,22 +141,22 @@ static PhotonResult decodeExchangePacketHeader(PhotonReader* src, PhotonPacketHe
         return PhotonResult_InvalidReservedFieldValue;
     }
 
-    PhotonBer streamType;
-    PHOTON_TRY(PhotonBer_Deserialize(&streamType, src));
+    PhotonBer streamTypeBer;
+    PHOTON_TRY(PhotonBer_Deserialize(&streamTypeBer, src));
 
-    switch (streamType) {
+    switch (streamTypeBer) {
     case 0:
-        dest->streamType = PhotonStreamType_Commands;
+        *streamType = PhotonStreamType_Commands;
         break;
     case 1:
-        dest->streamType = PhotonStreamType_Telemetry;
+        *streamType = PhotonStreamType_Telemetry;
         break;
     default:
         return PhotonResult_InvalidStreamType;
     };
 
-    PhotonBer errorControlType;
-    PHOTON_TRY(PhotonBer_Deserialize(&errorControlType, src));
+    PhotonBer controlTypeBer;
+    PHOTON_TRY(PhotonBer_Deserialize(&controlTypeBer, src));
 
     if (PhotonReader_ReadableSize(src) < dest->length) {
         return PhotonResult_InvalidDataSize;
@@ -160,9 +165,9 @@ static PhotonResult decodeExchangePacketHeader(PhotonReader* src, PhotonPacketHe
     const uint8_t* packetEnd = PhotonReader_CurrentPtr(src) + dest->length;
     unsigned checkedSize = packetEnd - packetStart;
 
-    switch (errorControlType) {
+    switch (controlTypeBer) {
     case 1:
-        dest->errorControlType = PhotonErrorControlType_Crc16;
+        *controlType = PhotonErrorControlType_Crc16;
         packetEnd -= 2;
         uint16_t checksumCrc16;
         memcpy(&checksumCrc16, packetEnd, 2);
@@ -170,7 +175,7 @@ static PhotonResult decodeExchangePacketHeader(PhotonReader* src, PhotonPacketHe
         // TODO: check crc16
         break;
     case 2:
-        dest->errorControlType = PhotonErrorControlType_ReedSolomon;
+        *controlType = PhotonErrorControlType_ReedSolomon;
         packetEnd -= 4;
         uint32_t checksumRs;
         memcpy(&checksumRs, packetEnd, 4);
@@ -186,20 +191,21 @@ static PhotonResult decodeExchangePacketHeader(PhotonReader* src, PhotonPacketHe
     return PhotonResult_Ok;
 }
 
-PhotonResult PhotonDecoder_DecodeExchangePacket(PhotonReader* src, PhotonExchangePacket* dest)
+PhotonResult PhotonDecoder_DecodeExchangePacket(PhotonReader* src, PhotonExchangePacketDec* dest)
 {
     const uint8_t* packetEnd;
-    PHOTON_TRY(decodeExchangePacketHeader(src, &dest->header, &packetEnd, PHOTON_EXCHANGE_PACKET_HEADER));
+    PHOTON_TRY(decodeExchangePacketHeader(src, &dest->header, &dest->packet.streamType, &dest->packet.errorControlType,
+                                          &packetEnd, PHOTON_EXCHANGE_PACKET_HEADER));
 
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->windowSize, src));
+    PHOTON_TRY(PhotonBer_Deserialize(&dest->packet.windowSize, src));
 
-    if (dest->windowSize > (UINT16_MAX / 2)) {
+    if (dest->packet.windowSize > (UINT16_MAX / 2)) {
         return PhotonResult_InvalidWindowSize;
     }
 
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->sequenceCounter, src));
+    PHOTON_TRY(PhotonBer_Deserialize(&dest->packet.sequenceCounter, src));
 
-    if (dest->sequenceCounter > UINT16_MAX) {
+    if (dest->packet.sequenceCounter > UINT16_MAX) {
         return PhotonResult_InvalidSequenceCounter;
     }
 
@@ -210,30 +216,30 @@ PhotonResult PhotonDecoder_DecodeExchangePacket(PhotonReader* src, PhotonExchang
     return PhotonResult_Ok;
 }
 
-PhotonResult PhotonDecoder_DecodeCounterAdjustmentPacket(PhotonReader* src, PhotonCounterAdjustmentPacket* dest)
-{
-    const uint8_t* packetEnd;
-    PHOTON_TRY(decodeExchangePacketHeader(src, &dest->header, &packetEnd, PHOTON_COUNTER_ADJUSTMENT_PACKET_HEADER));
-
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->sequenceCounter, src));
-
-    // TODO: skip CS
-
-    return PhotonResult_Ok;
-}
-
-PhotonResult PhotonDecoder_DecodeReceiptPacket(PhotonReader* src, PhotonReceiptPacket* dest)
-{
-    const uint8_t* packetEnd;
-    PHOTON_TRY(decodeExchangePacketHeader(src, &dest->header, &packetEnd, PHOTON_RECEIPT_PACKET_HEADER));
-
-    if (dest->header.streamType != PhotonStreamType_Commands) {
-        return PhotonResult_InvalidStreamType;
-    }
-
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->lastSequenceCounter, src));
-
-    // TODO: skip CS
-
-    return PhotonResult_Ok;
-}
+// PhotonResult PhotonDecoder_DecodeCounterAdjustmentPacket(PhotonReader* src, PhotonCounterAdjustmentPacket* dest)
+// {
+//     const uint8_t* packetEnd;
+//     PHOTON_TRY(decodeExchangePacketHeader(src, &dest->header, &packetEnd, PHOTON_COUNTER_ADJUSTMENT_PACKET_HEADER));
+//
+//     PHOTON_TRY(PhotonBer_Deserialize(&dest->sequenceCounter, src));
+//
+//     // TODO: skip CS
+//
+//     return PhotonResult_Ok;
+// }
+//
+// PhotonResult PhotonDecoder_DecodeReceiptPacket(PhotonReader* src, PhotonReceiptPacket* dest)
+// {
+//     const uint8_t* packetEnd;
+//     PHOTON_TRY(decodeExchangePacketHeader(src, &dest->header, &packetEnd, PHOTON_RECEIPT_PACKET_HEADER));
+//
+//     if (dest->header.streamType != PhotonStreamType_Commands) {
+//         return PhotonResult_InvalidStreamType;
+//     }
+//
+//     PHOTON_TRY(PhotonBer_Deserialize(&dest->lastSequenceCounter, src));
+//
+//     // TODO: skip CS
+//
+//     return PhotonResult_Ok;
+// }
