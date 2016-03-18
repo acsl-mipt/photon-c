@@ -42,8 +42,12 @@ void PhotonRingBuf_Peek(const PhotonRingBuf* self, void* dest, size_t size, size
 
 uint8_t PhotonRingBuf_PeekUint8(const PhotonRingBuf* self, size_t offset)
 {
-    assert(self->freeSpace > 0);
-    return *(self->data + self->readOffset);
+    assert(offset + 1 <= self->size - self->freeSpace);
+    size_t readOffset = self->readOffset + offset;
+    if (readOffset >= self->size) {
+        readOffset -= self->size;
+    }
+    return *(self->data + readOffset);
 }
 
 void PhotonRingBuf_Erase(PhotonRingBuf* self, size_t size)
@@ -94,6 +98,6 @@ void PhotonRingBuf_Write(PhotonRingBuf* self, const void* data, size_t size)
 
 size_t PhotonRingBuf_ReadableSize(const PhotonRingBuf* self)
 {
-    return self->freeSpace;
+    return self->size - self->freeSpace;
 }
 

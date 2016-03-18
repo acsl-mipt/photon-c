@@ -26,7 +26,7 @@ const uint8_t* PhotonReader_CurrentPtr(const PhotonReader* self)
 
 size_t PhotonReader_ReadableSize(const PhotonReader* self)
 {
-    return self->current - self->end;
+    return self->end - self->current;
 }
 
 uint8_t PhotonReader_PeekUint8(const PhotonReader* self)
@@ -52,7 +52,7 @@ void PhotonReader_Slice(PhotonReader* self, size_t length, PhotonReader* dest)
     dest->start = self->current;
     self->current += length;
     dest->current = dest->start;
-    dest->end = dest->end + length;
+    dest->end = dest->current + length;
 }
 
 void PhotonReader_SliceToEnd(PhotonReader* self, PhotonReader* dest)
