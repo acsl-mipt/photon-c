@@ -18,6 +18,24 @@ else()
     endif()
 endif()
 
+macro(enable_sanitizer name)
+    add_definitions(
+        -fsanitize=${name}
+        -fsanitize=integer
+        -fsanitize=undefined
+    )
+    SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=${name} -fsanitize=integer -fsanitize=undefined")
+endmacro()
+
+if(SANITIZE_ADDRESS)
+    enable_sanitizer(address)
+elseif(SANITIZE_MEMORY)
+    enable_sanitizer(memory)
+    add_definitions(-fsanitize-memory-track-origins=2)
+elseif(SANITIZE_THREAD)
+    enable_sanitizer(thread)
+endif()
+
 file(GLOB_RECURSE PHOTON_GENERATED_FILES gen/*.c gen/*.h)
 
 include_directories(
