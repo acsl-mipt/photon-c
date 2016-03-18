@@ -32,6 +32,7 @@ typedef enum {
     PhotonResult_InvalidErrorControlType,
     PhotonResult_InvalidWindowSize,
     PhotonResult_InvalidSequenceCounter,
+    PhotonResult_InvalidChecksum,
     PhotonResult_EventIsDenied,
 
     PhotonResult_InvalidCommandId,
@@ -39,6 +40,8 @@ typedef enum {
     PhotonResult_InvalidMessageId,
     PhotonResult_InvalidValue
 } PhotonResult;
+
+const char* PhotonResult_ToString(PhotonResult result);
 
 #ifdef __cplusplus
 }
