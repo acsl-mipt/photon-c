@@ -1,6 +1,7 @@
 #include "photon/Config.h"
 #include "photon/Decoder.h"
 #include "photon/Ber.h"
+#include "photon/Utils.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -25,7 +26,7 @@ static PhotonResult decodeDataHeader(PhotonReader* src, PhotonDataHeader* dest, 
 
 static PhotonResult sliceData(PhotonReader* src, size_t length, PhotonReader* dest)
 {
-    if (length < PhotonReader_ReadableSize(src)) {
+    if (length > PhotonReader_ReadableSize(src)) {
         return PhotonResult_InvalidDataSize;
     }
 
@@ -55,13 +56,14 @@ PhotonResult PhotonDecoder_DecodeCommandResult(PhotonReader* src, PhotonCommandR
 PhotonResult PhotonDecoder_DecodeTmStatusMessage(PhotonReader* src, PhotonTmStatusMessage* dest)
 {
     PHOTON_TRY(decodeDataHeader(src, &dest->header, PHOTON_TM_STATUS_MESSAGE_HEADER));
+    const uint8_t* msgEnd = PhotonReader_CurrentPtr(src) + dest->header.length;
 
     PHOTON_TRY(PhotonBer_Deserialize(&dest->segmentNumber, src));
     PHOTON_TRY(PhotonBer_Deserialize(&dest->maxSegmentNumber, src));
     PHOTON_TRY(PhotonBer_Deserialize(&dest->componentNumber, src));
     PHOTON_TRY(PhotonBer_Deserialize(&dest->messageNumber, src));
 
-    PHOTON_TRY(sliceData(src, dest->header.length, &dest->parameters));
+    PHOTON_TRY(sliceData(src, msgEnd - PhotonReader_CurrentPtr(src), &dest->parameters));
 
     return PhotonResult_Ok;
 }
@@ -69,13 +71,14 @@ PhotonResult PhotonDecoder_DecodeTmStatusMessage(PhotonReader* src, PhotonTmStat
 PhotonResult PhotonDecoder_DecodeTmEventMessage(PhotonReader* src, PhotonTmEventMessage* dest)
 {
     PHOTON_TRY(decodeDataHeader(src, &dest->header, PHOTON_TM_EVENT_MESSAGE_HEADER));
+    const uint8_t* msgEnd = PhotonReader_CurrentPtr(src) + dest->header.length;
 
     PHOTON_TRY(PhotonBer_Deserialize(&dest->componentNumber, src));
     PHOTON_TRY(PhotonBer_Deserialize(&dest->messageNumber, src));
     PHOTON_TRY(PhotonBer_Deserialize(&dest->eventNumber, src));
     PHOTON_TRY(PhotonBer_Deserialize(&dest->timestamp, src));
 
-    PHOTON_TRY(sliceData(src, dest->header.length, &dest->parameters));
+    PHOTON_TRY(sliceData(src, msgEnd - PhotonReader_CurrentPtr(src), &dest->parameters));
 
     return PhotonResult_Ok;
 }
@@ -83,38 +86,55 @@ PhotonResult PhotonDecoder_DecodeTmEventMessage(PhotonReader* src, PhotonTmEvent
 PhotonResult PhotonDecoder_DecodeAddressPacket(PhotonReader* src, PhotonAddressPacketDec* dest)
 {
     PHOTON_TRY(decodeDataHeader(src, &dest->header, PHOTON_ADDRESS_PACKET_HEADER));
+    const uint8_t* dataEnd = src->current + dest->header.length;
 
     PhotonBer addressType;
     PHOTON_TRY(PhotonBer_Deserialize(&addressType, src));
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->srcAddress, src));
-    if (addressType != PhotonAddressType_SimpleAddress) {
-        PHOTON_TRY(PhotonBer_Deserialize(&dest->srcComponentNumber, src));
-        PHOTON_TRY(PhotonBer_Deserialize(&dest->destComponentNumber, src));
-    }
 
     switch (addressType) {
-    case 3:
-        dest->addressType = PhotonAddressType_Broadcast;
+    case 2: {
+        dest->packet.address.type = PhotonAddressType_SimpleAddress;
+        const PhotonSimpleAddress* addr = &dest->packet.address.address.simple;
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->srcAddress, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->destAddress, src));
         break;
-    case 2:
-    case 4:
-        dest->addressType = PhotonAddressType_NetworkAddress;
-        PHOTON_TRY(PhotonBer_Deserialize(&dest->destAddress, src));
+    }
+    case 3: {
+        dest->packet.address.type = PhotonAddressType_Broadcast;
+        const PhotonMulticastAddress* addr = &dest->packet.address.address.multicast;
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->srcAddress, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->srcComponentNumber, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->destComponentNumber, src));
         break;
-    case 6:
-        dest->addressType = PhotonAddressType_GroupAddress;
-        PHOTON_TRY(PhotonBer_Deserialize(&dest->destAddress, src));
-        PHOTON_TRY(PhotonBer_Deserialize(&dest->srcGroup, src));
-        PHOTON_TRY(PhotonBer_Deserialize(&dest->destGroup, src));
+    }
+    case 4: {
+        dest->packet.address.type = PhotonAddressType_NetworkAddress;
+        const PhotonNetworkAddress* addr = &dest->packet.address.address.network;
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->srcAddress, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->srcComponentNumber, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->destComponentNumber, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->destAddress, src));
         break;
+    }
+    case 6: {
+        dest->packet.address.type = PhotonAddressType_GroupAddress;
+        const PhotonGroupAddress* addr = &dest->packet.address.address.group;
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->srcAddress, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->srcComponentNumber, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->destComponentNumber, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->destAddress, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->srcGroup, src));
+        PHOTON_TRY(PhotonBer_Deserialize(&addr->destGroup, src));
+        break;
+    }
     default:
         return PhotonResult_InvalidAddressType;
     }
 
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->timestampType, src));
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->timestamp, src));
+    PHOTON_TRY(PhotonBer_Deserialize(&dest->packet.timestampType, src));
+    PHOTON_TRY(PhotonBer_Deserialize(&dest->packet.timestamp, src));
 
-    PHOTON_TRY(sliceData(src, dest->header.length, &dest->data));
+    PHOTON_TRY(sliceData(src, dataEnd - src->current, &dest->data));
 
     return PhotonResult_Ok;
 }
@@ -135,6 +155,7 @@ static PhotonResult decodeExchangePacketHeader(PhotonReader* src, PhotonPacketHe
     }
 
     PHOTON_TRY(PhotonBer_Deserialize(&dest->length, src));
+    const uint8_t* packetEnd = PhotonReader_CurrentPtr(src) + dest->length;
     PHOTON_TRY(PhotonBer_Deserialize(&dest->reserved, src));
 
     if (dest->reserved != 1) {
@@ -162,7 +183,6 @@ static PhotonResult decodeExchangePacketHeader(PhotonReader* src, PhotonPacketHe
         return PhotonResult_InvalidDataSize;
     }
 
-    const uint8_t* packetEnd = PhotonReader_CurrentPtr(src) + dest->length;
     unsigned checkedSize = packetEnd - packetStart;
 
     switch (controlTypeBer) {
@@ -171,16 +191,10 @@ static PhotonResult decodeExchangePacketHeader(PhotonReader* src, PhotonPacketHe
         packetEnd -= 2;
         uint16_t checksumCrc16;
         memcpy(&checksumCrc16, packetEnd, 2);
-        (void)checkedSize;
-        // TODO: check crc16
-        break;
-    case 2:
-        *controlType = PhotonErrorControlType_ReedSolomon;
-        packetEnd -= 4;
-        uint32_t checksumRs;
-        memcpy(&checksumRs, packetEnd, 4);
-        (void)checkedSize;
-        // TODO: check rs
+        uint16_t cs = Photon_Crc16(packetStart, (packetEnd - packetStart) / 2);
+        if (cs != checksumCrc16) {
+            return PhotonResult_InvalidChecksum;
+        }
         break;
     default:
         return PhotonResult_InvalidErrorControlType;
@@ -194,6 +208,7 @@ static PhotonResult decodeExchangePacketHeader(PhotonReader* src, PhotonPacketHe
 PhotonResult PhotonDecoder_DecodeExchangePacket(PhotonReader* src, PhotonExchangePacketDec* dest)
 {
     const uint8_t* packetEnd;
+    const uint8_t* packetStart = src->current;
     PHOTON_TRY(decodeExchangePacketHeader(src, &dest->header, &dest->packet.streamType, &dest->packet.errorControlType,
                                           &packetEnd, PHOTON_EXCHANGE_PACKET_HEADER));
 
@@ -209,9 +224,16 @@ PhotonResult PhotonDecoder_DecodeExchangePacket(PhotonReader* src, PhotonExchang
         return PhotonResult_InvalidSequenceCounter;
     }
 
-    PhotonReader_Slice(src, PhotonReader_CurrentPtr(src) - packetEnd, &dest->data);
+    unsigned csSize;
+    switch (dest->packet.errorControlType) {
+    case PhotonErrorControlType_Crc16:
+        csSize = 2;
+        break;
+    };
 
-    // TODO: skip CS
+    PhotonReader_Slice(src, packetEnd - PhotonReader_CurrentPtr(src), &dest->data);
+
+    PhotonReader_Skip(src, csSize);
 
     return PhotonResult_Ok;
 }

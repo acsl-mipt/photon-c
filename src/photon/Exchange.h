@@ -37,6 +37,7 @@ typedef struct {
     uint32_t pad2;
     uint8_t outBuffer[PHOTON_MAX_PACKET_SIZE * PHOTON_MAX_OUTGOING_PACKETS];
     uint8_t temp[PHOTON_MAX_PACKET_SIZE];
+    uint16_t encodedSeparator;
 } PhotonUavExchange;
 
 void PhotonUavExchange_Init(PhotonUavExchange* self);

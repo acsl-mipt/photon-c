@@ -18,6 +18,7 @@ macro(add_unit_test test file)
         gtest_main
         gtest
         photon-impl
+        photon-gc
         photon
     )
 
@@ -30,4 +31,7 @@ macro(add_unit_test test file)
 endmacro()
 
 add_unit_test(ber_tests Ber.cpp)
+add_unit_test(exchangepacket_tests ExchangePacket.cpp)
+add_unit_test(addresspacket_tests AddressPacket.cpp)
 add_unit_test(router_tests Router.cpp)
+add_unit_test(exchange Exchange.cpp)

@@ -16,8 +16,6 @@
 extern "C" {
 #endif
 
-typedef uint64_t PhotonBer;
-
 typedef PhotonResult (*PhotonGenerator)(void* data, PhotonWriter* dest);
 
 typedef struct {
@@ -39,46 +37,7 @@ typedef struct {
 } PhotonTmEventMessageGen;
 
 typedef struct {
-    PhotonBer srcAddress;
-    PhotonBer destAddress;
-} PhotonSimpleAddress;
-
-typedef struct {
-    PhotonBer srcAddress;
-    PhotonBer srcComponentNumber;
-    PhotonBer destComponentNumber;
-    PhotonBer destAddress;
-    PhotonBer srcGroup;
-    PhotonBer destGroup;
-} PhotonGroupAddress;
-
-typedef struct {
-    PhotonBer srcAddress;
-    PhotonBer srcComponentNumber;
-    PhotonBer destComponentNumber;
-    PhotonBer destAddress;
-} PhotonNetworkAddress;
-
-typedef struct {
-    PhotonBer srcAddress;
-    PhotonBer srcComponentNumber;
-    PhotonBer destComponentNumber;
-} PhotonMulticastAddress;
-
-typedef struct {
-    union {
-        PhotonSimpleAddress simple;
-        PhotonGroupAddress group;
-        PhotonNetworkAddress network;
-        PhotonMulticastAddress multicast;
-    } address;
-    PhotonAddressType type;
-} PhotonAddress;
-
-typedef struct {
-    PhotonAddress address;
-    PhotonBer timestampType;
-    PhotonBer timestamp;
+    PhotonAddressPacket packet;
     void* data;
     PhotonGenerator gen;
 } PhotonAddressPacketEnc;

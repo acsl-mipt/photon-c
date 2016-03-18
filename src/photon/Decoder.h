@@ -60,15 +60,7 @@ typedef struct {
 
 typedef struct {
     PhotonDataHeader header;
-    PhotonAddressType addressType;
-    PhotonBer srcAddress;
-    PhotonBer srcComponentNumber;
-    PhotonBer destComponentNumber;
-    PhotonBer destAddress;
-    PhotonBer srcGroup;
-    PhotonBer destGroup;
-    PhotonBer timestampType;
-    PhotonBer timestamp;
+    PhotonAddressPacket packet;
     PhotonReader data;
 } PhotonAddressPacketDec;
 

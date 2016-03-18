@@ -19,7 +19,11 @@ add_library(photon
     Exchange.h
     Ber.c
     Ber.h
+    Utils.c
+    Utils.h
     photon_prologue.h
     photon_epilogue.h
     ${PHOTON_GENERATED_FILES}
 )
+
+

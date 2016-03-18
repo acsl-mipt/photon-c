@@ -1,6 +1,8 @@
 #include "photon/Config.h"
 #include "photon/Encoder.h"
 #include "photon/Result.h"
+#include "photon/Endian.h"
+#include "photon/Utils.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -9,9 +11,8 @@
 
 static PHOTON_INLINE void writeBer16Fixed(uint16_t value, uint8_t* dest)
 {
-    *dest = 0x80 & 3;
-    *(dest + 1) = (value & 0xf0) >> 8;
-    *(dest + 2) = value & 0x0f;
+    *dest = 0x80 | 2;
+    Photon_Le16Enc(dest + 1, value);
 }
 
 PhotonResult PhotonEncoder_EncodeData(uint16_t header, void* data, PhotonGenerator gen, PhotonWriter* dest)
@@ -27,7 +28,7 @@ PhotonResult PhotonEncoder_EncodeData(uint16_t header, void* data, PhotonGenerat
 
     PHOTON_TRY(gen(data, dest));
 
-    size_t dataSize = PhotonWriter_CurrentPtr(dest) - sizeDest;
+    size_t dataSize = PhotonWriter_CurrentPtr(dest) - sizeDest - 3;
     writeBer16Fixed(dataSize, sizeDest);
 
     return PhotonResult_Ok;
@@ -75,33 +76,33 @@ PhotonResult PhotonEncoder_EncodeTmEventMessage(PhotonTmEventMessageGen* gen, Ph
 
 static PhotonResult addressPacketGen(void* data, PhotonWriter* dest)
 {
-    PhotonAddressPacketEnc* gen = (PhotonAddressPacketEnc*)data;
-    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)gen->address.type, dest));
+    PhotonAddressPacketEnc* enc = (PhotonAddressPacketEnc*)data;
+    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)enc->packet.address.type, dest));
 
-    switch (gen->address.type) {
+    switch (enc->packet.address.type) {
+    case PhotonAddressType_SimpleAddress: {
+        const PhotonSimpleAddress* addr = &enc->packet.address.address.simple;
+        PHOTON_TRY(PhotonBer_Serialize(addr->srcAddress, dest));
+        PHOTON_TRY(PhotonBer_Serialize(addr->destAddress, dest));
+        break;
+    }
     case PhotonAddressType_Broadcast: {
-        const PhotonMulticastAddress* addr = &gen->address.address.multicast;
+        const PhotonMulticastAddress* addr = &enc->packet.address.address.multicast;
         PHOTON_TRY(PhotonBer_Serialize(addr->srcAddress, dest));
         PHOTON_TRY(PhotonBer_Serialize(addr->srcComponentNumber, dest));
         PHOTON_TRY(PhotonBer_Serialize(addr->destComponentNumber, dest));
         break;
     }
     case PhotonAddressType_NetworkAddress: {
-        const PhotonNetworkAddress* addr = &gen->address.address.network;
+        const PhotonNetworkAddress* addr = &enc->packet.address.address.network;
         PHOTON_TRY(PhotonBer_Serialize(addr->srcAddress, dest));
         PHOTON_TRY(PhotonBer_Serialize(addr->srcComponentNumber, dest));
         PHOTON_TRY(PhotonBer_Serialize(addr->destComponentNumber, dest));
         PHOTON_TRY(PhotonBer_Serialize(addr->destAddress, dest));
         break;
     }
-    case PhotonAddressType_SimpleAddress: {
-        const PhotonSimpleAddress* addr = &gen->address.address.simple;
-        PHOTON_TRY(PhotonBer_Serialize(addr->srcAddress, dest));
-        PHOTON_TRY(PhotonBer_Serialize(addr->destAddress, dest));
-        break;
-    }
     case PhotonAddressType_GroupAddress: {
-        const PhotonGroupAddress* addr = &gen->address.address.group;
+        const PhotonGroupAddress* addr = &enc->packet.address.address.group;
         PHOTON_TRY(PhotonBer_Serialize(addr->srcAddress, dest));
         PHOTON_TRY(PhotonBer_Serialize(addr->srcComponentNumber, dest));
         PHOTON_TRY(PhotonBer_Serialize(addr->destComponentNumber, dest));
@@ -114,10 +115,10 @@ static PhotonResult addressPacketGen(void* data, PhotonWriter* dest)
         return PhotonResult_InvalidAddressType;
     }
 
-    PHOTON_TRY(PhotonBer_Serialize(2, dest)); // TODO: енум метки врем, destени
-    PHOTON_TRY(PhotonBer_Serialize(gen->timestamp, dest));
+    PHOTON_TRY(PhotonBer_Serialize(enc->packet.timestampType, dest)); // TODO: енум метки врем, destени
+    PHOTON_TRY(PhotonBer_Serialize(enc->packet.timestamp, dest));
 
-    return gen->gen(gen->data, dest);
+    return enc->gen(enc->data, dest);
 }
 
 PhotonResult PhotonEncoder_EncodeAddressPacket(PhotonAddressPacketEnc* encoder, PhotonWriter* dest)
@@ -142,9 +143,6 @@ static PhotonResult encodePacket(uint16_t header, PhotonErrorControlType csType,
     case PhotonErrorControlType_Crc16:
         csSize = 2;
         break;
-    case PhotonErrorControlType_ReedSolomon:
-        csSize = 4;
-        break;
     default:
         return PhotonResult_InvalidErrorControlType;
     };
@@ -153,21 +151,22 @@ static PhotonResult encodePacket(uint16_t header, PhotonErrorControlType csType,
         return PhotonResult_NotEnoughSpace;
     }
     PhotonWriter_SliceFromBack(dest, csSize, &payload);
+    if (PhotonWriter_WritableSize(&payload) % 2) {
+        payload.end--;
+    }
 
     PHOTON_TRY(gen(data, &payload));
     dest->current = payload.current;
+    if (!((dest->current - start)) % 2) {
+        dest->current++;
+    }
 
     // TODO: контрольные суммы
     switch (csType) {
     case PhotonErrorControlType_Crc16:
         (void)start;
-        uint16_t crc16 = 0;
-        PhotonWriter_WriteUint16Be(dest, crc16);
-        break;
-    case PhotonErrorControlType_ReedSolomon:
-        (void)start;
-        uint32_t rs = 0;
-        PhotonWriter_WriteUint32Be(dest, rs);
+        uint16_t cs = Photon_Crc16(start, (dest->current - start) / 2);
+        PhotonWriter_WriteUint16Le(dest, cs);
         break;
     };
 
@@ -192,13 +191,13 @@ PhotonResult PhotonEncoder_EncodeReceiptPacket(PhotonReceiptPacketEnc* encoder, 
 
 static PhotonResult counterAdjustmentPacketGen(void* data, PhotonWriter* dest)
 {
-    PhotonCounterAdjustmentPacketEnc* gen = (PhotonCounterAdjustmentPacketEnc*)data;
+    PhotonCounterAdjustmentPacketEnc* enc = (PhotonCounterAdjustmentPacketEnc*)data;
     PHOTON_TRY(PhotonBer_Serialize(1, dest));
-    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)gen->streamType, dest));
-    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)gen->errorControlType, dest));
-    PHOTON_TRY(PhotonBer_Serialize(gen->sequenceCounter, dest));
+    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)enc->streamType, dest));
+    PHOTON_TRY(PhotonBer_Serialize((PhotonBer)enc->errorControlType, dest));
+    PHOTON_TRY(PhotonBer_Serialize(enc->sequenceCounter, dest));
 
-    return gen->gen(gen->data, dest);
+    return enc->gen(enc->data, dest);
 }
 
 PhotonResult PhotonEncoder_EncodeCounterAdjustmentPacket(PhotonCounterAdjustmentPacketEnc* encoder, PhotonWriter* dest)
@@ -221,7 +220,8 @@ static PhotonResult exchangePacketGen(void* data, PhotonWriter* dest)
 
     PHOTON_TRY(gen->gen(gen->data, dest));
 
-    size_t dataSize = PhotonWriter_CurrentPtr(dest) - sizeDest;
+    unsigned csSize = 2; //TODO: from enum
+    size_t dataSize = PhotonWriter_CurrentPtr(dest) - sizeDest - 3 + csSize;
     writeBer16Fixed(dataSize, sizeDest);
 
     return PhotonResult_Ok;
