@@ -13,8 +13,6 @@ add_library(photon
     Encoder.c
     Encoder.h
     Endian.h
-    Parser.c
-    Parser.h
     Exchange.c
     Exchange.h
     Ber.c
