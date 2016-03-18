@@ -37,8 +37,8 @@ PhotonResult PhotonBer_Serialize(PhotonBer self, PhotonWriter* dest)
         return PhotonResult_NotEnoughSpace;
     }
 
-    PhotonWriter_WriteUint8(dest, 0x80 & size);
-    PhotonWriter_WriteUint64Le(dest, self); // big endian?
+    PhotonWriter_WriteUint8(dest, 0x80 | size);
+    PhotonWriter_Write(dest, &self, size); // big endian?
     return PhotonResult_Ok;
 }
 
