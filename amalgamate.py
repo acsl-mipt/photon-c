@@ -48,6 +48,7 @@ def process_all_sources(outfile, header_name='photon.h'):
                     outfile.write(line)
     outfile.write('\n')
 
-os.makedirs('amalgamation')
+if not os.path.exists('amalgamation'):
+    os.makedirs('amalgamation')
 process_all_headers(open('amalgamation/photon.h', 'w'))
 process_all_sources(open('amalgamation/photon.c', 'w'))
