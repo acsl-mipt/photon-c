@@ -11,6 +11,10 @@ add_library(photon-impl
     Telemetry.h
     Scripting.c
     Scripting.h
+    Files.c
+    Files.h
+    Segment.c
+    Segment.h
 )
 
 target_link_libraries(photon-impl photon)

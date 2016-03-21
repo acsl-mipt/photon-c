@@ -9,6 +9,7 @@ extern "C" {
 
 void PhotonScripting_Init();
 void PhotonScripting_Run();
+PhotonResult PhotonScripting_ExecuteCommands(PhotonReader* src, PhotonWriter* results);
 
 #ifdef __cplusplus
 }

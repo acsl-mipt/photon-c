@@ -132,12 +132,12 @@ PhotonGtTmCmdError PhotonGcMain_TmAllowMessage(PhotonGtCompMsg componentMessage)
     return allowMessage(componentMessage, true);
 }
 
-PhotonGtTmCmdError PhotonGcMain_TmDenyEvent(PhotonGtEventInfo* eventInfo)
+PhotonGtTmCmdError PhotonGcMain_TmDenyEvent(const PhotonGtEventInfo* eventInfo)
 {
     // TODO
 }
 
-PhotonGtTmCmdError PhotonGcMain_TmAllowEvent(PhotonGtEventInfo* eventInfo)
+PhotonGtTmCmdError PhotonGcMain_TmAllowEvent(const PhotonGtEventInfo* eventInfo)
 {
     // TODO
 }

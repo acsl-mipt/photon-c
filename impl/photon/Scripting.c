@@ -1,4 +1,5 @@
 #include <photon/Scripting.h>
+#include <photon/Decoder.h>
 #include <photon/PhotonGcMain.h>
 
 #include <string.h>
@@ -25,38 +26,49 @@ void PhotonScripting_Run()
 {
 }
 
+PhotonResult PhotonScripting_ExecuteCommands(PhotonReader* src, PhotonWriter* results)
+{
+    while (!PhotonReader_IsAtEnd(src)) {
+        PhotonBer componentId;
+        PHOTON_TRY(PhotonBer_Deserialize(&componentId, src));
+        PhotonBer commandId;
+        PHOTON_TRY(PhotonBer_Deserialize(&commandId, src));
+        PhotonGcMain_ExecuteCommandForComponent(src, results, componentId, commandId);
+    }
+    return PhotonResult_Ok;
+}
+
 // commands
 
-PhotonGtScriptingError PhotonGcMain_ScriptingUploadScript(PhotonGtScriptInfo info)
+PhotonGtScriptingError PhotonGcMain_ScriptingUploadScript(const PhotonGtScriptInfo* info)
 {
     if (_scripting.numScripts >= _MAX_SCRIPTS) {
         return PHOTON_GT_SCRIPTING_ERROR_MAXIMUM_SCRIPTS_REACHED;
     }
-    if (info.scriptCode.size > (_MAX_DATA - _scripting.dataUsed)) {
+    if (info->scriptCode.size > (_MAX_DATA - _scripting.dataUsed)) {
         return PHOTON_GT_SCRIPTING_ERROR_NOT_ENOUGH_SPACE_FOR_SCRIPT;
     }
     for (unsigned i = 0; i < _scripting.numScripts; i++) {
-        if (_scripting.scripts[i].info.scriptId == info.scriptId) {
+        if (_scripting.scripts[i].info.scriptId == info->scriptId) {
             return PHOTON_GT_SCRIPTING_ERROR_CONFLICTING_SCRIPT_IDS;
         }
     }
 
     PhotonGtScriptInfo* currentInfo = &_scripting.scripts[_scripting.numScripts].info;
-    currentInfo->scriptId = info.scriptId;
-    unsigned scriptSize = info.scriptCode.size;
+    currentInfo->scriptId = info->scriptId;
+    unsigned scriptSize = info->scriptCode.size;
     currentInfo->scriptCode.size = scriptSize;
     uint8_t* scriptPtr = &_scripting.data[_scripting.dataUsed];
     currentInfo->scriptCode.data = scriptPtr;
-    memcpy(scriptPtr, info.scriptCode.data, scriptSize);
+    memcpy(scriptPtr, info->scriptCode.data, scriptSize);
 
     PhotonGtScriptRunTiming* runTiming = &_scripting.scripts[_scripting.numScripts].runTiming;
-
 
     _scripting.numScripts++;
     _scripting.dataUsed += scriptSize;
 }
 
-static PhotonGtScriptingError execFunctionForScriptWithId(PhotonGtScriptId scriptId, PhotonResult (*func)(PhotonGtScript*))
+static PhotonGtScriptingError execFunctionForScriptWithId(PhotonGtScriptId scriptId, PhotonGtScriptingError (*func)(unsigned idx))
 {
     for (unsigned i = 0; i < _scripting.numScripts; i++) {
         if (_scripting.scripts[i].info.scriptId == scriptId) {
@@ -93,16 +105,28 @@ PhotonGtScriptingError PhotonGcMain_ScriptingDeleteScript(PhotonGtScriptId scrip
 
 PhotonGtScriptingError PhotonGcMain_ScriptingRunScriptNow(PhotonGtScriptId scriptId)
 {
+    return PHOTON_GT_SCRIPTING_ERROR_OK;
 }
 
-PhotonGtScriptingError PhotonGcMain_ScriptingScheduleScriptRun(PhotonGtScriptRunTiming* scriptRunTiming)
+PhotonGtScriptingError PhotonGcMain_ScriptingScheduleScriptRun(const PhotonGtScriptRunTiming* scriptRunTiming)
 {
+    return PHOTON_GT_SCRIPTING_ERROR_OK;
 }
 
 PhotonGtScriptingError PhotonGcMain_ScriptingEnableScriptRunTiming(PhotonGtGuid scriptRunTimingId)
 {
+    return PHOTON_GT_SCRIPTING_ERROR_OK;
 }
 
 PhotonGtScriptingError PhotonGcMain_ScriptingDisableScriptRunTiming(PhotonGtGuid scriptRunTimingId)
 {
+    return PHOTON_GT_SCRIPTING_ERROR_OK;
+}
+
+PhotonGtArrScript PhotonGcMain_ScriptingScripts()
+{
+    PhotonGtArrScript scripts;
+    scripts.data = &_scripting.scripts[0];
+    scripts.size = _scripting.numScripts;
+    return scripts;
 }
