@@ -25,7 +25,6 @@ void PhotonRingBuf_Peek(const PhotonRingBuf* self, void* dest, size_t size, size
     if (readOffset >= self->size) {
         readOffset -= self->size;
     }
-    assert(size > 0);
     assert(size + offset <= self->size - self->freeSpace);
     if (readOffset < self->writeOffset) { /* ----------r**************w---------- */
         memcpy(dest, self->data + readOffset, size);
@@ -77,7 +76,6 @@ static void extend(PhotonRingBuf* self, size_t size)
 
 void PhotonRingBuf_Write(PhotonRingBuf* self, const void* data, size_t size)
 {
-    assert(size > 0);
     assert(size <= self->size);
     if (self->freeSpace < size) {
         PhotonRingBuf_Erase(self, size - self->freeSpace);
@@ -100,4 +98,3 @@ size_t PhotonRingBuf_ReadableSize(const PhotonRingBuf* self)
 {
     return self->size - self->freeSpace;
 }
-
