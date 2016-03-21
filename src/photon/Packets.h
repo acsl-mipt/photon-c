@@ -63,6 +63,17 @@ typedef struct {
     PhotonBer timestamp;
 } PhotonAddressPacket;
 
+typedef struct {
+    PhotonStreamType streamType;
+    PhotonErrorControlType errorControlType;
+    PhotonBer lastSequenceCounter;
+} PhotonReceiptPacket;
+
+typedef struct {
+    PhotonBer componentNumber;
+    PhotonBer commandNumber;
+} PhotonCommandHeader;
+
 #ifdef __cplusplus
 }
 #endif

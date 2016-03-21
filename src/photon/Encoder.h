@@ -63,9 +63,16 @@ typedef struct {
     PhotonGenerator gen;
 } PhotonExchangePacketEnc;
 
+typedef struct {
+    PhotonCommandHeader header;
+    void* data;
+    PhotonGenerator gen;
+} PhotonCommandEnc;
+
 PhotonResult PhotonEncoder_EncodeData(uint16_t header, void* data, PhotonGenerator dataGen, PhotonWriter* dest);
 PhotonResult PhotonEncoder_EncodeCommandResult(void* data, PhotonGenerator resultGen, PhotonWriter* dest);
 PhotonResult PhotonEncoder_EncodeCommandMessage(void* data, PhotonGenerator msgGen, PhotonWriter* dest);
+PhotonResult PhotonEncoder_EncodeCommand(PhotonCommandEnc* gen, PhotonWriter* dest);
 PhotonResult PhotonEncoder_EncodeTmStatusMessage(PhotonTmStatusMessageGen* gen, PhotonWriter* dest);
 PhotonResult PhotonEncoder_EncodeTmEventMessage(PhotonTmEventMessageGen* gen, PhotonWriter* dest);
 PhotonResult PhotonEncoder_EncodeAddressPacket(PhotonAddressPacketEnc* encoder, PhotonWriter* dest);

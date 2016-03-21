@@ -19,7 +19,7 @@ extern "C" {
 #define PHOTON_MAX_TM_MESSAGE_SIZE 512
 #define PHOTON_MAX_TM_MESSAGES 10
 
-typedef PhotonResult (*PhotonAddressPacketHandler)(void*, PhotonAddressPacketDec*);
+typedef PhotonResult (*PhotonAddressPacketHandler)(void*, PhotonAddressPacket*, PhotonReader*);
 typedef PhotonResult (*PhotonExchangeHandler)(void*, PhotonRingBuf*);
 typedef PhotonResult (*PhotonCommandResultHandler)(void*, PhotonCommandResult*);
 typedef PhotonResult (*PhotonTmEventMessageHandler)(void*, PhotonTmEventMessage*);

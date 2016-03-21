@@ -44,6 +44,13 @@ PhotonResult PhotonEncoder_EncodeCommandMessage(void* data, PhotonGenerator msgG
     return PhotonEncoder_EncodeData(0x0c65, data, msgGen, dest);
 }
 
+PhotonResult PhotonEncoder_EncodeCommand(PhotonCommandEnc* gen, PhotonWriter* dest)
+{
+    PHOTON_TRY(PhotonBer_Serialize(gen->header.componentNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->header.commandNumber, dest));
+    return gen->gen(gen->data, dest);
+}
+
 static PhotonResult tmStatusMessageGen(void* data, PhotonWriter* dest)
 {
     PhotonTmStatusMessageGen* gen = (PhotonTmStatusMessageGen*)data;
@@ -125,7 +132,6 @@ PhotonResult PhotonEncoder_EncodeAddressPacket(PhotonAddressPacketEnc* encoder, 
 {
     return PhotonEncoder_EncodeData(0xac5e, encoder, addressPacketGen, dest);
 }
-
 
 static PhotonResult encodePacket(uint16_t header, PhotonErrorControlType csType, void* data, PhotonGenerator gen,
                                  PhotonWriter* dest)

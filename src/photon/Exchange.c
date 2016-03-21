@@ -26,7 +26,7 @@ PhotonResult PhotonUavExchange_HandleIncomingPacket(PhotonUavExchange* self, Pho
 {
     size_t packetSize = Photon_FindPacketInRingBuf(&self->ringBufIn, 0x047e);
     if (!packetSize) {
-        return 0;
+        return PhotonResult_PacketNotFound;
     }
     PhotonRingBuf_Peek(&self->ringBufIn, &self->temp, packetSize, 0);
 
@@ -52,8 +52,8 @@ PhotonResult PhotonUavExchange_HandleIncomingPacket(PhotonUavExchange* self, Pho
         self->cmdInCounter++;
 
         PhotonAddressPacketDec addressPacket;
-        PHOTON_TRY(PhotonDecoder_DecodeAddressPacket(&src, &addressPacket));
-        PHOTON_TRY(handler(data, &addressPacket));
+        PHOTON_TRY(PhotonDecoder_DecodeAddressPacket(&exchangePacket.data, &addressPacket));
+        PHOTON_TRY(handler(data, &addressPacket.packet, &addressPacket.data));
         break;
     }
 //     case PHOTON_COUNTER_ADJUSTMENT_PACKET_HEADER: {
