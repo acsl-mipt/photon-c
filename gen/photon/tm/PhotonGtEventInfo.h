@@ -14,7 +14,7 @@ extern "C" {
 
 typedef struct {
   PhotonGtCompMsg componentMessage;
-  PhotonBer eventNum;
+  PhotonGtBer eventNum;
 } PhotonGtEventInfo;
 
 PhotonResult PhotonGtEventInfo_Serialize(const PhotonGtEventInfo* self, PhotonWriter* writer);

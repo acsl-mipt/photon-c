@@ -6,7 +6,7 @@
 #define __PHOTON_DECODE_PHOTON_GT_OR_ARR_U8_FILE_DOWNLOAD_ERROR_H__ 
 #include "photon/photon_prologue.h"
 
-#include "photon/foundation/PhotonGtArrU8.h"
+#include "photon/decode/PhotonGtArrU8.h"
 #include "photon/fs/PhotonGtFileDownloadError.h"
 
 #ifdef __cplusplus

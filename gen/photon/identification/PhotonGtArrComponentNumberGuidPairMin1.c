@@ -3,21 +3,21 @@
 
 
 PhotonResult PhotonGtArrComponentNumberGuidPairMin1_Serialize(PhotonGtArrComponentNumberGuidPairMin1 self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < self.size * sizeof(PhotonBer) + sizeof(PhotonBer))
+  if (PhotonWriter_WritableSize(writer) < self.size * sizeof(PhotonGtBer) + sizeof(PhotonGtBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self.size, writer));
   for(PhotonBer i = 0, size = self.size; i < size; ++i) {
-    PHOTON_TRY(PhotonGtComponentNumberGuidPair_Serialize(self.data[i], writer));
+    PhotonGtComponentNumberGuidPair_Serialize(self.data[i], writer);
   }
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGtArrComponentNumberGuidPairMin1_Deserialize(PhotonGtArrComponentNumberGuidPairMin1* self, PhotonReader* reader) {
   PHOTON_TRY(PhotonBer_Deserialize(&self->size, reader));
-  if (PhotonReader_ReadableSize(reader) < (*self).size * sizeof(PhotonBer) + sizeof(PhotonBer))
+  if (PhotonReader_ReadableSize(reader) < (*self).size * sizeof(PhotonGtBer) + sizeof(PhotonGtBer))
     return PhotonResult_NotEnoughData;
   for(PhotonBer i = 0, size = self->size; i < size; ++i) {
-    PHOTON_TRY(PhotonGtComponentNumberGuidPair_Deserialize(&self->data[i], reader));
+    PhotonGtComponentNumberGuidPair_Deserialize(&self->data[i], reader);
   }
   return PhotonResult_Ok;
 }

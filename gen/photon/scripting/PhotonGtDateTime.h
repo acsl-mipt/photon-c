@@ -10,7 +10,7 @@
 extern "C" {
 #endif
 
-typedef PhotonBer PhotonGtDateTime;
+typedef PhotonGtBer PhotonGtDateTime;
 
 PhotonResult PhotonGtDateTime_Serialize(PhotonGtDateTime self, PhotonWriter* writer);
 

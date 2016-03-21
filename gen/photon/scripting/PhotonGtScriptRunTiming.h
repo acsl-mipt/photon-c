@@ -7,12 +7,9 @@
 #include "photon/photon_prologue.h"
 
 #include "photon/foundation/PhotonGtGuid.h"
-#include "photon/foundation/PhotonGtB8.h"
 #include "photon/scripting/PhotonGtScriptId.h"
 #include "photon/scripting/PhotonGtDateTime.h"
-#include "photon/foundation/PhotonGtB8.h"
 #include "photon/scripting/PhotonGtPeriod.h"
-#include "photon/foundation/PhotonGtB8.h"
 #include "photon/scripting/PhotonGtDateTime.h"
 
 #ifdef __cplusplus

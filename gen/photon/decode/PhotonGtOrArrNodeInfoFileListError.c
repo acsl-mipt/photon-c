@@ -6,10 +6,10 @@ PhotonResult PhotonGtOrArrNodeInfoFileListError_Serialize(PhotonGtOrArrNodeInfoF
   PHOTON_TRY(PhotonBer_Serialize(self.tag, writer));
   switch (self.tag) {
     case 0:
-      PHOTON_TRY(PhotonGtArrNodeInfo_Serialize(self._1, writer));
+      PhotonGtArrNodeInfo_Serialize(self._1, writer);
       break;
     case 1:
-      PHOTON_TRY(PhotonBer_Serialize(self._2, writer));
+      PhotonBer_Serialize(self._2, writer);
       break;
     default:
       return PhotonResult_InvalidValue;
@@ -21,10 +21,10 @@ PhotonResult PhotonGtOrArrNodeInfoFileListError_Deserialize(PhotonGtOrArrNodeInf
   PHOTON_TRY(PhotonBer_Deserialize(&self->tag, reader));
   switch (self->tag) {
     case 0:
-      PHOTON_TRY(PhotonGtArrNodeInfo_Deserialize(&self->_1, reader));
+      PhotonGtArrNodeInfo_Deserialize(&self->_1, reader);
       break;
     case 1:
-      PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->_2, reader));
+      PhotonBer_Deserialize((PhotonGtBer*) &self->_2, reader);
       break;
     default:
       return PhotonResult_InvalidValue;

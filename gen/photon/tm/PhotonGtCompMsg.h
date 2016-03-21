@@ -11,8 +11,8 @@ extern "C" {
 #endif
 
 typedef struct {
-  PhotonBer componentNum;
-  PhotonBer messageNum;
+  PhotonGtBer componentNum;
+  PhotonGtBer messageNum;
 } PhotonGtCompMsg;
 
 PhotonResult PhotonGtCompMsg_Serialize(PhotonGtCompMsg self, PhotonWriter* writer);

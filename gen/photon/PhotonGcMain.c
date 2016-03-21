@@ -3,33 +3,33 @@
 PhotonResult PhotonGcMain_ExecuteFilesStartFileUpload(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtFileInfo fileInfo;
   PHOTON_TRY(PhotonGtFileInfo_Deserialize(&fileInfo, reader));
-  return PhotonGtOptionalFileUploadError_Serialize(PhotonGcMain_FilesStartFileUpload(&fileInfo), writer);
+  return PhotonBer_Serialize(PhotonGcMain_FilesStartFileUpload(&fileInfo), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesUploadFilePart(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtArrU8 fileContentsPart;
   PHOTON_TRY(PhotonGtArrU8_Deserialize(&fileContentsPart, reader));
-  return PhotonGtOptionalFileUploadError_Serialize(PhotonGcMain_FilesUploadFilePart(fileContentsPart), writer);
+  return PhotonBer_Serialize(PhotonGcMain_FilesUploadFilePart(fileContentsPart), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesStopFileUpload(PhotonReader* reader, PhotonWriter* writer) {
-  return PhotonGtOptionalFileUploadError_Serialize(PhotonGcMain_FilesStopFileUpload(), writer);
+  return PhotonBer_Serialize(PhotonGcMain_FilesStopFileUpload(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesStartFileDownload(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtString path;
-  PHOTON_TRY(PhotonGtString_Deserialize(&path, reader));
+  PHOTON_TRY(PhotonGtArrU8_Deserialize((PhotonGtArrU8*) &path, reader));
   return PhotonGtOrFileInfoFileDownloadError_Serialize(PhotonGcMain_FilesStartFileDownload(path), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesDownloadFilePart(PhotonReader* reader, PhotonWriter* writer) {
-  PhotonBer byteSize;
+  PhotonGtBer byteSize;
   PHOTON_TRY(PhotonBer_Deserialize(&byteSize, reader));
   return PhotonGtOrArrU8FileDownloadError_Serialize(PhotonGcMain_FilesDownloadFilePart(byteSize), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesStopFileDownload(PhotonReader* reader, PhotonWriter* writer) {
-  return PhotonGtOptionalFileDownloadError_Serialize(PhotonGcMain_FilesStopFileDownload(), writer);
+  return PhotonBer_Serialize(PhotonGcMain_FilesStopFileDownload(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesStartRequestFileList(PhotonReader* reader, PhotonWriter* writer) {
@@ -37,25 +37,25 @@ PhotonResult PhotonGcMain_ExecuteFilesStartRequestFileList(PhotonReader* reader,
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesRequestFileListPart(PhotonReader* reader, PhotonWriter* writer) {
-  PhotonBer nodeSize;
+  PhotonGtBer nodeSize;
   PHOTON_TRY(PhotonBer_Deserialize(&nodeSize, reader));
   return PhotonGtOrArrNodeInfoFileListError_Serialize(PhotonGcMain_FilesRequestFileListPart(nodeSize), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesStopRequestFileList(PhotonReader* reader, PhotonWriter* writer) {
-  return PhotonGtOptionalFileListError_Serialize(PhotonGcMain_FilesStopRequestFileList(), writer);
+  return PhotonBer_Serialize(PhotonGcMain_FilesStopRequestFileList(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesDeleteNode(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtString path;
-  PHOTON_TRY(PhotonGtString_Deserialize(&path, reader));
-  return PhotonGtOptionalFileDeleteError_Serialize(PhotonGcMain_FilesDeleteNode(path), writer);
+  PHOTON_TRY(PhotonGtArrU8_Deserialize((PhotonGtArrU8*) &path, reader));
+  return PhotonBer_Serialize(PhotonGcMain_FilesDeleteNode(path), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesCreateDir(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtString path;
-  PHOTON_TRY(PhotonGtString_Deserialize(&path, reader));
-  return PhotonGtOptionalFileCreateDirError_Serialize(PhotonGcMain_FilesCreateDir(path), writer);
+  PHOTON_TRY(PhotonGtArrU8_Deserialize((PhotonGtArrU8*) &path, reader));
+  return PhotonBer_Serialize(PhotonGcMain_FilesCreateDir(path), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteIdentificationRequestShortId(PhotonReader* reader, PhotonWriter* writer) {
@@ -67,99 +67,100 @@ PhotonResult PhotonGcMain_ExecuteIdentificationRequestFullId(PhotonReader* reade
 }
 
 PhotonResult PhotonGcMain_ExecuteIdentificationRequestComponentGuid(PhotonReader* reader, PhotonWriter* writer) {
-  PhotonBer componentNumber;
+  PhotonGtBer componentNumber;
   PHOTON_TRY(PhotonBer_Deserialize(&componentNumber, reader));
-  return PhotonGtGuid_Serialize(PhotonGcMain_IdentificationRequestComponentGuid(componentNumber), writer);
+  return PhotonBer_Serialize(PhotonGcMain_IdentificationRequestComponentGuid(componentNumber), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteRouterSetRoute(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtAddress address;
-  PHOTON_TRY(PhotonGtAddress_Deserialize(&address, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonGtBer*) &address, reader));
   PhotonGtAddress next_hop;
-  PHOTON_TRY(PhotonGtAddress_Deserialize(&next_hop, reader));
-  return PhotonGtRouterError_Serialize(PhotonGcMain_RouterSetRoute(address, next_hop), writer);
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonGtBer*) &next_hop, reader));
+  return PhotonBer_Serialize(PhotonGcMain_RouterSetRoute(address, next_hop), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteRouterDelRoute(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtAddress address;
-  PHOTON_TRY(PhotonGtAddress_Deserialize(&address, reader));
-  return PhotonGtRouterError_Serialize(PhotonGcMain_RouterDelRoute(address), writer);
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonGtBer*) &address, reader));
+  return PhotonBer_Serialize(PhotonGcMain_RouterDelRoute(address), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteRouterSetGroupRoute(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtAddress groupAddress;
-  PHOTON_TRY(PhotonGtAddress_Deserialize(&groupAddress, reader));
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonGtBer*) &groupAddress, reader));
   PhotonGtAddress next_hop;
-  PHOTON_TRY(PhotonGtAddress_Deserialize(&next_hop, reader));
-  return PhotonGtRouterError_Serialize(PhotonGcMain_RouterSetGroupRoute(groupAddress, next_hop), writer);
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonGtBer*) &next_hop, reader));
+  return PhotonBer_Serialize(PhotonGcMain_RouterSetGroupRoute(groupAddress, next_hop), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteRouterDelGroupRoute(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtAddress groupAddress;
-  PHOTON_TRY(PhotonGtAddress_Deserialize(&groupAddress, reader));
-  return PhotonGtRouterError_Serialize(PhotonGcMain_RouterDelGroupRoute(groupAddress), writer);
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonGtBer*) &groupAddress, reader));
+  return PhotonBer_Serialize(PhotonGcMain_RouterDelGroupRoute(groupAddress), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteScriptingUploadScript(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtScriptInfo script;
   PHOTON_TRY(PhotonGtScriptInfo_Deserialize(&script, reader));
-  return PhotonGtScriptingError_Serialize(PhotonGcMain_ScriptingUploadScript(script), writer);
+  return PhotonBer_Serialize(PhotonGcMain_ScriptingUploadScript(&script), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteScriptingDeleteScript(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtScriptId scriptId;
-  PHOTON_TRY(PhotonGtScriptId_Deserialize(&scriptId, reader));
-  return PhotonGtScriptingError_Serialize(PhotonGcMain_ScriptingDeleteScript(scriptId), writer);
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonGtBer*) (PhotonGtGuid*) &scriptId, reader));
+  return PhotonBer_Serialize(PhotonGcMain_ScriptingDeleteScript(scriptId), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteScriptingRunScriptNow(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtScriptId scriptId;
-  PHOTON_TRY(PhotonGtScriptId_Deserialize(&scriptId, reader));
-  return PhotonGtScriptingError_Serialize(PhotonGcMain_ScriptingRunScriptNow(scriptId), writer);
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonGtBer*) (PhotonGtGuid*) &scriptId, reader));
+  return PhotonBer_Serialize(PhotonGcMain_ScriptingRunScriptNow(scriptId), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteScriptingScheduleScriptRun(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtScriptRunTiming scriptRunTiming;
   PHOTON_TRY(PhotonGtScriptRunTiming_Deserialize(&scriptRunTiming, reader));
-  return PhotonGtScriptingError_Serialize(PhotonGcMain_ScriptingScheduleScriptRun(&scriptRunTiming), writer);
+  return PhotonBer_Serialize(PhotonGcMain_ScriptingScheduleScriptRun(&scriptRunTiming), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteScriptingEnableScriptRunTiming(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtGuid scriptRunTimingId;
-  PHOTON_TRY(PhotonGtGuid_Deserialize(&scriptRunTimingId, reader));
-  return PhotonGtScriptingError_Serialize(PhotonGcMain_ScriptingEnableScriptRunTiming(scriptRunTimingId), writer);
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonGtBer*) &scriptRunTimingId, reader));
+  return PhotonBer_Serialize(PhotonGcMain_ScriptingEnableScriptRunTiming(scriptRunTimingId), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteScriptingDisableScriptRunTiming(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtGuid scriptRunTimingId;
-  PHOTON_TRY(PhotonGtGuid_Deserialize(&scriptRunTimingId, reader));
-  return PhotonGtScriptingError_Serialize(PhotonGcMain_ScriptingDisableScriptRunTiming(scriptRunTimingId), writer);
+  PHOTON_TRY(PhotonBer_Deserialize((PhotonGtBer*) &scriptRunTimingId, reader));
+  return PhotonBer_Serialize(PhotonGcMain_ScriptingDisableScriptRunTiming(scriptRunTimingId), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentStartSegmentAckMode(PhotonReader* reader, PhotonWriter* writer) {
-  return PhotonGtOptionalSegmentStartAckError_Serialize(PhotonGcMain_SegmentStartSegmentAckMode(), writer);
+  return PhotonBer_Serialize(PhotonGcMain_SegmentStartSegmentAckMode(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentStopSegmentAckMode(PhotonReader* reader, PhotonWriter* writer) {
-  return PhotonGtOptionalSegmentStopAckError_Serialize(PhotonGcMain_SegmentStopSegmentAckMode(), writer);
+  return PhotonBer_Serialize(PhotonGcMain_SegmentStopSegmentAckMode(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentRequestAckModeStatus(PhotonReader* reader, PhotonWriter* writer) {
-  return PhotonGtB8_Serialize(PhotonGcMain_SegmentRequestAckModeStatus(), writer);
+  PhotonWriter_WriteUint8(writer, PhotonGcMain_SegmentRequestAckModeStatus());
+  return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentProcessAckModeStatus(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtB8 isSegmentationAckModeActive;
-  PHOTON_TRY(PhotonGtB8_Deserialize(&isSegmentationAckModeActive, reader));
-  return PhotonGtOptionalSegmentProcessAckError_Serialize(PhotonGcMain_SegmentProcessAckModeStatus(isSegmentationAckModeActive), writer);
+  PHOTON_TRY(isSegmentationAckModeActive = PhotonReader_ReadUint8(reader));
+  return PhotonBer_Serialize(PhotonGcMain_SegmentProcessAckModeStatus(isSegmentationAckModeActive), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentStartAckOnEverySegmentMode(PhotonReader* reader, PhotonWriter* writer) {
-  return PhotonGtOptionalSegmentStartAckError_Serialize(PhotonGcMain_SegmentStartAckOnEverySegmentMode(), writer);
+  return PhotonBer_Serialize(PhotonGcMain_SegmentStartAckOnEverySegmentMode(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentStopAckOnEverySegmentMode(PhotonReader* reader, PhotonWriter* writer) {
-  return PhotonGtOptionalSegmentStopAckError_Serialize(PhotonGcMain_SegmentStopAckOnEverySegmentMode(), writer);
+  return PhotonBer_Serialize(PhotonGcMain_SegmentStopAckOnEverySegmentMode(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentReceiverRequestSegmentsAck(PhotonReader* reader, PhotonWriter* writer) {
@@ -169,79 +170,79 @@ PhotonResult PhotonGcMain_ExecuteSegmentReceiverRequestSegmentsAck(PhotonReader*
 PhotonResult PhotonGcMain_ExecuteSegmentSenderProcessSegmentsAck(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtArrBerMin1 segmentsReceived;
   PHOTON_TRY(PhotonGtArrBerMin1_Deserialize(&segmentsReceived, reader));
-  return PhotonGtOptionalSegmentProcessAckError_Serialize(PhotonGcMain_SegmentSenderProcessSegmentsAck(segmentsReceived), writer);
+  return PhotonBer_Serialize(PhotonGcMain_SegmentSenderProcessSegmentsAck(segmentsReceived), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteTmSendStatusMessage(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtCompMsg componentMessage;
   PHOTON_TRY(PhotonGtCompMsg_Deserialize(&componentMessage, reader));
-  return PhotonGtTmCmdError_Serialize(PhotonGcMain_TmSendStatusMessage(componentMessage), writer);
+  return PhotonBer_Serialize(PhotonGcMain_TmSendStatusMessage(componentMessage), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteTmSetMessageRequest(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtCompMsg componentMessage;
   PHOTON_TRY(PhotonGtCompMsg_Deserialize(&componentMessage, reader));
-  PhotonBer priority;
+  PhotonGtBer priority;
   PHOTON_TRY(PhotonBer_Deserialize(&priority, reader));
-  return PhotonGtTmCmdError_Serialize(PhotonGcMain_TmSetMessageRequest(componentMessage, priority), writer);
+  return PhotonBer_Serialize(PhotonGcMain_TmSetMessageRequest(componentMessage, priority), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteTmClearMessageRequest(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtCompMsg componentMessage;
   PHOTON_TRY(PhotonGtCompMsg_Deserialize(&componentMessage, reader));
-  return PhotonGtTmCmdError_Serialize(PhotonGcMain_TmClearMessageRequest(componentMessage), writer);
+  return PhotonBer_Serialize(PhotonGcMain_TmClearMessageRequest(componentMessage), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteTmDenyMessage(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtCompMsg componentMessage;
   PHOTON_TRY(PhotonGtCompMsg_Deserialize(&componentMessage, reader));
-  return PhotonGtTmCmdError_Serialize(PhotonGcMain_TmDenyMessage(componentMessage), writer);
+  return PhotonBer_Serialize(PhotonGcMain_TmDenyMessage(componentMessage), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteTmAllowMessage(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtCompMsg componentMessage;
   PHOTON_TRY(PhotonGtCompMsg_Deserialize(&componentMessage, reader));
-  return PhotonGtTmCmdError_Serialize(PhotonGcMain_TmAllowMessage(componentMessage), writer);
+  return PhotonBer_Serialize(PhotonGcMain_TmAllowMessage(componentMessage), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteTmDenyEvent(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtEventInfo eventInfo;
   PHOTON_TRY(PhotonGtEventInfo_Deserialize(&eventInfo, reader));
-  return PhotonGtTmCmdError_Serialize(PhotonGcMain_TmDenyEvent(&eventInfo), writer);
+  return PhotonBer_Serialize(PhotonGcMain_TmDenyEvent(&eventInfo), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteTmAllowEvent(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtEventInfo eventInfo;
   PHOTON_TRY(PhotonGtEventInfo_Deserialize(&eventInfo, reader));
-  return PhotonGtTmCmdError_Serialize(PhotonGcMain_TmAllowEvent(&eventInfo), writer);
+  return PhotonBer_Serialize(PhotonGcMain_TmAllowEvent(&eventInfo), writer);
 }
 
 PhotonResult PhotonGcMain_WriteFilesActiveMode(PhotonWriter* writer) {
-  PHOTON_TRY(PhotonBer_Serialize(PhotonGcMain_FilesActiveMode(), writer));
+  PhotonBer_Serialize(PhotonGcMain_FilesActiveMode(), writer);
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_WriteIdentificationFullId(PhotonWriter* writer) {
-  PHOTON_TRY(PhotonGtFullId_Serialize(PhotonGcMain_IdentificationFullId(), writer));
+  PhotonGtFullId_Serialize(PhotonGcMain_IdentificationFullId(), writer);
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_WriteScriptingAvailableScripts(PhotonWriter* writer) {
-  PHOTON_TRY(PhotonGtArrScript_Serialize(PhotonGcMain_ScriptingScripts(), writer));
+  PhotonGtArrScript_Serialize(PhotonGcMain_ScriptingScripts(), writer);
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_WriteSegmentReceiverSegmentsReceived(PhotonWriter* writer) {
-  PHOTON_TRY(PhotonGtArrBerMin1_Serialize(PhotonGcMain_SegmentReceiverSegmentsReceived(), writer));
+  PhotonGtArrBerMin1_Serialize(PhotonGcMain_SegmentReceiverSegmentsReceived(), writer);
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGcMain_WriteFilesModeChanged(PhotonWriter* writer, PhotonGtFilesEvent event, PhotonGtFilesMode oldMode) {
   if (0 == PhotonGcMain_IsEventAllowed(0, (PhotonBer) event))
     return PhotonResult_EventIsDenied;
-  PHOTON_TRY(PhotonBer_Serialize(event, writer));
-  PHOTON_TRY(PhotonBer_Serialize(oldMode, writer));
-  PHOTON_TRY(PhotonBer_Serialize(PhotonGcMain_FilesActiveMode(), writer));
+  PhotonBer_Serialize(event, writer);
+  PhotonBer_Serialize(oldMode, writer);
+  PhotonBer_Serialize(PhotonGcMain_FilesActiveMode(), writer);
   return PhotonResult_Ok;
 }
 
@@ -359,19 +360,19 @@ PhotonResult PhotonGcMain_ExecuteCommandForComponent(PhotonReader* reader, Photo
     case 1:
       return PhotonGcMain_ExecuteCommand(reader, writer, commandId);
     case 2:
-      return PhotonGcMain_ExecuteCommandForComponentRouter(reader, writer, commandId);
-    case 3:
-      return PhotonGcMain_ExecuteCommandForComponentSegment(reader, writer, commandId);
-    case 4:
-      return PhotonGcMain_ExecuteCommandForComponentSegmentSender(reader, writer, commandId);
-    case 5:
       return PhotonGcMain_ExecuteCommandForComponentScripting(reader, writer, commandId);
-    case 6:
-      return PhotonGcMain_ExecuteCommandForComponentTm(reader, writer, commandId);
-    case 7:
-      return PhotonGcMain_ExecuteCommandForComponentSegmentReceiver(reader, writer, commandId);
-    case 8:
+    case 3:
       return PhotonGcMain_ExecuteCommandForComponentFiles(reader, writer, commandId);
+    case 4:
+      return PhotonGcMain_ExecuteCommandForComponentTm(reader, writer, commandId);
+    case 5:
+      return PhotonGcMain_ExecuteCommandForComponentRouter(reader, writer, commandId);
+    case 6:
+      return PhotonGcMain_ExecuteCommandForComponentSegmentReceiver(reader, writer, commandId);
+    case 7:
+      return PhotonGcMain_ExecuteCommandForComponentSegment(reader, writer, commandId);
+    case 8:
+      return PhotonGcMain_ExecuteCommandForComponentSegmentSender(reader, writer, commandId);
     default:
       return PhotonResult_InvalidComponentId;
   }
@@ -381,33 +382,6 @@ PhotonResult PhotonGcMain_ExecuteCommandForComponentIdentification(PhotonReader*
   switch (commandId) {
     case 0:
       return PhotonGcMain_IdentificationReadExecuteCommand(reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_ExecuteCommandForComponentTm(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_TmReadExecuteCommand(reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_ExecuteCommandForComponentScripting(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_ScriptingReadExecuteCommand(reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_ExecuteCommandForComponentRouter(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_RouterReadExecuteCommand(reader, writer);
     default:
       return PhotonResult_InvalidCommandId;
   }
@@ -424,12 +398,19 @@ PhotonResult PhotonGcMain_ExecuteCommandForComponentSegmentReceiver(PhotonReader
   }
 }
 
-PhotonResult PhotonGcMain_ExecuteCommandForComponentSegmentSender(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
+PhotonResult PhotonGcMain_ExecuteCommandForComponentSegment(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
   switch (commandId) {
     case 0:
-      return PhotonGcMain_SegmentSenderReadExecuteCommand(reader, writer);
-    case 1:
       return PhotonGcMain_SegmentReadExecuteCommand(reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_ExecuteCommandForComponentRouter(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_RouterReadExecuteCommand(reader, writer);
     default:
       return PhotonResult_InvalidCommandId;
   }
@@ -444,12 +425,176 @@ PhotonResult PhotonGcMain_ExecuteCommandForComponentFiles(PhotonReader* reader, 
   }
 }
 
-PhotonResult PhotonGcMain_ExecuteCommandForComponentSegment(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
+PhotonResult PhotonGcMain_ExecuteCommandForComponentTm(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
   switch (commandId) {
     case 0:
+      return PhotonGcMain_TmReadExecuteCommand(reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_ExecuteCommandForComponentSegmentSender(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_SegmentSenderReadExecuteCommand(reader, writer);
+    case 1:
       return PhotonGcMain_SegmentReadExecuteCommand(reader, writer);
     default:
       return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_ExecuteCommandForComponentScripting(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_ScriptingReadExecuteCommand(reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_ScriptingExecuteCommand(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_ExecuteScriptingUploadScript(reader, writer);
+    case 1:
+      return PhotonGcMain_ExecuteScriptingDeleteScript(reader, writer);
+    case 2:
+      return PhotonGcMain_ExecuteScriptingRunScriptNow(reader, writer);
+    case 3:
+      return PhotonGcMain_ExecuteScriptingScheduleScriptRun(reader, writer);
+    case 4:
+      return PhotonGcMain_ExecuteScriptingEnableScriptRunTiming(reader, writer);
+    case 5:
+      return PhotonGcMain_ExecuteScriptingDisableScriptRunTiming(reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_ScriptingReadExecuteCommand(PhotonReader* reader, PhotonWriter* writer) {
+  PhotonBer commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcMain_ScriptingExecuteCommand(reader, writer, commandId);
+}
+
+PhotonResult PhotonGcMain_ScriptingWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
+  switch (messageId) {
+    case 0:
+      return PhotonGcMain_WriteScriptingAvailableScripts(writer);
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}
+
+PhotonResult PhotonGcMain_IdentificationExecuteCommand(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_ExecuteIdentificationRequestShortId(reader, writer);
+    case 1:
+      return PhotonGcMain_ExecuteIdentificationRequestFullId(reader, writer);
+    case 2:
+      return PhotonGcMain_ExecuteIdentificationRequestComponentGuid(reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_IdentificationReadExecuteCommand(PhotonReader* reader, PhotonWriter* writer) {
+  PhotonBer commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcMain_IdentificationExecuteCommand(reader, writer, commandId);
+}
+
+PhotonResult PhotonGcMain_IdentificationWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
+  switch (messageId) {
+    case 0:
+      return PhotonGcMain_WriteIdentificationFullId(writer);
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}
+
+PhotonResult PhotonGcMain_FilesExecuteCommand(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_ExecuteFilesStartFileUpload(reader, writer);
+    case 1:
+      return PhotonGcMain_ExecuteFilesUploadFilePart(reader, writer);
+    case 2:
+      return PhotonGcMain_ExecuteFilesStopFileUpload(reader, writer);
+    case 3:
+      return PhotonGcMain_ExecuteFilesStartFileDownload(reader, writer);
+    case 4:
+      return PhotonGcMain_ExecuteFilesDownloadFilePart(reader, writer);
+    case 5:
+      return PhotonGcMain_ExecuteFilesStopFileDownload(reader, writer);
+    case 6:
+      return PhotonGcMain_ExecuteFilesStartRequestFileList(reader, writer);
+    case 7:
+      return PhotonGcMain_ExecuteFilesRequestFileListPart(reader, writer);
+    case 8:
+      return PhotonGcMain_ExecuteFilesStopRequestFileList(reader, writer);
+    case 9:
+      return PhotonGcMain_ExecuteFilesDeleteNode(reader, writer);
+    case 10:
+      return PhotonGcMain_ExecuteFilesCreateDir(reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_FilesReadExecuteCommand(PhotonReader* reader, PhotonWriter* writer) {
+  PhotonBer commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcMain_FilesExecuteCommand(reader, writer, commandId);
+}
+
+PhotonResult PhotonGcMain_FilesWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
+  switch (messageId) {
+    case 0:
+      return PhotonGcMain_WriteFilesActiveMode(writer);
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}
+
+PhotonResult PhotonGcMain_TmExecuteCommand(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_ExecuteTmSendStatusMessage(reader, writer);
+    case 1:
+      return PhotonGcMain_ExecuteTmSetMessageRequest(reader, writer);
+    case 2:
+      return PhotonGcMain_ExecuteTmClearMessageRequest(reader, writer);
+    case 3:
+      return PhotonGcMain_ExecuteTmDenyMessage(reader, writer);
+    case 4:
+      return PhotonGcMain_ExecuteTmAllowMessage(reader, writer);
+    case 5:
+      return PhotonGcMain_ExecuteTmDenyEvent(reader, writer);
+    case 6:
+      return PhotonGcMain_ExecuteTmAllowEvent(reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_TmReadExecuteCommand(PhotonReader* reader, PhotonWriter* writer) {
+  PhotonBer commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcMain_TmExecuteCommand(reader, writer, commandId);
+}
+
+PhotonResult PhotonGcMain_TmWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
+  switch (messageId) {
+    default:
+      return PhotonResult_InvalidMessageId;
   }
 }
 
@@ -477,6 +622,43 @@ PhotonResult PhotonGcMain_RouterReadExecuteCommand(PhotonReader* reader, PhotonW
 PhotonResult PhotonGcMain_RouterWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
   PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
   switch (messageId) {
+    default:
+      return PhotonResult_InvalidMessageId;
+  }
+}
+
+PhotonResult PhotonGcMain_SegmentReceiverExecuteCommand(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
+  switch (commandId) {
+    case 0:
+      return PhotonGcMain_ExecuteSegmentReceiverRequestSegmentsAck(reader, writer);
+    case 1:
+      return PhotonGcMain_ExecuteSegmentStartSegmentAckMode(reader, writer);
+    case 2:
+      return PhotonGcMain_ExecuteSegmentStopSegmentAckMode(reader, writer);
+    case 3:
+      return PhotonGcMain_ExecuteSegmentRequestAckModeStatus(reader, writer);
+    case 4:
+      return PhotonGcMain_ExecuteSegmentProcessAckModeStatus(reader, writer);
+    case 5:
+      return PhotonGcMain_ExecuteSegmentStartAckOnEverySegmentMode(reader, writer);
+    case 6:
+      return PhotonGcMain_ExecuteSegmentStopAckOnEverySegmentMode(reader, writer);
+    default:
+      return PhotonResult_InvalidCommandId;
+  }
+}
+
+PhotonResult PhotonGcMain_SegmentReceiverReadExecuteCommand(PhotonReader* reader, PhotonWriter* writer) {
+  PhotonBer commandId;
+  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
+  return PhotonGcMain_SegmentReceiverExecuteCommand(reader, writer, commandId);
+}
+
+PhotonResult PhotonGcMain_SegmentReceiverWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
+  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
+  switch (messageId) {
+    case 0:
+      return PhotonGcMain_WriteSegmentReceiverSegmentsReceived(writer);
     default:
       return PhotonResult_InvalidMessageId;
   }
@@ -545,187 +727,6 @@ PhotonResult PhotonGcMain_SegmentSenderReadExecuteCommand(PhotonReader* reader, 
 PhotonResult PhotonGcMain_SegmentSenderWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
   PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
   switch (messageId) {
-    default:
-      return PhotonResult_InvalidMessageId;
-  }
-}
-
-PhotonResult PhotonGcMain_ScriptingExecuteCommand(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_ExecuteScriptingUploadScript(reader, writer);
-    case 1:
-      return PhotonGcMain_ExecuteScriptingDeleteScript(reader, writer);
-    case 2:
-      return PhotonGcMain_ExecuteScriptingRunScriptNow(reader, writer);
-    case 3:
-      return PhotonGcMain_ExecuteScriptingScheduleScriptRun(reader, writer);
-    case 4:
-      return PhotonGcMain_ExecuteScriptingEnableScriptRunTiming(reader, writer);
-    case 5:
-      return PhotonGcMain_ExecuteScriptingDisableScriptRunTiming(reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_ScriptingReadExecuteCommand(PhotonReader* reader, PhotonWriter* writer) {
-  PhotonBer commandId;
-  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
-  return PhotonGcMain_ScriptingExecuteCommand(reader, writer, commandId);
-}
-
-PhotonResult PhotonGcMain_ScriptingWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
-  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
-  switch (messageId) {
-    case 0:
-      return PhotonGcMain_WriteScriptingAvailableScripts(writer);
-    default:
-      return PhotonResult_InvalidMessageId;
-  }
-}
-
-PhotonResult PhotonGcMain_TmExecuteCommand(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_ExecuteTmSendStatusMessage(reader, writer);
-    case 1:
-      return PhotonGcMain_ExecuteTmSetMessageRequest(reader, writer);
-    case 2:
-      return PhotonGcMain_ExecuteTmClearMessageRequest(reader, writer);
-    case 3:
-      return PhotonGcMain_ExecuteTmDenyMessage(reader, writer);
-    case 4:
-      return PhotonGcMain_ExecuteTmAllowMessage(reader, writer);
-    case 5:
-      return PhotonGcMain_ExecuteTmDenyEvent(reader, writer);
-    case 6:
-      return PhotonGcMain_ExecuteTmAllowEvent(reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_TmReadExecuteCommand(PhotonReader* reader, PhotonWriter* writer) {
-  PhotonBer commandId;
-  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
-  return PhotonGcMain_TmExecuteCommand(reader, writer, commandId);
-}
-
-PhotonResult PhotonGcMain_TmWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
-  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
-  switch (messageId) {
-    default:
-      return PhotonResult_InvalidMessageId;
-  }
-}
-
-PhotonResult PhotonGcMain_IdentificationExecuteCommand(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_ExecuteIdentificationRequestShortId(reader, writer);
-    case 1:
-      return PhotonGcMain_ExecuteIdentificationRequestFullId(reader, writer);
-    case 2:
-      return PhotonGcMain_ExecuteIdentificationRequestComponentGuid(reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_IdentificationReadExecuteCommand(PhotonReader* reader, PhotonWriter* writer) {
-  PhotonBer commandId;
-  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
-  return PhotonGcMain_IdentificationExecuteCommand(reader, writer, commandId);
-}
-
-PhotonResult PhotonGcMain_IdentificationWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
-  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
-  switch (messageId) {
-    case 0:
-      return PhotonGcMain_WriteIdentificationFullId(writer);
-    default:
-      return PhotonResult_InvalidMessageId;
-  }
-}
-
-PhotonResult PhotonGcMain_SegmentReceiverExecuteCommand(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_ExecuteSegmentReceiverRequestSegmentsAck(reader, writer);
-    case 1:
-      return PhotonGcMain_ExecuteSegmentStartSegmentAckMode(reader, writer);
-    case 2:
-      return PhotonGcMain_ExecuteSegmentStopSegmentAckMode(reader, writer);
-    case 3:
-      return PhotonGcMain_ExecuteSegmentRequestAckModeStatus(reader, writer);
-    case 4:
-      return PhotonGcMain_ExecuteSegmentProcessAckModeStatus(reader, writer);
-    case 5:
-      return PhotonGcMain_ExecuteSegmentStartAckOnEverySegmentMode(reader, writer);
-    case 6:
-      return PhotonGcMain_ExecuteSegmentStopAckOnEverySegmentMode(reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_SegmentReceiverReadExecuteCommand(PhotonReader* reader, PhotonWriter* writer) {
-  PhotonBer commandId;
-  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
-  return PhotonGcMain_SegmentReceiverExecuteCommand(reader, writer, commandId);
-}
-
-PhotonResult PhotonGcMain_SegmentReceiverWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
-  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
-  switch (messageId) {
-    case 0:
-      return PhotonGcMain_WriteSegmentReceiverSegmentsReceived(writer);
-    default:
-      return PhotonResult_InvalidMessageId;
-  }
-}
-
-PhotonResult PhotonGcMain_FilesExecuteCommand(PhotonReader* reader, PhotonWriter* writer, PhotonBer commandId) {
-  switch (commandId) {
-    case 0:
-      return PhotonGcMain_ExecuteFilesStartFileUpload(reader, writer);
-    case 1:
-      return PhotonGcMain_ExecuteFilesUploadFilePart(reader, writer);
-    case 2:
-      return PhotonGcMain_ExecuteFilesStopFileUpload(reader, writer);
-    case 3:
-      return PhotonGcMain_ExecuteFilesStartFileDownload(reader, writer);
-    case 4:
-      return PhotonGcMain_ExecuteFilesDownloadFilePart(reader, writer);
-    case 5:
-      return PhotonGcMain_ExecuteFilesStopFileDownload(reader, writer);
-    case 6:
-      return PhotonGcMain_ExecuteFilesStartRequestFileList(reader, writer);
-    case 7:
-      return PhotonGcMain_ExecuteFilesRequestFileListPart(reader, writer);
-    case 8:
-      return PhotonGcMain_ExecuteFilesStopRequestFileList(reader, writer);
-    case 9:
-      return PhotonGcMain_ExecuteFilesDeleteNode(reader, writer);
-    case 10:
-      return PhotonGcMain_ExecuteFilesCreateDir(reader, writer);
-    default:
-      return PhotonResult_InvalidCommandId;
-  }
-}
-
-PhotonResult PhotonGcMain_FilesReadExecuteCommand(PhotonReader* reader, PhotonWriter* writer) {
-  PhotonBer commandId;
-  PHOTON_TRY(PhotonBer_Deserialize(&commandId, reader));
-  return PhotonGcMain_FilesExecuteCommand(reader, writer, commandId);
-}
-
-PhotonResult PhotonGcMain_FilesWriteMessage(PhotonWriter* writer, PhotonBer messageId) {
-  PHOTON_TRY(PhotonBer_Serialize(messageId, writer));
-  switch (messageId) {
-    case 0:
-      return PhotonGcMain_WriteFilesActiveMode(writer);
     default:
       return PhotonResult_InvalidMessageId;
   }

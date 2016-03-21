@@ -10,7 +10,7 @@
 extern "C" {
 #endif
 
-typedef PhotonBer PhotonGtGuid;
+typedef PhotonGtBer PhotonGtGuid;
 
 PhotonResult PhotonGtGuid_Serialize(PhotonGtGuid self, PhotonWriter* writer);
 

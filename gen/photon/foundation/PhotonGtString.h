@@ -6,7 +6,7 @@
 #define __PHOTON_FOUNDATION_PHOTON_GT_STRING_H__ 
 #include "photon/photon_prologue.h"
 
-#include "photon/foundation/PhotonGtArrU8.h"
+#include "photon/decode/PhotonGtArrU8.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 typedef struct {
-  PhotonBer number;
+  PhotonGtBer number;
   PhotonGtGuid guid;
 } PhotonGtComponentNumberGuidPair;
 

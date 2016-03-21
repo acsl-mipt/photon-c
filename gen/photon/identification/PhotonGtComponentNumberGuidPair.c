@@ -3,15 +3,15 @@
 
 
 PhotonResult PhotonGtComponentNumberGuidPair_Serialize(PhotonGtComponentNumberGuidPair self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonBer))
+  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonGtBer))
     return PhotonResult_NotEnoughSpace;
-  PHOTON_TRY(PhotonBer_Serialize(self.number, writer));
-  PHOTON_TRY(PhotonBer_Serialize(self.guid, writer));
+  PhotonBer_Serialize(self.number, writer);
+  PhotonBer_Serialize(self.guid, writer);
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGtComponentNumberGuidPair_Deserialize(PhotonGtComponentNumberGuidPair* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonBer_Deserialize(&self->number, reader));
-  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->guid, reader));
+  PhotonBer_Deserialize(&self->number, reader);
+  PhotonBer_Deserialize((PhotonGtBer*) &self->guid, reader);
   return PhotonResult_Ok;
 }

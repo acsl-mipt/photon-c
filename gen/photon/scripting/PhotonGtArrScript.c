@@ -3,21 +3,21 @@
 
 
 PhotonResult PhotonGtArrScript_Serialize(PhotonGtArrScript self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < self.size * sizeof(PhotonBer) + sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer) + sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer))
+  if (PhotonWriter_WritableSize(writer) < self.size * sizeof(PhotonGtBer) + sizeof(PhotonBer) + sizeof(PhotonGtU8) + sizeof(PhotonGtBer) + sizeof(PhotonGtB8) + sizeof(PhotonGtBer) + sizeof(PhotonGtBer) + sizeof(PhotonGtB8) + sizeof(PhotonGtBer) + sizeof(PhotonGtB8) + sizeof(PhotonGtBer))
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self.size, writer));
   for(PhotonBer i = 0, size = self.size; i < size; ++i) {
-    PHOTON_TRY(PhotonGtScript_Serialize(&self.data[i], writer));
+    PhotonGtScript_Serialize(&self.data[i], writer);
   }
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGtArrScript_Deserialize(PhotonGtArrScript* self, PhotonReader* reader) {
   PHOTON_TRY(PhotonBer_Deserialize(&self->size, reader));
-  if (PhotonReader_ReadableSize(reader) < (*self).size * sizeof(PhotonBer) + sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer) + sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer) + sizeof(unsigned char) + sizeof(PhotonBer))
+  if (PhotonReader_ReadableSize(reader) < (*self).size * sizeof(PhotonGtBer) + sizeof(PhotonBer) + sizeof(PhotonGtU8) + sizeof(PhotonGtBer) + sizeof(PhotonGtB8) + sizeof(PhotonGtBer) + sizeof(PhotonGtBer) + sizeof(PhotonGtB8) + sizeof(PhotonGtBer) + sizeof(PhotonGtB8) + sizeof(PhotonGtBer))
     return PhotonResult_NotEnoughData;
   for(PhotonBer i = 0, size = self->size; i < size; ++i) {
-    PHOTON_TRY(PhotonGtScript_Deserialize(&self->data[i], reader));
+    PhotonGtScript_Deserialize(&self->data[i], reader);
   }
   return PhotonResult_Ok;
 }

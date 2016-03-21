@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 typedef struct {
-  PhotonBer _1;
+  PhotonGtBer _1;
   PhotonGtFileListError _2;
   PhotonBer tag;
 } PhotonGtOrBerFileListError;

@@ -7,7 +7,6 @@
 #include "photon/photon_prologue.h"
 
 #include "photon/foundation/PhotonGtString.h"
-#include "photon/foundation/PhotonGtB8.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -16,10 +15,10 @@ extern "C" {
 typedef struct {
   PhotonGtString name;
   PhotonGtB8 isDir;
-  PhotonBer attrs;
+  PhotonGtBer attrs;
 } PhotonGtNodeInfo;
 
-PhotonResult PhotonGtNodeInfo_Serialize(PhotonGtNodeInfo self, PhotonWriter* writer);
+PhotonResult PhotonGtNodeInfo_Serialize(const PhotonGtNodeInfo* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtNodeInfo_Deserialize(PhotonGtNodeInfo* self, PhotonReader* reader);
 

@@ -3,13 +3,13 @@
 
 
 PhotonResult PhotonGtShortId_Serialize(PhotonGtShortId self, PhotonWriter* writer) {
-  PHOTON_TRY(PhotonBer_Serialize(self.deviceGuid, writer));
-  PHOTON_TRY(PhotonBer_Serialize(self.rootComponentGuid, writer));
+  PhotonBer_Serialize(self.deviceGuid, writer);
+  PhotonBer_Serialize(self.rootComponentGuid, writer);
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGtShortId_Deserialize(PhotonGtShortId* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->deviceGuid, reader));
-  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) &self->rootComponentGuid, reader));
+  PhotonBer_Deserialize((PhotonGtBer*) &self->deviceGuid, reader);
+  PhotonBer_Deserialize((PhotonGtBer*) &self->rootComponentGuid, reader);
   return PhotonResult_Ok;
 }

@@ -15,7 +15,7 @@ extern "C" {
 
 typedef struct {
   size_t size;
-  PhotonBer* data;
+  PhotonGtBer* data;
 } PhotonGtArrBerMin1;
 
 PhotonResult PhotonGtArrBerMin1_Serialize(PhotonGtArrBerMin1 self, PhotonWriter* writer);

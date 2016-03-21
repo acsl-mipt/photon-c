@@ -7,7 +7,7 @@
 #include "photon/photon_prologue.h"
 
 #include "photon/scripting/PhotonGtScriptId.h"
-#include "photon/foundation/PhotonGtArrU8.h"
+#include "photon/decode/PhotonGtArrU8.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,7 +18,7 @@ typedef struct {
   PhotonGtArrU8 scriptCode;
 } PhotonGtScriptInfo;
 
-PhotonResult PhotonGtScriptInfo_Serialize(PhotonGtScriptInfo self, PhotonWriter* writer);
+PhotonResult PhotonGtScriptInfo_Serialize(const PhotonGtScriptInfo* self, PhotonWriter* writer);
 
 PhotonResult PhotonGtScriptInfo_Deserialize(PhotonGtScriptInfo* self, PhotonReader* reader);
 

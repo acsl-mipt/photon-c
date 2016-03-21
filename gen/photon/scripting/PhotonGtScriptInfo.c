@@ -2,16 +2,16 @@
 #include "photon/scripting/PhotonGtScriptInfo.h"
 
 
-PhotonResult PhotonGtScriptInfo_Serialize(PhotonGtScriptInfo self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < self.scriptCode.size * sizeof(unsigned char))
+PhotonResult PhotonGtScriptInfo_Serialize(const PhotonGtScriptInfo* self, PhotonWriter* writer) {
+  if (PhotonWriter_WritableSize(writer) < (*self).scriptCode.size * sizeof(PhotonGtU8))
     return PhotonResult_NotEnoughSpace;
-  PHOTON_TRY(PhotonBer_Serialize(self.scriptId, writer));
-  PHOTON_TRY(PhotonGtArrU8_Serialize(self.scriptCode, writer));
+  PhotonBer_Serialize(self->scriptId, writer);
+  PhotonGtArrU8_Serialize(self->scriptCode, writer);
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGtScriptInfo_Deserialize(PhotonGtScriptInfo* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonBer_Deserialize((PhotonBer*) (PhotonGtGuid*) &self->scriptId, reader));
-  PHOTON_TRY(PhotonGtArrU8_Deserialize(&self->scriptCode, reader));
+  PhotonBer_Deserialize((PhotonGtBer*) (PhotonGtGuid*) &self->scriptId, reader);
+  PhotonGtArrU8_Deserialize(&self->scriptCode, reader);
   return PhotonResult_Ok;
 }

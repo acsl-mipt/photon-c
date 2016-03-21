@@ -3,15 +3,15 @@
 
 
 PhotonResult PhotonGtFullId_Serialize(const PhotonGtFullId* self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < (*self).deviceComponentGuidPairs.size * sizeof(PhotonBer) + sizeof(PhotonBer))
+  if (PhotonWriter_WritableSize(writer) < (*self).deviceComponentGuidPairs.size * sizeof(PhotonGtBer) + sizeof(PhotonGtBer))
     return PhotonResult_NotEnoughSpace;
-  PHOTON_TRY(PhotonGtShortId_Serialize(self->shortId, writer));
-  PHOTON_TRY(PhotonGtArrComponentNumberGuidPairMin1_Serialize(self->deviceComponentGuidPairs, writer));
+  PhotonGtShortId_Serialize(self->shortId, writer);
+  PhotonGtArrComponentNumberGuidPairMin1_Serialize(self->deviceComponentGuidPairs, writer);
   return PhotonResult_Ok;
 }
 
 PhotonResult PhotonGtFullId_Deserialize(PhotonGtFullId* self, PhotonReader* reader) {
-  PHOTON_TRY(PhotonGtShortId_Deserialize(&self->shortId, reader));
-  PHOTON_TRY(PhotonGtArrComponentNumberGuidPairMin1_Deserialize(&self->deviceComponentGuidPairs, reader));
+  PhotonGtShortId_Deserialize(&self->shortId, reader);
+  PhotonGtArrComponentNumberGuidPairMin1_Deserialize(&self->deviceComponentGuidPairs, reader);
   return PhotonResult_Ok;
 }
