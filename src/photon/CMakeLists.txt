@@ -24,4 +24,14 @@ add_library(photon
     ${PHOTON_GENERATED_FILES}
 )
 
+add_library(photon-gc
+    GcExchange.cpp
+    GcExchange.hpp
+)
 
+target_link_libraries(photon-gc photon)
+
+if(NOT MSVC)
+    target_compile_options(photon PRIVATE -std=c99)
+    target_compile_options(photon-gc PRIVATE -std=c++11)
+endif()
