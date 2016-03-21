@@ -36,6 +36,8 @@ elseif(SANITIZE_THREAD)
     enable_sanitizer(thread)
 endif()
 
+file(GLOB_RECURSE PHOTON_CORE_FILES src/*.c src/*.h)
+file(GLOB_RECURSE PHOTON_IMPL_FILES impl/*.c impl/*.h)
 file(GLOB_RECURSE PHOTON_GENERATED_FILES gen/*.c gen/*.h)
 
 include_directories(
@@ -43,6 +45,13 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/gen
     ${CMAKE_CURRENT_SOURCE_DIR}/impl
 )
+
+add_library(photon-all
+    ${PHOTON_CORE_FILES}
+    ${PHOTON_GENERATED_FILES}
+    ${PHOTON_IMPL_FILES}
+)
+
 add_subdirectory(src/photon)
 add_subdirectory(impl/photon)
 
@@ -55,6 +64,11 @@ if(NOT HAS_PARENT_SCOPE)
 endif()
 
 if(HAS_PARENT_SCOPE)
-    set(PHOTON_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/gen PARENT_SCOPE)
+    set(PHOTON_INCLUDE_DIRS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/gen
+        ${CMAKE_CURRENT_SOURCE_DIR}/impl
+        PARENT_SCOPE
+    )
     set(PHOTON_LIBRARIES photon PARENT_SCOPE)
 endif()

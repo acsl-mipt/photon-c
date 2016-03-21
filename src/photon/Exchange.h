@@ -24,6 +24,7 @@ typedef PhotonResult (*PhotonExchangeHandler)(void*, PhotonRingBuf*);
 typedef PhotonResult (*PhotonCommandResultHandler)(void*, PhotonCommandResult*);
 typedef PhotonResult (*PhotonTmEventMessageHandler)(void*, PhotonTmEventMessage*);
 typedef PhotonResult (*PhotonTmStatusMessageHandler)(void*, PhotonTmStatusMessage*);
+typedef size_t (*PhotonSenderCallback)(void* userData, const void* src, size_t size);
 
 typedef struct {
     uint16_t cmdInCounter;
@@ -38,9 +39,11 @@ typedef struct {
     uint8_t outBuffer[PHOTON_MAX_PACKET_SIZE * PHOTON_MAX_OUTGOING_PACKETS];
     uint8_t temp[PHOTON_MAX_PACKET_SIZE];
     uint16_t encodedSeparator;
+    PhotonSenderCallback senderCallback;
+    void* userData;
 } PhotonUavExchange;
 
-void PhotonUavExchange_Init(PhotonUavExchange* self);
+void PhotonUavExchange_Init(PhotonUavExchange* self, PhotonSenderCallback callback, void* userData);
 void PhotonUavExchange_AcceptIncomingData(PhotonUavExchange* self, const void* src, size_t size);
 PhotonResult PhotonUavExchange_HandleIncomingPacket(PhotonUavExchange* self, PhotonAddressPacketHandler handler, void* data);
 

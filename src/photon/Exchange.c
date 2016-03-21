@@ -6,7 +6,7 @@
 
 #include <stdbool.h>
 
-void PhotonUavExchange_Init(PhotonUavExchange* self)
+void PhotonUavExchange_Init(PhotonUavExchange* self, PhotonSenderCallback callback, void* userData)
 {
     self->cmdInCounter = 0;
     self->cmdOutCounter = 0;
@@ -15,6 +15,8 @@ void PhotonUavExchange_Init(PhotonUavExchange* self)
     PhotonRingBuf_Init(&self->ringBufOut, self->outBuffer, sizeof(self->outBuffer));
     self->errorControlType = PhotonErrorControlType_Crc16;
     Photon_Be16Enc(&self->encodedSeparator, 0x047e);
+    self->senderCallback = callback;
+    self->userData = userData;
 }
 
 void PhotonUavExchange_AcceptIncomingData(PhotonUavExchange* self, const void* src, size_t size)
@@ -85,6 +87,14 @@ static PhotonResult sendPacket(PhotonUavExchange* self, void* data, PhotonGenera
     PHOTON_TRY(PhotonEncoder_EncodeExchangePacket(&enc, &dest));
     PhotonRingBuf_Write(&self->ringBufOut, &self->encodedSeparator, 2);
     PhotonRingBuf_Write(&self->ringBufOut, dest.start, dest.current - dest.start);
+
+    size_t acceptedSize = 1;
+    while (acceptedSize != 0) {
+        const uint8_t* src = PhotonRingBuf_ReadPtr(&self->ringBufOut);
+        size_t size = PhotonRingBuf_LinearReadableSize(&self->ringBufOut);
+        acceptedSize = self->senderCallback(self->userData, src, size);
+        PhotonRingBuf_Erase(&self->ringBufOut, acceptedSize);
+    }
     return PhotonResult_Ok;
 }
 

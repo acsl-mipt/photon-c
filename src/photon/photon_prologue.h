@@ -6,7 +6,12 @@
 #include "photon/Writer.h"
 #include "photon/Ber.h"
 
-#include "photon/foundation/PhotonGtB8.h"
+typedef uint8_t PhotonGtB8;
+typedef uint8_t PhotonGtU8;
+typedef uint16_t PhotonGtU16;
+typedef uint32_t PhotonGtU32;
+typedef uint64_t PhotonGtU64;
+typedef PhotonBer PhotonGtBer;
 
 typedef struct {
     void* _stub;
