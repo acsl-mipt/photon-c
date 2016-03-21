@@ -189,9 +189,7 @@ PhotonResult PhotonGcMain_ExecuteTmSetMessageRequest(PhotonReader* reader, Photo
 PhotonResult PhotonGcMain_ExecuteTmClearMessageRequest(PhotonReader* reader, PhotonWriter* writer) {
   PhotonGtCompMsg componentMessage;
   PHOTON_TRY(PhotonGtCompMsg_Deserialize(&componentMessage, reader));
-  PhotonBer priority;
-  PHOTON_TRY(PhotonBer_Deserialize(&priority, reader));
-  return PhotonGtTmCmdError_Serialize(PhotonGcMain_TmClearMessageRequest(componentMessage, priority), writer);
+  return PhotonGtTmCmdError_Serialize(PhotonGcMain_TmClearMessageRequest(componentMessage), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteTmDenyMessage(PhotonReader* reader, PhotonWriter* writer) {
