@@ -56,7 +56,7 @@ PhotonGtScriptingError PhotonGcMain_ScriptingUploadScript(PhotonGtScriptInfo inf
     _scripting.dataUsed += scriptSize;
 }
 
-static PhotonGtScriptingError execFunctionForScriptWithId(PhotonGtScriptId scriptId, void (*func)(PhotonGtScript*))
+static PhotonGtScriptingError execFunctionForScriptWithId(PhotonGtScriptId scriptId, PhotonResult (*func)(PhotonGtScript*))
 {
     for (unsigned i = 0; i < _scripting.numScripts; i++) {
         if (_scripting.scripts[i].info.scriptId == scriptId) {

@@ -3,9 +3,14 @@ if(NOT MSVC)
 endif()
 
 add_library(photon-impl
-    #Identification.c
+    Identification.c
+    Identification.h
     Router.c
+    Router.h
     Telemetry.c
+    Telemetry.h
+    Scripting.c
+    Scripting.h
 )
 
 target_link_libraries(photon-impl photon)
