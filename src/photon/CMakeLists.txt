@@ -24,6 +24,9 @@ add_library(photon
     ${PHOTON_GENERATED_FILES}
 )
 
+source_group("generated" FILES ${PHOTON_GENERATED_FILES})
+
+
 add_library(photon-gc
     GcExchange.cpp
     GcExchange.hpp
