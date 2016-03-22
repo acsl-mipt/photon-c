@@ -185,12 +185,17 @@ void Exchange::skipIncomingPacket()
 
 bool Exchange::processIncomingPacket()
 {
+    return processPacket(_d->temp, sizeof(_d->temp));
+}
+
+bool Exchange::processPacket(const void* src, std::size_t size)
+{
     if (!_d->packetFound) {
         return false;
     }
-    PhotonReader src;
-    PhotonReader_Init(&src, _d->temp, sizeof(_d->temp));
-    PhotonResult rv = processPacket2(_d.get(), &src);
+    PhotonReader reader;
+    PhotonReader_Init(&reader, src, size);
+    PhotonResult rv = processPacket2(_d.get(), &reader);
     _d->packetFound = false;
     if (rv != PhotonResult_Ok) {
         _d->errorHandler(PhotonResult_ToString(rv));
@@ -269,6 +274,14 @@ std::size_t Exchange::readEncodedCommands(void* dest, std::size_t maxSize)
     std::size_t size = std::min(maxSize, PhotonRingBuf_ReadableSize(&_d->outgoingRingBuf));
     PhotonRingBuf_Read(&_d->outgoingRingBuf, dest, size);
     return size;
+}
+
+std::size_t Exchange::incomingPacketSize() const
+{
+    if (_d->packetFound) {
+        return _d->incomingPacketSize;
+    }
+    return 0;
 }
 
 void Exchange::setReceiptHandler(const std::function<void(std::size_t)>& handler)

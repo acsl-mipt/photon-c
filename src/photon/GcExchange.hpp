@@ -38,8 +38,10 @@ public:
 
     bool acceptIncomingData(const void* data, std::size_t size);
     std::size_t copyIncomingPacket(void* dest, std::size_t size);
+    std::size_t incomingPacketSize() const;
     void skipIncomingPacket();
     bool processIncomingPacket();
+    bool processPacket(const void* src, std::size_t size);
 
     bool encodeCommandPacket(const std::vector<photon::Command>& commands);
     std::size_t readEncodedCommands(void* dest, std::size_t maxSize);
