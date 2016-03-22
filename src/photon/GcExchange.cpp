@@ -169,7 +169,7 @@ std::size_t Exchange::copyIncomingPacket(void* dest, std::size_t size)
 {
     if (_d->packetFound) {
         std::size_t minSize = std::min(_d->incomingPacketSize, size);
-        PhotonRingBuf_Peek(&_d->incomingRingBuf, dest, minSize);
+        PhotonRingBuf_Peek(&_d->incomingRingBuf, dest, minSize, 0);
         return minSize;
     }
     return 0;
