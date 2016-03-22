@@ -28,7 +28,7 @@ static PhotonResult genNextStatusMessage(void* data, PhotonWriter* dest)
     return PhotonGcMain_WriteStatusMessage(dest, _tm.currentMessage);
 }
 
-void PhotonTm_Init()
+void PhotonTelemetry_Init()
 {
     _tm.currentMessage = 0;
     const unsigned priorities[_MSG_COUNT] = _MSG_PRIORITIES;
