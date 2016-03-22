@@ -5,6 +5,7 @@
 #include "photon/Decoder.h"
 #include "photon/Utils.h"
 
+#include <algorithm>
 #include <deque>
 #include <cstdint>
 
