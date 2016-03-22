@@ -219,6 +219,7 @@ PhotonResult skipCs(PhotonReader* src, PhotonReader* dest, PhotonErrorControlTyp
     }
 
     PhotonReader_Skip(src, csSize);
+    return PhotonResult_Ok;
 }
 
 PhotonResult PhotonDecoder_DecodeExchangePacket(PhotonReader* src, PhotonExchangePacketDec* dest)
