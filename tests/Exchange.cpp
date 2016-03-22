@@ -179,7 +179,7 @@ void uavAccept()
 }
 
 PhotonRingBuf incoming;
-uint8_t incomingData[2048];
+uint8_t incomingData[20480];
 
 std::size_t acceptCallback(void* userData, const void* src, std::size_t size)
 {
@@ -189,11 +189,13 @@ std::size_t acceptCallback(void* userData, const void* src, std::size_t size)
 
 void gcAccept()
 {
-    uint8_t tmp[2048];
-    std::size_t size = PhotonRingBuf_ReadableSize(&incoming);
-    PhotonRingBuf_Read(&incoming, tmp, size);
-    bool isFound = _gcExchange.acceptIncomingData(tmp, size);
-    ASSERT_TRUE(isFound);
+    uint8_t tmp[20480];
+    bool isFound;
+    while (PhotonRingBuf_ReadableSize(&incoming) != 0) {
+        std::size_t size = std::min(size_t(10), PhotonRingBuf_ReadableSize(&incoming));
+        PhotonRingBuf_Read(&incoming, tmp, size);
+        isFound = _gcExchange.acceptIncomingData(tmp, size);
+    }
     bool isOk = _gcExchange.processIncomingPacket();
     ASSERT_TRUE(isOk);
 }

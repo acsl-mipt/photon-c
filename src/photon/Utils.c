@@ -72,7 +72,7 @@ size_t Photon_FindPacketInRingBuf(PhotonRingBuf* ringBuf, uint16_t separator)
         return 0;
     }
 
-    if (incomingSize < packetSize) {
+    if (incomingSize < (packetSize + SEPARATOR_SIZE)) {
         return 0;
     }
 

@@ -48,6 +48,9 @@ ExchangeData::ExchangeData()
     PhotonRingBuf_Init(&tmRingBuf, tmData, sizeof(tmData));
     PhotonRingBuf_Init(&incomingRingBuf, inData, sizeof(inData));
     PhotonRingBuf_Init(&outgoingRingBuf, outData, sizeof(outData));
+    cmdCounter = 0;
+    incomingPacketSize = 0;
+    tmCounter = 0;
 }
 
 Exchange::Exchange()
