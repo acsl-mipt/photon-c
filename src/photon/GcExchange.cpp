@@ -165,6 +165,24 @@ static PhotonResult processPacket2(ExchangeData* self, PhotonReader* src)
     return PhotonResult_Ok;
 }
 
+std::size_t Exchange::copyIncomingPacket(void* dest, std::size_t size)
+{
+    if (_d->packetFound) {
+        std::size_t minSize = std::min(_d->incomingPacketSize, size);
+        PhotonRingBuf_Peek(&_d->incomingRingBuf, dest, minSize);
+        return minSize;
+    }
+    return 0;
+}
+
+void Exchange::skipIncomingPacket()
+{
+    if (_d->packetFound) {
+        PhotonRingBuf_Erase(&_d->incomingRingBuf, _d->incomingPacketSize);
+    }
+    _d->packetFound = false;
+}
+
 bool Exchange::processIncomingPacket()
 {
     if (!_d->packetFound) {

@@ -37,6 +37,8 @@ public:
     ~Exchange();
 
     bool acceptIncomingData(const void* data, std::size_t size);
+    std::size_t copyIncomingPacket(void* dest, std::size_t size);
+    void skipIncomingPacket();
     bool processIncomingPacket();
 
     bool encodeCommandPacket(const std::vector<photon::Command>& commands);
