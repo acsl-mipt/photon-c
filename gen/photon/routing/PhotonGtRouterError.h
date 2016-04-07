@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_ROUTING_PHOTON_GT_ROUTER_ERROR_H__
 #define __PHOTON_ROUTING_PHOTON_GT_ROUTER_ERROR_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,8 +24,5 @@ PhotonResult PhotonGtRouterError_Deserialize(PhotonGtRouterError* self, PhotonRe
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

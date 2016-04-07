@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_SCRIPTING_PHOTON_GT_SCRIPT_RUN_TIMING_H__
 #define __PHOTON_SCRIPTING_PHOTON_GT_SCRIPT_RUN_TIMING_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #include "photon/foundation/PhotonGtGuid.h"
 #include "photon/scripting/PhotonGtScriptId.h"
@@ -34,8 +34,5 @@ PhotonResult PhotonGtScriptRunTiming_Deserialize(PhotonGtScriptRunTiming* self, 
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_SCRIPTING_PHOTON_GT_PERIOD_H__
 #define __PHOTON_SCRIPTING_PHOTON_GT_PERIOD_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,8 +19,5 @@ PhotonResult PhotonGtPeriod_Deserialize(PhotonGtPeriod* self, PhotonReader* read
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

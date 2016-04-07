@@ -1,9 +1,9 @@
 /* Type implementation */
-#include "photon/decode/PhotonGtArrBerMin1.h"
+#include "photon/decode/PhotonGtArrBerFixed1.h"
 
 
-PhotonResult PhotonGtArrBerMin1_Serialize(PhotonGtArrBerMin1 self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < self.size * sizeof(PhotonGtBer))
+PhotonResult PhotonGtArrBerFixed1_Serialize(PhotonGtArrBerFixed1 self, PhotonWriter* writer) {
+  if (PhotonWriter_WritableSize(writer) < self.size * /* ber{ */sizeof(PhotonGtBer)/* }ber */)
     return PhotonResult_NotEnoughSpace;
   PHOTON_TRY(PhotonBer_Serialize(self.size, writer));
   for(PhotonBer i = 0, size = self.size; i < size; ++i) {
@@ -12,9 +12,9 @@ PhotonResult PhotonGtArrBerMin1_Serialize(PhotonGtArrBerMin1 self, PhotonWriter*
   return PhotonResult_Ok;
 }
 
-PhotonResult PhotonGtArrBerMin1_Deserialize(PhotonGtArrBerMin1* self, PhotonReader* reader) {
+PhotonResult PhotonGtArrBerFixed1_Deserialize(PhotonGtArrBerFixed1* self, PhotonReader* reader) {
   PHOTON_TRY(PhotonBer_Deserialize(&self->size, reader));
-  if (PhotonReader_ReadableSize(reader) < (*self).size * sizeof(PhotonGtBer))
+  if (PhotonReader_ReadableSize(reader) < self->size * /* ber{ */sizeof(PhotonGtBer)/* }ber */)
     return PhotonResult_NotEnoughData;
   for(PhotonBer i = 0, size = self->size; i < size; ++i) {
     PhotonBer_Deserialize(&self->data[i], reader);

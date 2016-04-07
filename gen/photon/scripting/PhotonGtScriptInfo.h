@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_SCRIPTING_PHOTON_GT_SCRIPT_INFO_H__
 #define __PHOTON_SCRIPTING_PHOTON_GT_SCRIPT_INFO_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #include "photon/scripting/PhotonGtScriptId.h"
 #include "photon/decode/PhotonGtArrU8.h"
@@ -25,8 +25,5 @@ PhotonResult PhotonGtScriptInfo_Deserialize(PhotonGtScriptInfo* self, PhotonRead
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_ROUTING_PHOTON_GT_ROUTE_H__
 #define __PHOTON_ROUTING_PHOTON_GT_ROUTE_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #include "photon/routing/PhotonGtAddress.h"
 #include "photon/routing/PhotonGtAddress.h"
@@ -25,8 +25,5 @@ PhotonResult PhotonGtRoute_Deserialize(PhotonGtRoute* self, PhotonReader* reader
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

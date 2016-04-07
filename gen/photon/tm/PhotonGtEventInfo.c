@@ -3,7 +3,7 @@
 
 
 PhotonResult PhotonGtEventInfo_Serialize(const PhotonGtEventInfo* self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonGtBer) + sizeof(PhotonGtBer) + sizeof(PhotonGtBer))
+  if (PhotonWriter_WritableSize(writer) < /* event_info{ *//* comp_msg{ */sizeof(PhotonGtBer) + sizeof(PhotonGtBer)/* }comp_msg */ + sizeof(PhotonGtBer)/* }event_info */)
     return PhotonResult_NotEnoughSpace;
   PhotonGtCompMsg_Serialize(self->componentMessage, writer);
   PhotonBer_Serialize(self->eventNum, writer);

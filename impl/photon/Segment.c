@@ -1,6 +1,6 @@
 #include "photon/PhotonGcMain.h"
 
-PhotonGtArrBerMin1 PhotonGcMain_SegmentReceiverRequestSegmentsAck()
+PhotonGtArrBer PhotonGcMain_SegmentReceiverRequestSegmentsAck()
 {
 }
 
@@ -34,14 +34,14 @@ PhotonGtSegmentStopAckError PhotonGcMain_SegmentStopAckOnEverySegmentMode()
     return PHOTON_GT_SEGMENT_STOP_ACK_ERROR_OK;
 }
 
-PhotonGtSegmentProcessAckError PhotonGcMain_SegmentSenderProcessSegmentsAck(PhotonGtArrBerMin1 segmentsReceived)
+PhotonGtSegmentProcessAckError PhotonGcMain_SegmentSenderProcessSegmentsAck(PhotonGtArrBerFixed1 segmentsReceived)
 {
     return PHOTON_GT_SEGMENT_PROCESS_ACK_ERROR_OK;
 }
 
-PhotonGtArrBerMin1 PhotonGcMain_SegmentReceiverSegmentsReceived()
+PhotonGtArrBer PhotonGcMain_SegmentReceiverSegmentsReceived()
 {
-    PhotonGtArrBerMin1 rv;
+    PhotonGtArrBer rv;
     rv.size = 0;
     rv.data = 0;
     return rv;

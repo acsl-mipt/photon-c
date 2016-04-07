@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_FS_PHOTON_GT_FILE_UPLOAD_ERROR_H__
 #define __PHOTON_FS_PHOTON_GT_FILE_UPLOAD_ERROR_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -25,8 +25,5 @@ PhotonResult PhotonGtFileUploadError_Deserialize(PhotonGtFileUploadError* self, 
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

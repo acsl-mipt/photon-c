@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_TM_PHOTON_GT_EVENT_INFO_H__
 #define __PHOTON_TM_PHOTON_GT_EVENT_INFO_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #include "photon/tm/PhotonGtCompMsg.h"
 
@@ -24,8 +24,5 @@ PhotonResult PhotonGtEventInfo_Deserialize(PhotonGtEventInfo* self, PhotonReader
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

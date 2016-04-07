@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_ROUTING_PHOTON_GT_ADDRESS_H__
 #define __PHOTON_ROUTING_PHOTON_GT_ADDRESS_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,8 +19,5 @@ PhotonResult PhotonGtAddress_Deserialize(PhotonGtAddress* self, PhotonReader* re
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

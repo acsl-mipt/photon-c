@@ -3,7 +3,7 @@
 
 
 PhotonResult PhotonGtScriptInfo_Serialize(const PhotonGtScriptInfo* self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < (*self).scriptCode.size * sizeof(PhotonGtU8))
+  if (PhotonWriter_WritableSize(writer) < /* script_info{ */self->scriptCode.size * /* u8{ */sizeof(PhotonGtU8)/* }u8 *//* }script_info */)
     return PhotonResult_NotEnoughSpace;
   PhotonBer_Serialize(self->scriptId, writer);
   PhotonGtArrU8_Serialize(self->scriptCode, writer);

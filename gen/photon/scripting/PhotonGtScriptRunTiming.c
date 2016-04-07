@@ -3,7 +3,7 @@
 
 
 PhotonResult PhotonGtScriptRunTiming_Serialize(const PhotonGtScriptRunTiming* self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonGtB8) + sizeof(PhotonGtB8) + sizeof(PhotonGtB8))
+  if (PhotonWriter_WritableSize(writer) < /* script_run_timing{ */sizeof(PhotonGtB8) + sizeof(PhotonGtB8) + sizeof(PhotonGtB8)/* }script_run_timing */)
     return PhotonResult_NotEnoughSpace;
   PhotonBer_Serialize(self->id, writer);
   PhotonWriter_WriteUint8(writer, self->isActive);

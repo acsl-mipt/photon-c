@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_DECODE_PHOTON_GT_ARR_U8_H__
 #define __PHOTON_DECODE_PHOTON_GT_ARR_U8_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -25,8 +25,5 @@ PhotonResult PhotonGtArrU8_Deserialize(PhotonGtArrU8* self, PhotonReader* reader
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

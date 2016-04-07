@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_FS_PHOTON_GT_ARR_NODE_INFO_H__
 #define __PHOTON_FS_PHOTON_GT_ARR_NODE_INFO_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #include "photon/fs/PhotonGtNodeInfo.h"
 
@@ -27,8 +27,5 @@ PhotonResult PhotonGtArrNodeInfo_Deserialize(PhotonGtArrNodeInfo* self, PhotonRe
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

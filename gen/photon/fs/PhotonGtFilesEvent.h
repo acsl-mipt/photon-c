@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_FS_PHOTON_GT_FILES_EVENT_H__
 #define __PHOTON_FS_PHOTON_GT_FILES_EVENT_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,8 +21,5 @@ PhotonResult PhotonGtFilesEvent_Deserialize(PhotonGtFilesEvent* self, PhotonRead
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

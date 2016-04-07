@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_DECODE_PHOTON_GT_OR_BER_FILE_LIST_ERROR_H__
 #define __PHOTON_DECODE_PHOTON_GT_OR_BER_FILE_LIST_ERROR_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #include "photon/fs/PhotonGtFileListError.h"
 
@@ -25,8 +25,5 @@ PhotonResult PhotonGtOrBerFileListError_Deserialize(PhotonGtOrBerFileListError* 
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

@@ -4,10 +4,10 @@
 
 #ifndef __PHOTON_IDENTIFICATION_PHOTON_GT_FULL_ID_H__
 #define __PHOTON_IDENTIFICATION_PHOTON_GT_FULL_ID_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #include "photon/identification/PhotonGtShortId.h"
-#include "photon/identification/PhotonGtArrComponentNumberGuidPairMin1.h"
+#include "photon/identification/PhotonGtArrComponentNumberGuidPairFixed1.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,7 +15,7 @@ extern "C" {
 
 typedef struct {
   PhotonGtShortId shortId;
-  PhotonGtArrComponentNumberGuidPairMin1 deviceComponentGuidPairs;
+  PhotonGtArrComponentNumberGuidPairFixed1 deviceComponentGuidPairs;
 } PhotonGtFullId;
 
 PhotonResult PhotonGtFullId_Serialize(const PhotonGtFullId* self, PhotonWriter* writer);
@@ -25,8 +25,5 @@ PhotonResult PhotonGtFullId_Deserialize(PhotonGtFullId* self, PhotonReader* read
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

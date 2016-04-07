@@ -3,7 +3,7 @@
 
 
 PhotonResult PhotonGtFileInfo_Serialize(const PhotonGtFileInfo* self, PhotonWriter* writer) {
-  if (PhotonWriter_WritableSize(writer) < sizeof(PhotonGtBer) + sizeof(PhotonGtBer))
+  if (PhotonWriter_WritableSize(writer) < /* file_info{ */sizeof(PhotonGtBer) + sizeof(PhotonGtBer)/* }file_info */)
     return PhotonResult_NotEnoughSpace;
   PhotonGtArrU8_Serialize(self->path, writer);
   PhotonBer_Serialize(self->byteSize, writer);

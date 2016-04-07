@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_SEGMENTATION_PHOTON_GT_SEGMENT_START_ACK_ERROR_H__
 #define __PHOTON_SEGMENTATION_PHOTON_GT_SEGMENT_START_ACK_ERROR_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -23,8 +23,5 @@ PhotonResult PhotonGtSegmentStartAckError_Deserialize(PhotonGtSegmentStartAckErr
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_TM_PHOTON_GT_COMP_MSG_H__
 #define __PHOTON_TM_PHOTON_GT_COMP_MSG_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -22,8 +22,5 @@ PhotonResult PhotonGtCompMsg_Deserialize(PhotonGtCompMsg* self, PhotonReader* re
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

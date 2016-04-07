@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_IDENTIFICATION_PHOTON_GT_COMPONENT_NUMBER_GUID_PAIR_H__
 #define __PHOTON_IDENTIFICATION_PHOTON_GT_COMPONENT_NUMBER_GUID_PAIR_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #include "photon/foundation/PhotonGtGuid.h"
 
@@ -24,8 +24,5 @@ PhotonResult PhotonGtComponentNumberGuidPair_Deserialize(PhotonGtComponentNumber
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

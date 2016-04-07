@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_FOUNDATION_PHOTON_GT_STRING_H__
 #define __PHOTON_FOUNDATION_PHOTON_GT_STRING_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #include "photon/decode/PhotonGtArrU8.h"
 
@@ -21,8 +21,5 @@ PhotonResult PhotonGtString_Deserialize(PhotonGtString* self, PhotonReader* read
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

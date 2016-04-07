@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_FS_PHOTON_GT_FILE_INFO_H__
 #define __PHOTON_FS_PHOTON_GT_FILE_INFO_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #include "photon/foundation/PhotonGtString.h"
 
@@ -25,8 +25,5 @@ PhotonResult PhotonGtFileInfo_Deserialize(PhotonGtFileInfo* self, PhotonReader* 
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif

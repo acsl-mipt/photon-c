@@ -4,7 +4,7 @@
 
 #ifndef __PHOTON_DECODE_PHOTON_GT_OR_FILE_INFO_FILE_DOWNLOAD_ERROR_H__
 #define __PHOTON_DECODE_PHOTON_GT_OR_FILE_INFO_FILE_DOWNLOAD_ERROR_H__ 
-#include "photon/photon_prologue.h"
+#include "photon/prologue.h"
 
 #include "photon/fs/PhotonGtFileInfo.h"
 #include "photon/fs/PhotonGtFileDownloadError.h"
@@ -26,8 +26,5 @@ PhotonResult PhotonGtOrFileInfoFileDownloadError_Deserialize(PhotonGtOrFileInfoF
 #ifdef __cplusplus
 }
 #endif
-
-#include "photon/photon_epilogue.h"
-
 
 #endif
