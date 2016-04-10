@@ -1,5 +1,7 @@
 
 add_library(photon
+    Clock.c
+    Clock.h
     Reader.c
     Reader.h
     Result.c
@@ -19,6 +21,9 @@ add_library(photon
     Ber.h
     Utils.c
     Utils.h
+    Time.h
+    Time.c
+    System.h
     photon_prologue.h
     photon_epilogue.h
     ${PHOTON_GENERATED_FILES}
