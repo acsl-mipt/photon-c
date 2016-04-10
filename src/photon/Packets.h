@@ -25,6 +25,20 @@ extern "C" {
 #define PHOTON_TM_STREAM_SEPARATOR 0x043d
 
 typedef struct {
+    PhotonBer segmentNumber;
+    PhotonBer maxSegmentNumber;
+    PhotonBer componentNumber;
+    PhotonBer messageNumber;
+} PhotonTmStatusMessage;
+
+typedef struct {
+    PhotonBer componentNumber;
+    PhotonBer messageNumber;
+    PhotonBer eventNumber;
+    PhotonTime timestamp;
+} PhotonTmEventMessage;
+
+typedef struct {
     PhotonBer srcAddress;
     PhotonBer destAddress;
 } PhotonSimpleAddress;

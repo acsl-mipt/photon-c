@@ -31,8 +31,6 @@ struct ExchangeData {
 
     std::uint8_t temp[1024];
 
-    std::function<void(std::size_t)> receiptHandler;
-
     std::shared_ptr<ExchangeHandler> _handler;
 };
 
@@ -79,52 +77,60 @@ static PhotonResult processPacket2(ExchangeData* self, PhotonReader* src)
 
     switch (header) {
     case PHOTON_EXCHANGE_PACKET_HEADER: {
-        PhotonExchangePacketDec exchangePacket;
-        PHOTON_TRY(PhotonDecoder_DecodeExchangePacket(src, &exchangePacket));
+        PhotonExchangePacketDec exchangePacketDecoder;
+        PHOTON_TRY(PhotonDecoder_DecodeExchangePacket(src, &exchangePacketDecoder));
         PhotonRingBuf_Erase(&self->incomingRingBuf, self->incomingPacketSize);
 
-        if (exchangePacket.packet.streamType != PhotonStreamType_Telemetry) {
+        if (exchangePacketDecoder.packet.streamType != PhotonStreamType_Telemetry) {
             return PhotonResult_InvalidStreamType;
         }
 
-        if (exchangePacket.packet.sequenceCounter != self->tmCounter) {
+        if (exchangePacketDecoder.packet.sequenceCounter != self->tmCounter) {
             //TODO: сообщить о пропавшей тм
         }
 
+        ExchangePacket exchangePacket;
+        exchangePacket.header = exchangePacketDecoder.packet;
+        appendFromReader(exchangePacketDecoder.data, &exchangePacket.payload);
+        self->_handler->handleExchangePacket(std::move(exchangePacket));
+
         self->tmCounter++;
 
-        PhotonAddressPacketDec addressPacket;
-        PHOTON_TRY(PhotonDecoder_DecodeAddressPacket(&exchangePacket.data, &addressPacket));
-        PhotonRingBuf_Write(&self->tmRingBuf, addressPacket.data.current, PhotonReader_ReadableSize(&addressPacket.data));
+        PhotonAddressPacketDec addressPacketDecoder;
+        PHOTON_TRY(PhotonDecoder_DecodeAddressPacket(&exchangePacketDecoder.data, &addressPacketDecoder));
+
+        AddressPacket addressPacket;
+        addressPacket.header = addressPacketDecoder.packet;
+        appendFromReader(addressPacketDecoder.data, &addressPacket.payload);
+        self->_handler->handleAddressPacket(std::move(addressPacket));
+
+        PhotonRingBuf_Write(&self->tmRingBuf, addressPacketDecoder.data.current, PhotonReader_ReadableSize(&addressPacketDecoder.data));
         while (std::size_t tmSize = Photon_FindPacketInRingBuf(&self->tmRingBuf, PHOTON_TM_STREAM_SEPARATOR)) {
             PhotonRingBuf_Peek(&self->tmRingBuf, self->tmTemp, tmSize, 0);
             PhotonReader_Init(src, self->tmTemp, sizeof(self->tmTemp));
             uint16_t header;
             PHOTON_TRY(Photon_PeakHeader(src, &header));
             if (header == 0x0c78) {
-                PhotonTmEventMessage msg;
-                if (PhotonDecoder_DecodeTmEventMessage(src, &msg) != PhotonResult_Ok) {
+                PhotonTmEventMessageDec decoder;
+                if (PhotonDecoder_DecodeTmEventMessage(src, &decoder) != PhotonResult_Ok) {
                     continue;
                 } else {
                     PhotonRingBuf_Erase(&self->tmRingBuf, tmSize);
                     TmEvent event;
-                    event.componentNumber = msg.componentNumber;
-                    event.messageNumber = msg.messageNumber;
-                    event.eventNumber = msg.eventNumber;
-                   // event.time = msg.timestamp;
-                    appendFromReader(msg.parameters, &event.payload);
+                    event.header = decoder.msg;
+                   // event.time = decoder.msg.timestamp;
+                    appendFromReader(decoder.parameters, &event.payload);
                     self->_handler->handleTmEvent(std::move(event));
                 }
             } else if (header == 0x1c72) {
-                PhotonTmStatusMessage msg;
-                if (PhotonDecoder_DecodeTmStatusMessage(src, &msg) != PhotonResult_Ok) {
+                PhotonTmStatusMessageDec decoder;
+                if (PhotonDecoder_DecodeTmStatusMessage(src, &decoder) != PhotonResult_Ok) {
                     continue;
                 } else {
                     PhotonRingBuf_Erase(&self->tmRingBuf, tmSize);
                     TmStatus status;
-                    status.componentNumber = msg.componentNumber;
-                    status.messageNumber = msg.messageNumber;
-                    appendFromReader(msg.parameters, &status.payload);
+                    status.header = decoder.msg;
+                    appendFromReader(decoder.parameters, &status.payload);
                     self->_handler->handleTmStatus(std::move(status));
                 }
             }
@@ -203,8 +209,7 @@ static PhotonResult encodeCommands(void* data, PhotonWriter* dest)
     PhotonCommandEnc encoder;
     encoder.gen = encodeCommand;
     for (const Command& cmd : *commands) {
-        encoder.header.componentNumber = cmd.componentNumber;
-        encoder.header.commandNumber = cmd.commandNumber;
+        encoder.header = cmd.header;
         encoder.data = (void*)&cmd.payload;
         PHOTON_TRY(PhotonEncoder_EncodeCommand(&encoder, dest));
     }
@@ -271,6 +276,14 @@ std::size_t Exchange::incomingPacketSize() const
 void Exchange::setHandler(const std::shared_ptr<ExchangeHandler>& handler)
 {
     _d->_handler = handler;
+}
+
+void ExchangeHandler::handleAddressPacket(AddressPacket&& packet)
+{
+}
+
+void ExchangeHandler::handleExchangePacket(ExchangePacket&& status)
+{
 }
 
 void ExchangeHandler::handleError(std::string&& errorMessage)

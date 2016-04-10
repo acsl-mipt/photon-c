@@ -1,5 +1,7 @@
 #pragma once
 
+#include "photon/Packets.h"
+
 #include <functional>
 #include <cstddef>
 #include <memory>
@@ -10,28 +12,22 @@ namespace photon {
 
 struct ExchangeData;
 
-struct TmStatus {
-    unsigned componentNumber;
-    unsigned messageNumber;
+template <typename H>
+struct Entity {
+    H header;
     std::vector<uint8_t> payload;
 };
 
-struct TmEvent {
-    unsigned componentNumber;
-    unsigned messageNumber;
-    unsigned eventNumber;
-    std::chrono::steady_clock::time_point time;
-    std::vector<uint8_t> payload;
-};
-
-struct Command {
-    std::size_t componentNumber;
-    std::size_t commandNumber;
-    std::vector<uint8_t> payload;
-};
+typedef Entity<PhotonExchangePacket> ExchangePacket;
+typedef Entity<PhotonAddressPacket> AddressPacket;
+typedef Entity<PhotonTmStatusMessage> TmStatus;
+typedef Entity<PhotonTmEventMessage> TmEvent;
+typedef Entity<PhotonCommandHeader> Command;
 
 class ExchangeHandler {
 public:
+    virtual void handleExchangePacket(photon::ExchangePacket&& packet);
+    virtual void handleAddressPacket(photon::AddressPacket&& packet);
     virtual void handleTmStatus(photon::TmStatus&& status);
     virtual void handleTmEvent(photon::TmEvent&& event);
     virtual void handleError(std::string&& errorMessage);

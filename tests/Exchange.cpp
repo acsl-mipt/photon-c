@@ -51,16 +51,16 @@ PhotonResult statusGen(void* data, PhotonWriter* dest)
     (void)data;
     _expectedStatuses.emplace_back();
     photon::TmStatus& last = _expectedStatuses.back();
-    last.componentNumber = _dist(_randomEngine);
-    last.messageNumber = _dist(_randomEngine);
+    last.header.componentNumber = _dist(_randomEngine);
+    last.header.messageNumber = _dist(_randomEngine);
     PhotonWriter_WriteUint16Be(dest, PHOTON_TM_STREAM_SEPARATOR);
     PhotonTmStatusMessageGen statusGen;
-    statusGen.componentNumber = last.componentNumber;
-    statusGen.messageNumber = last.messageNumber;
+    statusGen.msg.componentNumber = last.header.componentNumber;
+    statusGen.msg.messageNumber = last.header.messageNumber;
     statusGen.data = 0;
     statusGen.gen = statusDataGen;
-    statusGen.maxSegmentNumber = 0;
-    statusGen.segmentNumber = 0;
+    statusGen.msg.maxSegmentNumber = 0;
+    statusGen.msg.segmentNumber = 0;
     return PhotonEncoder_EncodeTmStatusMessage(&statusGen, dest);
 }
 
@@ -69,17 +69,18 @@ PhotonResult eventGen(void* data, PhotonWriter* dest)
     (void)data;
     _expectedEvents.emplace_back();
     photon::TmEvent& last = _expectedEvents.back();
-    last.componentNumber = _dist(_randomEngine);
-    last.messageNumber = _dist(_randomEngine);
-    last.eventNumber = _dist(_randomEngine);
-    last.time = std::chrono::steady_clock::now();
+    last.header.componentNumber = _dist(_randomEngine);
+    last.header.messageNumber = _dist(_randomEngine);
+    last.header.eventNumber = _dist(_randomEngine);
+    last.header.timestamp.type = PhotonTimePrecision_Seconds;
+    last.header.timestamp.secs.seconds = 5;
     PhotonWriter_WriteUint16Be(dest, PHOTON_TM_STREAM_SEPARATOR);
     PhotonTmEventMessageGen eventGen;
-    eventGen.componentNumber = last.componentNumber;
-    eventGen.messageNumber = last.messageNumber;
-    eventGen.eventNumber = last.eventNumber;
-    eventGen.timestamp.type = PhotonTimePrecision_Seconds;
-    eventGen.timestamp.secs.seconds = 5;
+    eventGen.msg.componentNumber = last.header.componentNumber;
+    eventGen.msg.messageNumber = last.header.messageNumber;
+    eventGen.msg.eventNumber = last.header.eventNumber;
+    eventGen.msg.timestamp.type = PhotonTimePrecision_Seconds;
+    eventGen.msg.timestamp.secs.seconds = 5;
     eventGen.data = 0;
     eventGen.gen = eventDataGen;
     return PhotonEncoder_EncodeTmEventMessage(&eventGen, dest);
@@ -91,8 +92,8 @@ public:
     {
         photon::TmStatus& expected = _expectedStatuses.front();
         photon::TmStatus got = std::move(status);
-        EXPECT_EQ(expected.componentNumber, got.componentNumber);
-        EXPECT_EQ(expected.messageNumber, got.messageNumber);
+        EXPECT_EQ(expected.header.componentNumber, got.header.componentNumber);
+        EXPECT_EQ(expected.header.messageNumber, got.header.messageNumber);
         EXPECT_EQ(expected.payload.size(), got.payload.size());
         _expectedStatuses.pop_front();
     }
@@ -100,10 +101,10 @@ public:
     void handleTmEvent(photon::TmEvent&& event) override
     {
         photon::TmEvent& expected = _expectedEvents.front();
-        EXPECT_EQ(expected.componentNumber, event.componentNumber);
-        EXPECT_EQ(expected.messageNumber, event.messageNumber);
-        EXPECT_EQ(expected.eventNumber, event.eventNumber);
-    // EXPECT_EQ(expected.time, got.time);
+        EXPECT_EQ(expected.header.componentNumber, event.header.componentNumber);
+        EXPECT_EQ(expected.header.messageNumber, event.header.messageNumber);
+        EXPECT_EQ(expected.header.eventNumber, event.header.eventNumber);
+    // EXPECT_EQ(expected.header.time, got.header.time);
         EXPECT_EQ(expected.payload.size(), event.payload.size());
         _expectedEvents.pop_front();
     }
@@ -116,8 +117,8 @@ std::vector<photon::Command> createCommands()
     for (int i = 0; i < _countDist(_randomEngine); i++) {
         cmds.emplace_back();
         photon::Command& back = cmds.back();
-        back.componentNumber = _dist(_randomEngine);
-        back.commandNumber = _dist(_randomEngine);
+        back.header.componentNumber = _dist(_randomEngine);
+        back.header.commandNumber = _dist(_randomEngine);
         for (int i = 0; i < _sizeDist(_randomEngine); i++) {
             std::uint16_t data = _dist(_randomEngine);
             //back.payload.push_back(data & 0x00ff);
@@ -138,9 +139,9 @@ PhotonResult addressPacketHandler(void* data, PhotonAddressPacket* packet, Photo
         _sentCommands.pop_front();
         PhotonBer value;
         PHOTON_TRY(PhotonBer_Deserialize(&value, &dec.commands));
-        EXPECT_EQ(front.componentNumber, value);
+        EXPECT_EQ(front.header.componentNumber, value);
         PHOTON_TRY(PhotonBer_Deserialize(&value, &dec.commands));
-        EXPECT_EQ(front.commandNumber, value);
+        EXPECT_EQ(front.header.commandNumber, value);
         EXPECT_EQ_MEM(front.payload.data(), dec.commands.current, front.payload.size());
         PhotonReader_Skip(&dec.commands, front.payload.size());
     }

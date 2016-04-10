@@ -53,30 +53,30 @@ PhotonResult PhotonDecoder_DecodeCommandResult(PhotonReader* src, PhotonCommandR
     return PhotonResult_Ok;
 }
 
-PhotonResult PhotonDecoder_DecodeTmStatusMessage(PhotonReader* src, PhotonTmStatusMessage* dest)
+PhotonResult PhotonDecoder_DecodeTmStatusMessage(PhotonReader* src, PhotonTmStatusMessageDec* dest)
 {
     PHOTON_TRY(decodeDataHeader(src, &dest->header, PHOTON_TM_STATUS_MESSAGE_HEADER));
     const uint8_t* msgEnd = PhotonReader_CurrentPtr(src) + dest->header.length;
 
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->segmentNumber, src));
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->maxSegmentNumber, src));
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->componentNumber, src));
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->messageNumber, src));
+    PHOTON_TRY(PhotonBer_Deserialize(&dest->msg.segmentNumber, src));
+    PHOTON_TRY(PhotonBer_Deserialize(&dest->msg.maxSegmentNumber, src));
+    PHOTON_TRY(PhotonBer_Deserialize(&dest->msg.componentNumber, src));
+    PHOTON_TRY(PhotonBer_Deserialize(&dest->msg.messageNumber, src));
 
     PHOTON_TRY(sliceData(src, msgEnd - PhotonReader_CurrentPtr(src), &dest->parameters));
 
     return PhotonResult_Ok;
 }
 
-PhotonResult PhotonDecoder_DecodeTmEventMessage(PhotonReader* src, PhotonTmEventMessage* dest)
+PhotonResult PhotonDecoder_DecodeTmEventMessage(PhotonReader* src, PhotonTmEventMessageDec* dest)
 {
     PHOTON_TRY(decodeDataHeader(src, &dest->header, PHOTON_TM_EVENT_MESSAGE_HEADER));
     const uint8_t* msgEnd = PhotonReader_CurrentPtr(src) + dest->header.length;
 
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->componentNumber, src));
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->messageNumber, src));
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->eventNumber, src));
-    PHOTON_TRY(PhotonTime_Deserialize(&dest->timestamp, src));
+    PHOTON_TRY(PhotonBer_Deserialize(&dest->msg.componentNumber, src));
+    PHOTON_TRY(PhotonBer_Deserialize(&dest->msg.messageNumber, src));
+    PHOTON_TRY(PhotonBer_Deserialize(&dest->msg.eventNumber, src));
+    PHOTON_TRY(PhotonTime_Deserialize(&dest->msg.timestamp, src));
 
     PHOTON_TRY(sliceData(src, msgEnd - PhotonReader_CurrentPtr(src), &dest->parameters));
 

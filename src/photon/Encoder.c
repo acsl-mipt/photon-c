@@ -54,10 +54,10 @@ PhotonResult PhotonEncoder_EncodeCommand(PhotonCommandEnc* gen, PhotonWriter* de
 static PhotonResult tmStatusMessageGen(void* data, PhotonWriter* dest)
 {
     PhotonTmStatusMessageGen* gen = (PhotonTmStatusMessageGen*)data;
-    PHOTON_TRY(PhotonBer_Serialize(gen->segmentNumber, dest));
-    PHOTON_TRY(PhotonBer_Serialize(gen->maxSegmentNumber, dest));
-    PHOTON_TRY(PhotonBer_Serialize(gen->componentNumber, dest));
-    PHOTON_TRY(PhotonBer_Serialize(gen->messageNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->msg.segmentNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->msg.maxSegmentNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->msg.componentNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->msg.messageNumber, dest));
     return gen->gen(gen->data, dest);
 }
 
@@ -69,10 +69,10 @@ PhotonResult PhotonEncoder_EncodeTmStatusMessage(PhotonTmStatusMessageGen* gen, 
 static PhotonResult tmEventMessageGen(void* data, PhotonWriter* dest)
 {
     PhotonTmEventMessageGen* gen = (PhotonTmEventMessageGen*)data;
-    PHOTON_TRY(PhotonBer_Serialize(gen->componentNumber, dest));
-    PHOTON_TRY(PhotonBer_Serialize(gen->messageNumber, dest));
-    PHOTON_TRY(PhotonBer_Serialize(gen->eventNumber, dest));
-    PHOTON_TRY(PhotonTime_Serialize(&gen->timestamp, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->msg.componentNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->msg.messageNumber, dest));
+    PHOTON_TRY(PhotonBer_Serialize(gen->msg.eventNumber, dest));
+    PHOTON_TRY(PhotonTime_Serialize(&gen->msg.timestamp, dest));
     return gen->gen(gen->data, dest);
 }
 

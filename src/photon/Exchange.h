@@ -22,8 +22,8 @@ extern "C" {
 typedef PhotonResult (*PhotonAddressPacketHandler)(void*, PhotonAddressPacket*, PhotonReader*);
 typedef PhotonResult (*PhotonExchangeHandler)(void*, PhotonRingBuf*);
 typedef PhotonResult (*PhotonCommandResultHandler)(void*, PhotonCommandResult*);
-typedef PhotonResult (*PhotonTmEventMessageHandler)(void*, PhotonTmEventMessage*);
-typedef PhotonResult (*PhotonTmStatusMessageHandler)(void*, PhotonTmStatusMessage*);
+typedef PhotonResult (*PhotonTmEventMessageHandler)(void*, PhotonTmEventMessageDec*);
+typedef PhotonResult (*PhotonTmStatusMessageHandler)(void*, PhotonTmStatusMessageDec*);
 
 typedef struct {
     uint16_t cmdInCounter;

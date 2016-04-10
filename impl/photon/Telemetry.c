@@ -42,10 +42,10 @@ void PhotonTelemetry_Init()
     }
     _tm.statusEnc.gen = genNextStatusMessage;
     _tm.statusEnc.data = 0;
-    _tm.statusEnc.componentNumber = 0;
-    _tm.statusEnc.messageNumber = 0;
-    _tm.statusEnc.messageNumber = 0;
-    _tm.statusEnc.maxSegmentNumber = 0;
+    _tm.statusEnc.msg.componentNumber = 0;
+    _tm.statusEnc.msg.messageNumber = 0;
+    _tm.statusEnc.msg.messageNumber = 0;
+    _tm.statusEnc.msg.maxSegmentNumber = 0;
 }
 
 static void selectNextMessage()
@@ -63,7 +63,7 @@ PhotonResult PhotonTelemetry_CollectStatusMessages(PhotonWriter* dest)
     }
     unsigned totalMessages = 0;
     while (true) {
-        _tm.statusEnc.messageNumber = _tm.currentMessage;
+        _tm.statusEnc.msg.messageNumber = _tm.currentMessage;
         //FIXME: set component number
         if (PhotonWriter_WritableSize(dest) < 2) {
             PhotonResult_NotEnoughSpace;

@@ -19,19 +19,13 @@ extern "C" {
 typedef PhotonResult (*PhotonGenerator)(void* data, PhotonWriter* dest);
 
 typedef struct {
-    PhotonBer segmentNumber;
-    PhotonBer maxSegmentNumber;
-    PhotonBer componentNumber;
-    PhotonBer messageNumber;
+    PhotonTmStatusMessage msg;
     void* data;
     PhotonGenerator gen;
 } PhotonTmStatusMessageGen;
 
 typedef struct {
-    PhotonBer componentNumber;
-    PhotonBer messageNumber;
-    PhotonBer eventNumber;
-    PhotonTime timestamp;
+    PhotonTmEventMessage msg;
     void* data;
     PhotonGenerator gen;
 } PhotonTmEventMessageGen;

@@ -39,21 +39,15 @@ typedef struct {
 
 typedef struct {
     PhotonDataHeader header;
-    PhotonBer segmentNumber;
-    PhotonBer maxSegmentNumber;
-    PhotonBer componentNumber;
-    PhotonBer messageNumber;
+    PhotonTmStatusMessage msg;
     PhotonReader parameters;
-} PhotonTmStatusMessage;
+} PhotonTmStatusMessageDec;
 
 typedef struct {
     PhotonDataHeader header;
-    PhotonBer componentNumber;
-    PhotonBer messageNumber;
-    PhotonBer eventNumber;
-    PhotonTime timestamp;
+    PhotonTmEventMessage msg;
     PhotonReader parameters;
-} PhotonTmEventMessage;
+} PhotonTmEventMessageDec;
 
 typedef struct {
     PhotonDataHeader header;
@@ -87,8 +81,8 @@ PhotonResult PhotonDecoder_DecodeExchangePacket(PhotonReader* src, PhotonExchang
 PhotonResult PhotonDecoder_DecodeCounterAdjustmentPacket(PhotonReader* src, PhotonCounterAdjustmentPacket* dest);
 PhotonResult PhotonDecoder_DecodeReceiptPacket(PhotonReader* src, PhotonReceiptPacketDec* dest);
 PhotonResult PhotonDecoder_DecodeAddressPacket(PhotonReader* src, PhotonAddressPacketDec* dest);
-PhotonResult PhotonDecoder_DecodeTmEventMessage(PhotonReader* src, PhotonTmEventMessage* dest);
-PhotonResult PhotonDecoder_DecodeTmStatusMessage(PhotonReader* src, PhotonTmStatusMessage* dest);
+PhotonResult PhotonDecoder_DecodeTmEventMessage(PhotonReader* src, PhotonTmEventMessageDec* dest);
+PhotonResult PhotonDecoder_DecodeTmStatusMessage(PhotonReader* src, PhotonTmStatusMessageDec* dest);
 PhotonResult PhotonDecoder_DecodeCommandMessage(PhotonReader* src, PhotonCommandMessage* dest);
 PhotonResult PhotonDecoder_DecodeCommandResult(PhotonReader* src, PhotonCommandResult* dest);
 
