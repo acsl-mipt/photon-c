@@ -4,6 +4,7 @@
 #include "photon/Config.h"
 #include "photon/Ber.h"
 #include "photon/Enums.h"
+#include "photon/Time.h"
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -12,6 +13,16 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define PHOTON_COMMAND_MESSAGE_HEADER 0x0c65
+#define PHOTON_COMMAND_RESULT_HEADER 0x0c66
+#define PHOTON_TM_STATUS_MESSAGE_HEADER 0x1c72
+#define PHOTON_TM_EVENT_MESSAGE_HEADER 0x0c78
+#define PHOTON_ADDRESS_PACKET_HEADER 0xac5e
+#define PHOTON_EXCHANGE_PACKET_HEADER 0x6c5a
+#define PHOTON_COUNTER_ADJUSTMENT_PACKET_HEADER 0x6c5b
+#define PHOTON_RECEIPT_PACKET_HEADER 0x3c5c
+#define PHOTON_TM_STREAM_SEPARATOR 0x043d
 
 typedef struct {
     PhotonBer srcAddress;
@@ -59,8 +70,7 @@ typedef struct {
 
 typedef struct {
     PhotonAddress address;
-    PhotonBer timestampType;
-    PhotonBer timestamp;
+    PhotonTime timestamp;
 } PhotonAddressPacket;
 
 typedef struct {

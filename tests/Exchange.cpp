@@ -1,5 +1,6 @@
 #include "photon/Exchange.h"
 #include "photon/GcExchange.hpp"
+#include "photon/System.h"
 
 #include "PhotonTest.h"
 
@@ -52,7 +53,7 @@ PhotonResult statusGen(void* data, PhotonWriter* dest)
     photon::TmStatus& last = _expectedStatuses.back();
     last.componentNumber = _dist(_randomEngine);
     last.messageNumber = _dist(_randomEngine);
-    PhotonWriter_WriteUint16Be(dest, 0x043d);
+    PhotonWriter_WriteUint16Be(dest, PHOTON_TM_STREAM_SEPARATOR);
     PhotonTmStatusMessageGen statusGen;
     statusGen.componentNumber = last.componentNumber;
     statusGen.messageNumber = last.messageNumber;
@@ -72,39 +73,41 @@ PhotonResult eventGen(void* data, PhotonWriter* dest)
     last.messageNumber = _dist(_randomEngine);
     last.eventNumber = _dist(_randomEngine);
     last.time = std::chrono::steady_clock::now();
-    PhotonWriter_WriteUint16Be(dest, 0x043d);
+    PhotonWriter_WriteUint16Be(dest, PHOTON_TM_STREAM_SEPARATOR);
     PhotonTmEventMessageGen eventGen;
     eventGen.componentNumber = last.componentNumber;
     eventGen.messageNumber = last.messageNumber;
     eventGen.eventNumber = last.eventNumber;
-    eventGen.timestamp = last.time.time_since_epoch().count();
+    eventGen.timestamp.type = PhotonTimePrecision_Seconds;
+    eventGen.timestamp.secs.seconds = 5;
     eventGen.data = 0;
     eventGen.gen = eventDataGen;
     return PhotonEncoder_EncodeTmEventMessage(&eventGen, dest);
 }
 
-bool statusHandler(photon::TmStatus&& status)
-{
-    photon::TmStatus& expected = _expectedStatuses.front();
-    photon::TmStatus got = std::move(status);
-    EXPECT_EQ(expected.componentNumber, got.componentNumber);
-    EXPECT_EQ(expected.messageNumber, got.messageNumber);
-    EXPECT_EQ(expected.payload.size(), got.payload.size());
-    _expectedStatuses.pop_front();
-    return true;
-}
+class TestExchangehandler : public photon::ExchangeHandler {
+public:
+    void handleTmStatus(photon::TmStatus&& status) override
+    {
+        photon::TmStatus& expected = _expectedStatuses.front();
+        photon::TmStatus got = std::move(status);
+        EXPECT_EQ(expected.componentNumber, got.componentNumber);
+        EXPECT_EQ(expected.messageNumber, got.messageNumber);
+        EXPECT_EQ(expected.payload.size(), got.payload.size());
+        _expectedStatuses.pop_front();
+    }
 
-bool eventHandler(photon::TmEvent&& event)
-{
-    photon::TmEvent& expected = _expectedEvents.front();
-    EXPECT_EQ(expected.componentNumber, event.componentNumber);
-    EXPECT_EQ(expected.messageNumber, event.messageNumber);
-    EXPECT_EQ(expected.eventNumber, event.eventNumber);
-   // EXPECT_EQ(expected.time, got.time);
-    EXPECT_EQ(expected.payload.size(), event.payload.size());
-    _expectedEvents.pop_front();
-    return true;
-}
+    void handleTmEvent(photon::TmEvent&& event) override
+    {
+        photon::TmEvent& expected = _expectedEvents.front();
+        EXPECT_EQ(expected.componentNumber, event.componentNumber);
+        EXPECT_EQ(expected.messageNumber, event.messageNumber);
+        EXPECT_EQ(expected.eventNumber, event.eventNumber);
+    // EXPECT_EQ(expected.time, got.time);
+        EXPECT_EQ(expected.payload.size(), event.payload.size());
+        _expectedEvents.pop_front();
+    }
+};
 
 std::vector<photon::Command> createCommands()
 {
@@ -181,10 +184,16 @@ void uavAccept()
 PhotonRingBuf incoming;
 uint8_t incomingData[20480];
 
-std::size_t acceptCallback(void* userData, const void* src, std::size_t size)
+extern "C" size_t PhotonSys_SendTelemetry(const void* src, size_t size)
 {
     PhotonRingBuf_Write(&incoming, src, size);
     return size;
+}
+
+
+extern "C" void PhotonSys_GetTime(PhotonAbsoluteTime* dest)
+{
+    (void)dest;
 }
 
 void gcAccept()
@@ -203,12 +212,8 @@ void gcAccept()
 TEST(ExchangeTest, main)
 {
     PhotonRingBuf_Init(&incoming, incomingData, sizeof(incomingData));
-    PhotonUavExchange_Init(&_exchange, acceptCallback, 0);
-    _gcExchange.setTmStatusHandler(statusHandler);
-    _gcExchange.setTmEventHandler(eventHandler);
-    _gcExchange.setErrorHandler([](std::string&& err) {
-        std::cout << err << std::endl;
-    });
+    PhotonUavExchange_Init(&_exchange);
+    _gcExchange.setHandler(std::make_shared<TestExchangehandler>());
     for (int i = 0; i < 1000; i++) {
         gcEncode();
         uavAccept();

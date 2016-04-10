@@ -28,16 +28,14 @@ protected:
 
     void expectEqPackets()
     {
-        EXPECT_EQ(_encoder.packet.timestamp, _decoder.packet.timestamp);
-        EXPECT_EQ(_encoder.packet.timestampType, _decoder.packet.timestampType);
+        EXPECT_EQ(_encoder.packet.timestamp.type, _decoder.packet.timestamp.type);
         EXPECT_EQ(_encoder.packet.address.type, _decoder.packet.address.type);
         EXPECT_EQ(_paramsWriter.current - _paramsWriter.start, _decoder.data.end - _decoder.data.start);
     }
 
     void runTest()
     {
-        _encoder.packet.timestampType = 2;
-        _encoder.packet.timestamp = 1111;
+        _encoder.packet.timestamp.type = PhotonTimePrecision_Seconds;
         _encoder.packet.address.type = PhotonAddressType_SimpleAddress;
         _encoder.packet.address.address.simple.destAddress = 2;
         _encoder.packet.address.address.simple.srcAddress = 0;

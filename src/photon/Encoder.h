@@ -31,7 +31,7 @@ typedef struct {
     PhotonBer componentNumber;
     PhotonBer messageNumber;
     PhotonBer eventNumber;
-    PhotonBer timestamp;
+    PhotonTime timestamp;
     void* data;
     PhotonGenerator gen;
 } PhotonTmEventMessageGen;

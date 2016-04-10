@@ -14,7 +14,6 @@ struct TmStatus {
     unsigned componentNumber;
     unsigned messageNumber;
     std::vector<uint8_t> payload;
-
 };
 
 struct TmEvent {
@@ -29,6 +28,13 @@ struct Command {
     std::size_t componentNumber;
     std::size_t commandNumber;
     std::vector<uint8_t> payload;
+};
+
+class ExchangeHandler {
+public:
+    virtual void handleTmStatus(photon::TmStatus&& status);
+    virtual void handleTmEvent(photon::TmEvent&& event);
+    virtual void handleError(std::string&& errorMessage);
 };
 
 class Exchange {
@@ -46,10 +52,7 @@ public:
     bool encodeCommandPacket(const std::vector<photon::Command>& commands);
     std::size_t readEncodedCommands(void* dest, std::size_t maxSize);
 
-    void setReceiptHandler(const std::function<void(std::size_t)>& handler);
-    void setTmStatusHandler(const std::function<bool(photon::TmStatus&&)>& handler);
-    void setTmEventHandler(const std::function<bool(photon::TmEvent&&)>& handler);
-    void setErrorHandler(const std::function<void(std::string&&)>& handler);
+    void setHandler(const std::shared_ptr<ExchangeHandler>& handler);
 
 private:
     std::unique_ptr<ExchangeData> _d;

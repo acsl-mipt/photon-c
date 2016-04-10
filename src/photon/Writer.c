@@ -26,6 +26,12 @@ uint8_t* PhotonWriter_CurrentPtr(const PhotonWriter* self)
     return self->current;
 }
 
+void PhotonWriter_SetCurrentPtr(PhotonWriter* self, uint8_t* ptr)
+{
+    assert(ptr >= self->start && ptr <= self->end);
+    self->current = ptr;
+}
+
 void PhotonWriter_Skip(PhotonWriter* self, size_t size)
 {
     self->current += size;

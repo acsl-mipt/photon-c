@@ -33,6 +33,7 @@ void PhotonWriter_Skip(PhotonWriter* self, size_t size);
 void PhotonWriter_SliceFromBack(PhotonWriter* self, size_t length, PhotonWriter* dest);
 
 uint8_t* PhotonWriter_CurrentPtr(const PhotonWriter* self);
+void PhotonWriter_SetCurrentPtr(PhotonWriter* self, uint8_t* ptr);
 
 bool PhotonWriter_IsAtEnd(const PhotonWriter* self);
 size_t PhotonWriter_WritableSize(const PhotonWriter* self);

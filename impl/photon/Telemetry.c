@@ -65,12 +65,18 @@ PhotonResult PhotonTelemetry_CollectStatusMessages(PhotonWriter* dest)
     while (true) {
         _tm.statusEnc.messageNumber = _tm.currentMessage;
         //FIXME: set component number
+        if (PhotonWriter_WritableSize(dest) < 2) {
+            PhotonResult_NotEnoughSpace;
+        }
+        uint8_t* current = PhotonWriter_CurrentPtr(dest);
+        PhotonWriter_WriteUint16Be(dest, PHOTON_TM_STREAM_SEPARATOR);
         PhotonResult rv = PhotonEncoder_EncodeTmStatusMessage(&_tm.statusEnc, dest);
         if (rv == PhotonResult_Ok) {
             selectNextMessage();
             totalMessages++;
             continue;
         } else if (rv == PhotonResult_NotEnoughSpace) {
+            PhotonWriter_SetCurrentPtr(dest, current);
             if (totalMessages == 0) {
                 return PhotonResult_NotEnoughSpace;
             }

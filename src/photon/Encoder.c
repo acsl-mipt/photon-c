@@ -72,7 +72,7 @@ static PhotonResult tmEventMessageGen(void* data, PhotonWriter* dest)
     PHOTON_TRY(PhotonBer_Serialize(gen->componentNumber, dest));
     PHOTON_TRY(PhotonBer_Serialize(gen->messageNumber, dest));
     PHOTON_TRY(PhotonBer_Serialize(gen->eventNumber, dest));
-    PHOTON_TRY(PhotonBer_Serialize(gen->timestamp, dest));
+    PHOTON_TRY(PhotonTime_Serialize(&gen->timestamp, dest));
     return gen->gen(gen->data, dest);
 }
 
@@ -122,8 +122,7 @@ static PhotonResult addressPacketGen(void* data, PhotonWriter* dest)
         return PhotonResult_InvalidAddressType;
     }
 
-    PHOTON_TRY(PhotonBer_Serialize(enc->packet.timestampType, dest)); // TODO: енум метки врем, destени
-    PHOTON_TRY(PhotonBer_Serialize(enc->packet.timestamp, dest));
+    PHOTON_TRY(PhotonTime_Serialize(&enc->packet.timestamp, dest));
 
     return enc->gen(enc->data, dest);
 }

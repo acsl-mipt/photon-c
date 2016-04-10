@@ -76,7 +76,7 @@ PhotonResult PhotonDecoder_DecodeTmEventMessage(PhotonReader* src, PhotonTmEvent
     PHOTON_TRY(PhotonBer_Deserialize(&dest->componentNumber, src));
     PHOTON_TRY(PhotonBer_Deserialize(&dest->messageNumber, src));
     PHOTON_TRY(PhotonBer_Deserialize(&dest->eventNumber, src));
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->timestamp, src));
+    PHOTON_TRY(PhotonTime_Deserialize(&dest->timestamp, src));
 
     PHOTON_TRY(sliceData(src, msgEnd - PhotonReader_CurrentPtr(src), &dest->parameters));
 
@@ -131,8 +131,7 @@ PhotonResult PhotonDecoder_DecodeAddressPacket(PhotonReader* src, PhotonAddressP
         return PhotonResult_InvalidAddressType;
     }
 
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->packet.timestampType, src));
-    PHOTON_TRY(PhotonBer_Deserialize(&dest->packet.timestamp, src));
+    PHOTON_TRY(PhotonTime_Deserialize(&dest->packet.timestamp, src));
 
     PHOTON_TRY(sliceData(src, dataEnd - src->current, &dest->data));
 

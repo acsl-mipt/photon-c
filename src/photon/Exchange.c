@@ -3,10 +3,12 @@
 #include "photon/RingBuffer.h"
 #include "photon/Endian.h"
 #include "photon/Utils.h"
+#include "photon/Clock.h"
+#include "photon/System.h"
 
 #include <stdbool.h>
 
-void PhotonUavExchange_Init(PhotonUavExchange* self, PhotonSenderCallback callback, void* userData)
+void PhotonUavExchange_Init(PhotonUavExchange* self)
 {
     self->cmdInCounter = 0;
     self->cmdOutCounter = 0;
@@ -15,8 +17,6 @@ void PhotonUavExchange_Init(PhotonUavExchange* self, PhotonSenderCallback callba
     PhotonRingBuf_Init(&self->ringBufOut, self->outBuffer, sizeof(self->outBuffer));
     self->errorControlType = PhotonErrorControlType_Crc16;
     Photon_Be16Enc(&self->encodedSeparator, 0x047e);
-    self->senderCallback = callback;
-    self->userData = userData;
 }
 
 void PhotonUavExchange_AcceptIncomingData(PhotonUavExchange* self, const void* src, size_t size)
@@ -92,7 +92,7 @@ static PhotonResult sendPacket(PhotonUavExchange* self, void* data, PhotonGenera
     while (acceptedSize != 0) {
         const uint8_t* src = PhotonRingBuf_ReadPtr(&self->ringBufOut);
         size_t size = PhotonRingBuf_LinearReadableSize(&self->ringBufOut);
-        acceptedSize = self->senderCallback(self->userData, src, size);
+        acceptedSize = PhotonSys_SendTelemetry(src, size);
         PhotonRingBuf_Erase(&self->ringBufOut, acceptedSize);
     }
     return PhotonResult_Ok;
@@ -112,7 +112,6 @@ PhotonResult PhotonUavExchange_SendPacket(PhotonUavExchange* self, const PhotonA
     enc.packet.address = *address;
     enc.data = data;
     enc.gen = gen;
-    enc.packet.timestamp = 0;
-    enc.packet.timestampType = 2; // FIXME
+    PhotonClock_GetTime(&enc.packet.timestamp);
     return sendPacket(self, &enc, encodeAddressPacket);
 }

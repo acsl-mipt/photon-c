@@ -6,7 +6,6 @@
 #include "photon/Utils.h"
 
 #include <algorithm>
-#include <deque>
 #include <cstdint>
 
 namespace photon {
@@ -32,14 +31,9 @@ struct ExchangeData {
 
     std::uint8_t temp[1024];
 
-    std::deque<TmStatus> tmStatuses;
-    std::deque<TmEvent> tmEvents;
-
     std::function<void(std::size_t)> receiptHandler;
 
-    std::function<bool(photon::TmStatus&&)> tmStatusHandler;
-    std::function<bool(photon::TmEvent&&)> tmEventHandler;
-    std::function<void(std::string&&)> errorHandler;
+    std::shared_ptr<ExchangeHandler> _handler;
 };
 
 ExchangeData::ExchangeData()
@@ -78,18 +72,6 @@ bool Exchange::acceptIncomingData(const void* data, std::size_t size)
     return _d->packetFound;
 }
 
-template <typename T>
-void handleTm(const std::function<bool(T&&)>& handler, std::deque<T>* msgs)
-{
-    while (!msgs->empty()) {
-        if (handler(std::move(msgs->front()))) {
-            msgs->pop_front();
-        } else {
-            break;
-        }
-    }
-}
-
 static PhotonResult processPacket2(ExchangeData* self, PhotonReader* src)
 {
     uint16_t header;
@@ -114,7 +96,7 @@ static PhotonResult processPacket2(ExchangeData* self, PhotonReader* src)
         PhotonAddressPacketDec addressPacket;
         PHOTON_TRY(PhotonDecoder_DecodeAddressPacket(&exchangePacket.data, &addressPacket));
         PhotonRingBuf_Write(&self->tmRingBuf, addressPacket.data.current, PhotonReader_ReadableSize(&addressPacket.data));
-        while (std::size_t tmSize = Photon_FindPacketInRingBuf(&self->tmRingBuf, 0x043d)) {
+        while (std::size_t tmSize = Photon_FindPacketInRingBuf(&self->tmRingBuf, PHOTON_TM_STREAM_SEPARATOR)) {
             PhotonRingBuf_Peek(&self->tmRingBuf, self->tmTemp, tmSize, 0);
             PhotonReader_Init(src, self->tmTemp, sizeof(self->tmTemp));
             uint16_t header;
@@ -125,13 +107,13 @@ static PhotonResult processPacket2(ExchangeData* self, PhotonReader* src)
                     continue;
                 } else {
                     PhotonRingBuf_Erase(&self->tmRingBuf, tmSize);
-                    self->tmEvents.emplace_back();
-                    TmEvent& event = self->tmEvents.back();
+                    TmEvent event;
                     event.componentNumber = msg.componentNumber;
                     event.messageNumber = msg.messageNumber;
                     event.eventNumber = msg.eventNumber;
                    // event.time = msg.timestamp;
                     appendFromReader(msg.parameters, &event.payload);
+                    self->_handler->handleTmEvent(std::move(event));
                 }
             } else if (header == 0x1c72) {
                 PhotonTmStatusMessage msg;
@@ -139,16 +121,14 @@ static PhotonResult processPacket2(ExchangeData* self, PhotonReader* src)
                     continue;
                 } else {
                     PhotonRingBuf_Erase(&self->tmRingBuf, tmSize);
-                    self->tmStatuses.emplace_back();
-                    TmStatus& status = self->tmStatuses.back();
+                    TmStatus status;
                     status.componentNumber = msg.componentNumber;
                     status.messageNumber = msg.messageNumber;
                     appendFromReader(msg.parameters, &status.payload);
+                    self->_handler->handleTmStatus(std::move(status));
                 }
             }
         }
-        handleTm(self->tmEventHandler, &self->tmEvents);
-        handleTm(self->tmStatusHandler, &self->tmStatuses);
         break;
     }
     case PHOTON_RECEIPT_PACKET_HEADER: {
@@ -158,7 +138,7 @@ static PhotonResult processPacket2(ExchangeData* self, PhotonReader* src)
             return PhotonResult_InvalidStreamType;
         }
         //self->readyToSend = packet.packet.lastSequenceCounter == self->cmdCounter;
-        self->receiptHandler(packet.packet.lastSequenceCounter);
+//        self->_handler->handleReceipt(packet.packet.lastSequenceCounter);
         break;
     }
     default:
@@ -201,7 +181,7 @@ bool Exchange::processPacket(const void* src, std::size_t size)
     PhotonResult rv = processPacket2(_d.get(), &reader);
     _d->packetFound = false;
     if (rv != PhotonResult_Ok) {
-        _d->errorHandler(PhotonResult_ToString(rv));
+        _d->_handler->handleError(PhotonResult_ToString(rv));
         return false;
     }
     return true;
@@ -244,8 +224,9 @@ static PhotonResult encodeExchangePacket(void* data, PhotonWriter* dest)
     enc.packet.address.type = PhotonAddressType_SimpleAddress;
     enc.packet.address.address.simple.destAddress = 1;
     enc.packet.address.address.simple.srcAddress = 0;
-    enc.packet.timestampType = 2;
-    enc.packet.timestamp = 0;
+    enc.packet.timestamp.type = PhotonTimePrecision_Seconds;
+    enc.packet.timestamp.secs.seconds = 0;
+    //TODO: set time
     return PhotonEncoder_EncodeAddressPacket(&enc, dest);
 }
 
@@ -287,23 +268,20 @@ std::size_t Exchange::incomingPacketSize() const
     return 0;
 }
 
-void Exchange::setReceiptHandler(const std::function<void(std::size_t)>& handler)
+void Exchange::setHandler(const std::shared_ptr<ExchangeHandler>& handler)
 {
-    _d->receiptHandler = handler;
+    _d->_handler = handler;
 }
 
-void Exchange::setTmEventHandler(const std::function<bool(TmEvent&&)>& handler)
+void ExchangeHandler::handleError(std::string&& errorMessage)
 {
-    _d->tmEventHandler = handler;
 }
 
-void Exchange::setTmStatusHandler(const std::function<bool(TmStatus&&)>& handler)
+void ExchangeHandler::handleTmEvent(TmEvent&& event)
 {
-    _d->tmStatusHandler = handler;
 }
 
-void Exchange::setErrorHandler(const std::function<void(std::string&&)>& handler)
+void ExchangeHandler::handleTmStatus(TmStatus&& status)
 {
-    _d->errorHandler = handler;
 }
 }

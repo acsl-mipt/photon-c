@@ -33,6 +33,8 @@ typedef enum {
     PhotonResult_InvalidWindowSize,
     PhotonResult_InvalidSequenceCounter,
     PhotonResult_InvalidChecksum,
+    PhotonResult_InvalidTimeType,
+    PhotonResult_InvalidTimeValue,
     PhotonResult_EventIsDenied,
 
     PhotonResult_InvalidCommandId,

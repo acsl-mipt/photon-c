@@ -7,6 +7,7 @@
 #include "photon/Enums.h"
 #include "photon/Ber.h"
 #include "photon/Packets.h"
+#include "photon/Time.h"
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -15,15 +16,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#define PHOTON_COMMAND_MESSAGE_HEADER 0x0c65
-#define PHOTON_COMMAND_RESULT_HEADER 0x0c66
-#define PHOTON_TM_STATUS_MESSAGE_HEADER 0x1c72
-#define PHOTON_TM_EVENT_MESSAGE_HEADER 0x0c78
-#define PHOTON_ADDRESS_PACKET_HEADER 0xac5e
-#define PHOTON_EXCHANGE_PACKET_HEADER 0x6c5a
-#define PHOTON_COUNTER_ADJUSTMENT_PACKET_HEADER 0x6c5b
-#define PHOTON_RECEIPT_PACKET_HEADER 0x3c5c
 
 typedef struct {
     uint16_t code;
@@ -59,7 +51,7 @@ typedef struct {
     PhotonBer componentNumber;
     PhotonBer messageNumber;
     PhotonBer eventNumber;
-    PhotonBer timestamp;
+    PhotonTime timestamp;
     PhotonReader parameters;
 } PhotonTmEventMessage;
 
