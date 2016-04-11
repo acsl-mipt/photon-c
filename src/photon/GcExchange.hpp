@@ -48,7 +48,7 @@ public:
     bool encodeCommandPacket(const std::vector<photon::Command>& commands);
     std::size_t readEncodedCommands(void* dest, std::size_t maxSize);
 
-    void setHandler(const std::shared_ptr<ExchangeHandler>& handler);
+    void setHandler(ExchangeHandler* handler);
 
 private:
     std::unique_ptr<ExchangeData> _d;

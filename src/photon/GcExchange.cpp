@@ -31,7 +31,7 @@ struct ExchangeData {
 
     std::uint8_t temp[1024];
 
-    std::shared_ptr<ExchangeHandler> _handler;
+    ExchangeHandler* _handler;
 };
 
 ExchangeData::ExchangeData()
@@ -273,7 +273,7 @@ std::size_t Exchange::incomingPacketSize() const
     return 0;
 }
 
-void Exchange::setHandler(const std::shared_ptr<ExchangeHandler>& handler)
+void Exchange::setHandler(ExchangeHandler* handler)
 {
     _d->_handler = handler;
 }
