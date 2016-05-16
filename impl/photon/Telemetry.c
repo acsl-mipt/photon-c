@@ -66,7 +66,7 @@ PhotonResult PhotonTelemetry_CollectStatusMessages(PhotonWriter* dest)
         _tm.statusEnc.msg.messageNumber = _tm.currentMessage;
         //FIXME: set component number
         if (PhotonWriter_WritableSize(dest) < 2) {
-            PhotonResult_NotEnoughSpace;
+            return PhotonResult_NotEnoughSpace;
         }
         uint8_t* current = PhotonWriter_CurrentPtr(dest);
         PhotonWriter_WriteUint16Be(dest, PHOTON_TM_STREAM_SEPARATOR);

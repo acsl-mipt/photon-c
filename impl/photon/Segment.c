@@ -40,6 +40,7 @@ PhotonGtSegmentStopAckError PhotonGcMain_SegmentStopAckOnEverySegmentMode()
 
 PhotonGtSegmentProcessAckError PhotonGcMain_SegmentSenderProcessSegmentsAck(PhotonGtArrBerFixed1 segmentsReceived)
 {
+    (void)segmentsReceived;
     return PHOTON_GT_SEGMENT_PROCESS_ACK_ERROR_OK;
 }
 

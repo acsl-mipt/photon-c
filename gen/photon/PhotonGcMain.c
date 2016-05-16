@@ -13,6 +13,7 @@ PhotonResult PhotonGcMain_ExecuteFilesUploadFilePart(PhotonReader* reader, Photo
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesStopFileUpload(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   return PhotonBer_Serialize(PhotonGcMain_FilesStopFileUpload(), writer);
 }
 
@@ -29,10 +30,12 @@ PhotonResult PhotonGcMain_ExecuteFilesDownloadFilePart(PhotonReader* reader, Pho
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesStopFileDownload(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   return PhotonBer_Serialize(PhotonGcMain_FilesStopFileDownload(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesStartRequestFileList(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   return PhotonGtOrBerFileListError_Serialize(PhotonGcMain_FilesStartRequestFileList(), writer);
 }
 
@@ -43,6 +46,7 @@ PhotonResult PhotonGcMain_ExecuteFilesRequestFileListPart(PhotonReader* reader, 
 }
 
 PhotonResult PhotonGcMain_ExecuteFilesStopRequestFileList(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   return PhotonBer_Serialize(PhotonGcMain_FilesStopRequestFileList(), writer);
 }
 
@@ -59,10 +63,12 @@ PhotonResult PhotonGcMain_ExecuteFilesCreateDir(PhotonReader* reader, PhotonWrit
 }
 
 PhotonResult PhotonGcMain_ExecuteIdentificationRequestShortId(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   return PhotonGtShortId_Serialize(PhotonGcMain_IdentificationRequestShortId(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteIdentificationRequestFullId(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   return PhotonGtFullId_Serialize(PhotonGcMain_IdentificationRequestFullId(), writer);
 }
 
@@ -137,14 +143,17 @@ PhotonResult PhotonGcMain_ExecuteScriptingDisableScriptRunTiming(PhotonReader* r
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentStartSegmentAckMode(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   return PhotonBer_Serialize(PhotonGcMain_SegmentStartSegmentAckMode(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentStopSegmentAckMode(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   return PhotonBer_Serialize(PhotonGcMain_SegmentStopSegmentAckMode(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentRequestAckModeStatus(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   PhotonWriter_WriteUint8(writer, PhotonGcMain_SegmentRequestAckModeStatus());
   return PhotonResult_Ok;
 }
@@ -156,14 +165,17 @@ PhotonResult PhotonGcMain_ExecuteSegmentProcessAckModeStatus(PhotonReader* reade
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentStartAckOnEverySegmentMode(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   return PhotonBer_Serialize(PhotonGcMain_SegmentStartAckOnEverySegmentMode(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentStopAckOnEverySegmentMode(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   return PhotonBer_Serialize(PhotonGcMain_SegmentStopAckOnEverySegmentMode(), writer);
 }
 
 PhotonResult PhotonGcMain_ExecuteSegmentReceiverRequestSegmentsAck(PhotonReader* reader, PhotonWriter* writer) {
+  (void)reader;
   return PhotonGtArrBer_Serialize(PhotonGcMain_SegmentReceiverRequestSegmentsAck(), writer);
 }
 
