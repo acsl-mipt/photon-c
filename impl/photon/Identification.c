@@ -19,6 +19,9 @@ const PhotonGtFullId* PhotonGcMain_IdentificationRequestFullId()
 
 PhotonGtGuid PhotonGcMain_IdentificationRequestComponentGuid(PhotonBer componentNumber)
 {
+    (void)componentNumber;
+    // TODO
+    return 0;
 }
 
 const PhotonGtFullId* PhotonGcMain_IdentificationFullId()

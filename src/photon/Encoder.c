@@ -29,7 +29,7 @@ PhotonResult PhotonEncoder_EncodeData(uint16_t header, void* data, PhotonGenerat
     PHOTON_TRY(gen(data, dest));
 
     size_t dataSize = PhotonWriter_CurrentPtr(dest) - sizeDest - 3;
-    writeBer16Fixed(dataSize, sizeDest);
+    writeBer16Fixed((uint16_t) dataSize, sizeDest);
 
     return PhotonResult_Ok;
 }
@@ -155,7 +155,7 @@ static PhotonResult encodePacket(uint16_t header, PhotonErrorControlType csType,
     if ((dest->end - dest->current) < csSize) {
         return PhotonResult_NotEnoughSpace;
     }
-    PhotonWriter_SliceFromBack(dest, csSize, &payload);
+    PhotonWriter_SliceFromBack(dest, (size_t) csSize, &payload);
     if (PhotonWriter_WritableSize(&payload) % 2) {
         payload.end--;
     }
@@ -170,9 +170,11 @@ static PhotonResult encodePacket(uint16_t header, PhotonErrorControlType csType,
     switch (csType) {
     case PhotonErrorControlType_Crc16:
         (void)start;
-        uint16_t cs = Photon_Crc16(start, (dest->current - start) / 2);
+        uint16_t cs = Photon_Crc16((uint16_t*) start, (dest->current - start) / 2);
         PhotonWriter_WriteUint16Le(dest, cs);
         break;
+    case PhotonErrorControlType_ReedSolomon:
+        return PhotonResult_InvalidChecksum; // FIXME: implement Reed-Solomon
     };
 
     return PhotonResult_Ok;
@@ -227,7 +229,7 @@ static PhotonResult exchangePacketGen(void* data, PhotonWriter* dest)
 
     unsigned csSize = 2; //TODO: from enum
     size_t dataSize = PhotonWriter_CurrentPtr(dest) - sizeDest - 3 + csSize;
-    writeBer16Fixed(dataSize, sizeDest);
+    writeBer16Fixed((uint16_t) dataSize, sizeDest);
 
     return PhotonResult_Ok;
 }

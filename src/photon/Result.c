@@ -45,6 +45,12 @@ const char* PhotonResult_ToString(PhotonResult result)
         return "Invalid message id";
     case PhotonResult_InvalidValue:
         return "Invalid value";
+    case PhotonResult_InvalidChecksum:
+        return "Invalid checksum";
+    case PhotonResult_InvalidTimeType:
+        return "Invalid time type";
+    case PhotonResult_InvalidTimeValue:
+        return "Invalid time value";
     }
     return "UNKNOWN";
 }

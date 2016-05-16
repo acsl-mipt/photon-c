@@ -53,7 +53,7 @@ void PhotonWriter_SliceFromBack(PhotonWriter* self, size_t length, PhotonWriter*
     dest->start = self->current;
     dest->current = dest->start;
     dest->end = self->end - length;
-    self->current = dest->end;
+    self->current = (uint8_t*) dest->end;
 }
 
 void PhotonWriter_WriteUint8(PhotonWriter* self, uint8_t value)

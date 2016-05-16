@@ -2,6 +2,9 @@
 
 PhotonGtArrBer PhotonGcMain_SegmentReceiverRequestSegmentsAck()
 {
+    // TODO
+    PhotonGtArrBer result = {size: 0, data: NULL};
+    return result;
 }
 
 PhotonGtSegmentStartAckError PhotonGcMain_SegmentStartSegmentAckMode()
@@ -21,6 +24,7 @@ PhotonGtB8 PhotonGcMain_SegmentRequestAckModeStatus()
 
 PhotonGtSegmentProcessAckError PhotonGcMain_SegmentProcessAckModeStatus(PhotonGtB8 isSegmentationAckModeActive)
 {
+    (void)isSegmentationAckModeActive;
     return PHOTON_GT_SEGMENT_PROCESS_ACK_ERROR_OK;
 }
 

@@ -8,7 +8,7 @@
 #define _MSG_PRIORITIES PHOTON_GC_MAIN_STATUS_MESSAGE_PRIORITIES
 
 typedef struct {
-    unsigned priority;
+    PhotonBer priority;
     int interest;
     bool isAllowed;
 } PhotonTmMessageDesc;
@@ -85,19 +85,22 @@ PhotonResult PhotonTelemetry_CollectStatusMessages(PhotonWriter* dest)
             return rv;
         }
     }
-    return PhotonResult_Ok;
 }
 
 PhotonResult PhotonTelemetry_CollectEventMessages(PhotonWriter* dest)
 {
+    (void)dest;
     // TODO
+    return PhotonResult_Ok;
 }
 
 // commands
 
 PhotonGtTmCmdError PhotonGcMain_TmSendStatusMessage(PhotonGtCompMsg componentMessage)
 {
+    (void)componentMessage;
     // TODO
+    return PHOTON_GT_TM_CMD_ERROR_OK;
 }
 
 PhotonGtTmCmdError PhotonGcMain_TmSetMessageRequest(PhotonGtCompMsg componentMessage, PhotonBer priority)
@@ -140,12 +143,16 @@ PhotonGtTmCmdError PhotonGcMain_TmAllowMessage(PhotonGtCompMsg componentMessage)
 
 PhotonGtTmCmdError PhotonGcMain_TmDenyEvent(const PhotonGtEventInfo* eventInfo)
 {
+    (void)eventInfo;
     // TODO
+    return PHOTON_GT_TM_CMD_ERROR_OK;
 }
 
 PhotonGtTmCmdError PhotonGcMain_TmAllowEvent(const PhotonGtEventInfo* eventInfo)
 {
+    (void)eventInfo;
     // TODO
+    return PHOTON_GT_TM_CMD_ERROR_OK;
 }
 
 // params
@@ -159,6 +166,9 @@ PhotonBer PhotonGcMain_TmAllowedMessages()
 
 PhotonGtB8 PhotonGcMain_IsEventAllowed(PhotonBer messageId, PhotonBer eventId)
 {
+    (void)messageId;
+    (void)eventId;
     // TODO
+    return 0;
 }
 

@@ -2,11 +2,13 @@
 
 PhotonGtFileUploadError PhotonGcMain_FilesStartFileUpload(const PhotonGtFileInfo* fileInfo)
 {
+    (void)fileInfo;
     return PHOTON_GT_FILE_UPLOAD_ERROR_OK;
 }
 
 PhotonGtFileUploadError PhotonGcMain_FilesUploadFilePart(PhotonGtArrU8 fileContentsPart)
 {
+    (void)fileContentsPart;
     return PHOTON_GT_FILE_UPLOAD_ERROR_OK;
 }
 
@@ -17,33 +19,37 @@ PhotonGtFileUploadError PhotonGcMain_FilesStopFileUpload()
 
 PhotonGtFileDownloadError PhotonGcMain_FilesStopFileDownload()
 {
-    return PHOTON_GT_FILE_UPLOAD_ERROR_OK;
+    return PHOTON_GT_FILE_DOWNLOAD_ERROR_OK;
 }
 
 PhotonGtFileListError PhotonGcMain_FilesStopRequestFileList()
 {
-    return PHOTON_GT_FILE_UPLOAD_ERROR_OK;
+    return PHOTON_GT_FILE_LIST_ERROR_OK;
 }
 
 PhotonGtFileDeleteError PhotonGcMain_FilesDeleteNode(PhotonGtString path)
 {
-    return PHOTON_GT_FILE_UPLOAD_ERROR_OK;
+    (void)path;
+    return PHOTON_GT_FILE_DELETE_ERROR_OK;
 }
 
 PhotonGtFileCreateDirError PhotonGcMain_FilesCreateDir(PhotonGtString path)
 {
-    return PHOTON_GT_FILE_UPLOAD_ERROR_OK;
+    (void)path;
+    return PHOTON_GT_FILE_CREATE_DIR_ERROR_OK;
 }
 
 static PhotonGtOrFileInfoFileDownloadError stub1;
 
 const PhotonGtOrFileInfoFileDownloadError* PhotonGcMain_FilesStartFileDownload(PhotonGtString path)
 {
+    (void)path;
     return &stub1;
 }
 
 PhotonGtOrArrU8FileDownloadError PhotonGcMain_FilesDownloadFilePart(PhotonGtBer byteSize)
 {
+    (void)byteSize;
     PhotonGtOrArrU8FileDownloadError rv;
     rv.tag = 0;
     return rv;
@@ -58,6 +64,7 @@ PhotonGtOrBerFileListError PhotonGcMain_FilesStartRequestFileList()
 
 PhotonGtOrArrNodeInfoFileListError PhotonGcMain_FilesRequestFileListPart(PhotonGtBer nodeSize)
 {
+    (void)nodeSize;
     PhotonGtOrArrNodeInfoFileListError rv;
     rv.tag = 0;
     return rv;

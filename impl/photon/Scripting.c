@@ -56,16 +56,15 @@ PhotonGtScriptingError PhotonGcMain_ScriptingUploadScript(const PhotonGtScriptIn
 
     PhotonGtScriptInfo* currentInfo = &_scripting.scripts[_scripting.numScripts].info;
     currentInfo->scriptId = info->scriptId;
-    unsigned scriptSize = info->scriptCode.size;
+    size_t scriptSize = info->scriptCode.size;
     currentInfo->scriptCode.size = scriptSize;
     uint8_t* scriptPtr = &_scripting.data[_scripting.dataUsed];
     currentInfo->scriptCode.data = scriptPtr;
     memcpy(scriptPtr, info->scriptCode.data, scriptSize);
 
-    PhotonGtScriptRunTiming* runTiming = &_scripting.scripts[_scripting.numScripts].runTiming;
-
     _scripting.numScripts++;
     _scripting.dataUsed += scriptSize;
+    return PHOTON_GT_SCRIPTING_ERROR_OK;
 }
 
 static PhotonGtScriptingError execFunctionForScriptWithId(PhotonGtScriptId scriptId, PhotonGtScriptingError (*func)(unsigned idx))
@@ -81,12 +80,12 @@ static PhotonGtScriptingError execFunctionForScriptWithId(PhotonGtScriptId scrip
 static PhotonGtScriptingError deleteScript(unsigned idx)
 {
     PhotonGtScriptInfo* script = &_scripting.scripts[idx].info;
-    unsigned size = script->scriptCode.size;
+    size_t size = script->scriptCode.size;
     if (idx != (_scripting.numScripts - 1)) { // not last
 
         PhotonGtScriptInfo* next = &_scripting.scripts[idx + 1].info;
         uint8_t* src = next->scriptCode.data;
-        unsigned sizeToMove = &_scripting.data[_scripting.dataUsed] - src;
+        size_t sizeToMove = &_scripting.data[_scripting.dataUsed] - src;
         memmove(script->scriptCode.data, src, sizeToMove);
         memmove(script, script + 1, (_scripting.numScripts - idx - 1) * sizeof(_scripting.scripts[idx]));
     }
@@ -105,21 +104,25 @@ PhotonGtScriptingError PhotonGcMain_ScriptingDeleteScript(PhotonGtScriptId scrip
 
 PhotonGtScriptingError PhotonGcMain_ScriptingRunScriptNow(PhotonGtScriptId scriptId)
 {
+    (void)scriptId;
     return PHOTON_GT_SCRIPTING_ERROR_OK;
 }
 
 PhotonGtScriptingError PhotonGcMain_ScriptingScheduleScriptRun(const PhotonGtScriptRunTiming* scriptRunTiming)
 {
+    (void)scriptRunTiming;
     return PHOTON_GT_SCRIPTING_ERROR_OK;
 }
 
 PhotonGtScriptingError PhotonGcMain_ScriptingEnableScriptRunTiming(PhotonGtGuid scriptRunTimingId)
 {
+    (void)scriptRunTimingId;
     return PHOTON_GT_SCRIPTING_ERROR_OK;
 }
 
 PhotonGtScriptingError PhotonGcMain_ScriptingDisableScriptRunTiming(PhotonGtGuid scriptRunTimingId)
 {
+    (void)scriptRunTimingId;
     return PHOTON_GT_SCRIPTING_ERROR_OK;
 }
 

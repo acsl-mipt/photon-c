@@ -94,14 +94,14 @@ PhotonResult PhotonDecoder_DecodeAddressPacket(PhotonReader* src, PhotonAddressP
     switch (addressType) {
     case 2: {
         dest->packet.address.type = PhotonAddressType_SimpleAddress;
-        const PhotonSimpleAddress* addr = &dest->packet.address.address.simple;
+        PhotonSimpleAddress* addr = &dest->packet.address.address.simple;
         PHOTON_TRY(PhotonBer_Deserialize(&addr->srcAddress, src));
         PHOTON_TRY(PhotonBer_Deserialize(&addr->destAddress, src));
         break;
     }
     case 3: {
         dest->packet.address.type = PhotonAddressType_Broadcast;
-        const PhotonMulticastAddress* addr = &dest->packet.address.address.multicast;
+        PhotonMulticastAddress* addr = &dest->packet.address.address.multicast;
         PHOTON_TRY(PhotonBer_Deserialize(&addr->srcAddress, src));
         PHOTON_TRY(PhotonBer_Deserialize(&addr->srcComponentNumber, src));
         PHOTON_TRY(PhotonBer_Deserialize(&addr->destComponentNumber, src));
@@ -109,7 +109,7 @@ PhotonResult PhotonDecoder_DecodeAddressPacket(PhotonReader* src, PhotonAddressP
     }
     case 4: {
         dest->packet.address.type = PhotonAddressType_NetworkAddress;
-        const PhotonNetworkAddress* addr = &dest->packet.address.address.network;
+        PhotonNetworkAddress* addr = &dest->packet.address.address.network;
         PHOTON_TRY(PhotonBer_Deserialize(&addr->srcAddress, src));
         PHOTON_TRY(PhotonBer_Deserialize(&addr->srcComponentNumber, src));
         PHOTON_TRY(PhotonBer_Deserialize(&addr->destComponentNumber, src));
@@ -118,7 +118,7 @@ PhotonResult PhotonDecoder_DecodeAddressPacket(PhotonReader* src, PhotonAddressP
     }
     case 6: {
         dest->packet.address.type = PhotonAddressType_GroupAddress;
-        const PhotonGroupAddress* addr = &dest->packet.address.address.group;
+        PhotonGroupAddress* addr = &dest->packet.address.address.group;
         PHOTON_TRY(PhotonBer_Deserialize(&addr->srcAddress, src));
         PHOTON_TRY(PhotonBer_Deserialize(&addr->srcComponentNumber, src));
         PHOTON_TRY(PhotonBer_Deserialize(&addr->destComponentNumber, src));
@@ -182,15 +182,13 @@ static PhotonResult decodeExchangePacketHeader(PhotonReader* src, PhotonPacketHe
         return PhotonResult_InvalidDataSize;
     }
 
-    unsigned checkedSize = packetEnd - packetStart;
-
     switch (controlTypeBer) {
     case 1:
         *controlType = PhotonErrorControlType_Crc16;
         packetEnd -= 2;
         uint16_t checksumCrc16;
         memcpy(&checksumCrc16, packetEnd, 2);
-        uint16_t cs = Photon_Crc16(packetStart, (packetEnd - packetStart) / 2);
+        uint16_t cs = Photon_Crc16((uint16_t*) packetStart, (packetEnd - packetStart) / 2);
         if (cs != checksumCrc16) {
             return PhotonResult_InvalidChecksum;
         }
@@ -211,6 +209,8 @@ PhotonResult skipCs(PhotonReader* src, PhotonReader* dest, PhotonErrorControlTyp
     case PhotonErrorControlType_Crc16:
         csSize = 2;
         break;
+    case PhotonErrorControlType_ReedSolomon:
+        return PhotonResult_InvalidChecksum; // FIXME: implement Reed-Solomon
     };
 
     if (dest) {
@@ -224,7 +224,6 @@ PhotonResult skipCs(PhotonReader* src, PhotonReader* dest, PhotonErrorControlTyp
 PhotonResult PhotonDecoder_DecodeExchangePacket(PhotonReader* src, PhotonExchangePacketDec* dest)
 {
     const uint8_t* packetEnd;
-    const uint8_t* packetStart = src->current;
     PHOTON_TRY(decodeExchangePacketHeader(src, &dest->header, &dest->packet.streamType, &dest->packet.errorControlType,
                                           &packetEnd, PHOTON_EXCHANGE_PACKET_HEADER));
 

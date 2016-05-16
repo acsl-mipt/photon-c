@@ -108,9 +108,9 @@ static PhotonResult processPacket2(ExchangeData* self, PhotonReader* src)
         while (std::size_t tmSize = Photon_FindPacketInRingBuf(&self->tmRingBuf, PHOTON_TM_STREAM_SEPARATOR)) {
             PhotonRingBuf_Peek(&self->tmRingBuf, self->tmTemp, tmSize, 0);
             PhotonReader_Init(src, self->tmTemp, sizeof(self->tmTemp));
-            uint16_t header;
-            PHOTON_TRY(Photon_PeakHeader(src, &header));
-            if (header == 0x0c78) {
+            uint16_t header2;
+            PHOTON_TRY(Photon_PeakHeader(src, &header2));
+            if (header2 == 0x0c78) {
                 PhotonTmEventMessageDec decoder;
                 if (PhotonDecoder_DecodeTmEventMessage(src, &decoder) != PhotonResult_Ok) {
                     continue;
@@ -122,7 +122,7 @@ static PhotonResult processPacket2(ExchangeData* self, PhotonReader* src)
                     appendFromReader(decoder.parameters, &event.payload);
                     self->_handler->handleTmEvent(std::move(event));
                 }
-            } else if (header == 0x1c72) {
+            } else if (header2 == 0x1c72) {
                 PhotonTmStatusMessageDec decoder;
                 if (PhotonDecoder_DecodeTmStatusMessage(src, &decoder) != PhotonResult_Ok) {
                     continue;
@@ -280,21 +280,26 @@ void Exchange::setHandler(ExchangeHandler* handler)
 
 void ExchangeHandler::handleAddressPacket(AddressPacket&& packet)
 {
+    (void)packet;
 }
 
 void ExchangeHandler::handleExchangePacket(ExchangePacket&& status)
 {
+    (void)status;
 }
 
 void ExchangeHandler::handleError(std::string&& errorMessage)
 {
+    (void)errorMessage;
 }
 
 void ExchangeHandler::handleTmEvent(TmEvent&& event)
 {
+    (void)event;
 }
 
 void ExchangeHandler::handleTmStatus(TmStatus&& status)
 {
+    (void)status;
 }
 }
