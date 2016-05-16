@@ -3,7 +3,7 @@
 PhotonGtArrBer PhotonGcMain_SegmentReceiverRequestSegmentsAck()
 {
     // TODO
-    PhotonGtArrBer result = {size: 0, data: NULL};
+    PhotonGtArrBer result = { .size = 0, .data = NULL };
     return result;
 }
 
