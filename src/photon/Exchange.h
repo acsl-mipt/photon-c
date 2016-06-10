@@ -41,7 +41,6 @@ typedef struct {
 } PhotonUavExchange;
 
 void PhotonUavExchange_Init(PhotonUavExchange* self);
-void PhotonUavExchange_AcceptIncomingData(PhotonUavExchange* self, const void* src, size_t size);
 PhotonResult PhotonUavExchange_HandleIncomingPacket(PhotonUavExchange* self, PhotonAddressPacketHandler handler, void* data);
 
 PhotonResult PhotonUavExchange_SendPacket(PhotonUavExchange* self, const PhotonAddress* address,

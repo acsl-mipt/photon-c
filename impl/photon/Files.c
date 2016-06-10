@@ -1,5 +1,9 @@
 #include "photon/PhotonGcMain.h"
 
+void PhotonFiles_Init()
+{
+}
+
 PhotonGtFileUploadError PhotonGcMain_FilesStartFileUpload(const PhotonGtFileInfo* fileInfo)
 {
     return PHOTON_GT_FILE_UPLOAD_ERROR_OK;

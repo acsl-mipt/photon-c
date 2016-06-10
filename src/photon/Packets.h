@@ -80,6 +80,13 @@ typedef struct {
     PhotonErrorControlType errorControlType;
     PhotonBer windowSize;
     PhotonBer sequenceCounter;
+} PhotonChannelPacket;
+
+typedef struct {
+    PhotonStreamType streamType;
+    PhotonErrorControlType errorControlType;
+    PhotonBer windowSize;
+    PhotonBer sequenceCounter;
 } PhotonExchangePacket;
 
 typedef struct {

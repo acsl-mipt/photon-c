@@ -1,5 +1,9 @@
 #include "photon/PhotonGcMain.h"
 
+void PhotonSegment_Init()
+{
+}
+
 PhotonGtArrBer PhotonGcMain_SegmentReceiverRequestSegmentsAck()
 {
 }

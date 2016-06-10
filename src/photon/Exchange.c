@@ -19,13 +19,20 @@ void PhotonUavExchange_Init(PhotonUavExchange* self)
     Photon_Be16Enc(&self->encodedSeparator, 0x047e);
 }
 
-void PhotonUavExchange_AcceptIncomingData(PhotonUavExchange* self, const void* src, size_t size)
+static void acceptIncomingData(PhotonUavExchange* self)
 {
-    PhotonRingBuf_Write(&self->ringBufIn, src, size);
+    size_t recievedSize = 1;
+    while (recievedSize != 0) {
+        uint8_t* dest = PhotonRingBuf_WritePtr(&self->ringBufIn);
+        size_t size = PhotonRingBuf_LinearReadableSize(&self->ringBufIn);
+        recievedSize = PhotonSys_RecieveCommands(dest, size);
+        PhotonRingBuf_Advance(&self->ringBufIn, recievedSize);
+    }
 }
 
 PhotonResult PhotonUavExchange_HandleIncomingPacket(PhotonUavExchange* self, PhotonAddressPacketHandler handler, void* data)
 {
+    acceptIncomingData(self);
     size_t packetSize = Photon_FindPacketInRingBuf(&self->ringBufIn, 0x047e);
     if (!packetSize) {
         return PhotonResult_PacketNotFound;

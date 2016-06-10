@@ -23,11 +23,15 @@ void PhotonRingBuf_Init(PhotonRingBuf* self, void* data, size_t size);
 void PhotonRingBuf_Peek(const PhotonRingBuf* self, void* dest, size_t size, size_t offset);
 uint8_t PhotonRingBuf_PeekUint8(const PhotonRingBuf* self, size_t offset);
 void PhotonRingBuf_Read(PhotonRingBuf* self, void* dest, size_t size);
-void PhotonRingBuf_Erase(PhotonRingBuf* self, size_t size);
 const uint8_t* PhotonRingBuf_ReadPtr(const PhotonRingBuf* self);
-void PhotonRingBuf_Write(PhotonRingBuf* self, const void* src, size_t size);
 size_t PhotonRingBuf_ReadableSize(const PhotonRingBuf* self);
 size_t PhotonRingBuf_LinearReadableSize(const PhotonRingBuf* self);
+void PhotonRingBuf_Erase(PhotonRingBuf* self, size_t size);
+
+void PhotonRingBuf_Write(PhotonRingBuf* self, const void* src, size_t size);
+size_t PhotonRingBuf_LinearWritableSize(const PhotonRingBuf* self);
+uint8_t* PhotonRingBuf_WritePtr(const PhotonRingBuf* self);
+void PhotonRingBuf_Advance(PhotonRingBuf* self, size_t size);
 
 #ifdef __cplusplus
 }

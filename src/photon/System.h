@@ -16,7 +16,7 @@ void PhotonSys_GetTime(PhotonAbsoluteTime* dest);
 
 size_t PhotonSys_SendTelemetry(const void* src, size_t size);
 
-size_t PhotonSys_RecieveCommands(void* src, size_t maxSize);
+size_t PhotonSys_RecieveCommands(void* dest, size_t maxSize);
 
 #ifdef __cplusplus
 }
