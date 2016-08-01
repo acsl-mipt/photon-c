@@ -112,31 +112,31 @@ PhotonGtB8 PhotonGcMain_IsEventAllowed(PhotonBer messageId, PhotonBer eventId);
 
 #define PHOTON_COMPONENTS_SIZE 9
 #define PHOTON_COMPONENT_IDS {0, 1, 2, 3, 4, 5, 6, 7, 8}
-#define PHOTON_GC_IDENTIFICATION_GUID "ru.mipt.acsl.identification.Identification"
+#define PHOTON_GC_IDENTIFICATION_GUID "mcc.identification.Identification"
 #define PHOTON_COMPONENT_0_GUID PHOTON_GC_IDENTIFICATION_GUID
 #define PHOTON_GC_IDENTIFICATION_ID 0
-#define PHOTON_GC_FILES_GUID "ru.mipt.acsl.fs.Files"
+#define PHOTON_GC_FILES_GUID "mcc.fs.Files"
 #define PHOTON_COMPONENT_5_GUID PHOTON_GC_FILES_GUID
 #define PHOTON_GC_FILES_ID 5
-#define PHOTON_GC_MAIN_GUID "ru.mipt.acsl.photon.Main"
+#define PHOTON_GC_MAIN_GUID "mcc.photon.Main"
 #define PHOTON_COMPONENT_1_GUID PHOTON_GC_MAIN_GUID
 #define PHOTON_GC_MAIN_ID 1
-#define PHOTON_GC_SEGMENT_RECEIVER_GUID "ru.mipt.acsl.segmentation.SegmentReceiver"
+#define PHOTON_GC_SEGMENT_RECEIVER_GUID "mcc.segmentation.SegmentReceiver"
 #define PHOTON_COMPONENT_6_GUID PHOTON_GC_SEGMENT_RECEIVER_GUID
 #define PHOTON_GC_SEGMENT_RECEIVER_ID 6
-#define PHOTON_GC_SCRIPTING_GUID "ru.mipt.acsl.scripting.Scripting"
+#define PHOTON_GC_SCRIPTING_GUID "mcc.scripting.Scripting"
 #define PHOTON_COMPONENT_2_GUID PHOTON_GC_SCRIPTING_GUID
 #define PHOTON_GC_SCRIPTING_ID 2
-#define PHOTON_GC_ROUTER_GUID "ru.mipt.acsl.routing.Router"
+#define PHOTON_GC_ROUTER_GUID "mcc.routing.Router"
 #define PHOTON_COMPONENT_7_GUID PHOTON_GC_ROUTER_GUID
 #define PHOTON_GC_ROUTER_ID 7
-#define PHOTON_GC_SEGMENT_GUID "ru.mipt.acsl.segmentation.Segment"
+#define PHOTON_GC_SEGMENT_GUID "mcc.segmentation.Segment"
 #define PHOTON_COMPONENT_3_GUID PHOTON_GC_SEGMENT_GUID
 #define PHOTON_GC_SEGMENT_ID 3
-#define PHOTON_GC_SEGMENT_SENDER_GUID "ru.mipt.acsl.segmentation.SegmentSender"
+#define PHOTON_GC_SEGMENT_SENDER_GUID "mcc.segmentation.SegmentSender"
 #define PHOTON_COMPONENT_8_GUID PHOTON_GC_SEGMENT_SENDER_GUID
 #define PHOTON_GC_SEGMENT_SENDER_ID 8
-#define PHOTON_GC_TM_GUID "ru.mipt.acsl.tm.Tm"
+#define PHOTON_GC_TM_GUID "mcc.tm.Tm"
 #define PHOTON_COMPONENT_4_GUID PHOTON_GC_TM_GUID
 #define PHOTON_GC_TM_ID 4
 #define PHOTON_COMPONENT_GUIDS {PHOTON_GC_IDENTIFICATION_GUID, PHOTON_GC_MAIN_GUID, PHOTON_GC_SCRIPTING_GUID, PHOTON_GC_SEGMENT_GUID, PHOTON_GC_TM_GUID, PHOTON_GC_FILES_GUID, PHOTON_GC_SEGMENT_RECEIVER_GUID, PHOTON_GC_ROUTER_GUID, PHOTON_GC_SEGMENT_SENDER_GUID}
